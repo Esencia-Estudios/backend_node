@@ -1,0 +1,22 @@
+{
+  "name": "core",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "deploy_dev": "serverless deploy --stage dev",
+    "deploy_function_dev": "serverless deploy function --stage dev --function",
+    "offline": "serverless offline --stage dev --noAuth --noTimeout --reloadHandler --verbose"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.19.2",
+    "mysql2": "^3.12.0",
+    "sequelize": "^6.37.5",
+    "serverless-http": "^3.2.0"
+  },
+  "devDependencies": {
+    "serverless-offline": "^14.4.0"
+  }
+}

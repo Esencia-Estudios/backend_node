@@ -1,0 +1,80 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: esenciaestudios
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: core
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  # environment:
+  #   DB_HOST: ${env:DB_HOST}
+  #   DB_USER: ${env:DB_USER}
+  #   DB_PASSWORD: ${env:DB_PASSWORD}
+  #   DB_NAME: ${env:DB_NAME}
+  #   DB_PORT: ${env:DB_PORT}
+  #   IS_OFFLINE: true
+
+functions:
+  get-users:
+    handler: handlers/usersHandlers.getUsers
+    events:
+      - httpApi:
+          path: /users
+          method: get
+          
+  get-users-by-id:
+    handler: handlers/usersHandlers.getUserById
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: get
+
+  create-user:
+    handler: handlers/usersHandlers.createUser
+    events:
+      - httpApi:
+          path: /users
+          method: post
+          
+  update-user:
+    handler: handlers/usersHandlers.updateUser
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: put
+
+  delete-user:
+    handler: handlers/usersHandlers.deleteUser
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: delete
+
+  activate-user:
+    handler: handlers/usersHandlers.activateUser
+    events:
+      - httpApi:
+          path: /users/{id}/activate
+          method: post
+
+  deactivate-user:
+    handler: handlers/usersHandlers.deactivateUser
+    events:
+      - httpApi:
+          path: /users/{id}/deactivate
+          method: post
+
+  login-user:
+    handler: handlers/usersHandlers.loginUser
+    events:
+      - httpApi:
+          path: /login
+          method: post
+
+custom:
+  serverless-offline:
+    host: 0.0.0.0
+    httpPort: 4000
+
+plugins:
+  - serverless-offline
