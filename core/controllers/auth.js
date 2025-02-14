@@ -5,10 +5,7 @@ const loginUser = async (event) => {
     const { username, password } = JSON.parse(event.body);
 
     if (username === "admin" && password === "admin123") {
-      return response.success({
-        message: "Login exitoso",
-        token: "some-jwt-token"
-      });
+      return response.success("Login sussesful");
     }
 
     return response.unauthorized({

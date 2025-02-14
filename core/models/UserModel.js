@@ -1,4 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
+import bcrypt from 'bcrypt';
 
 const UserFields = {
   user_id: {
@@ -25,6 +26,10 @@ const UserFields = {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   is_active: {
     type: DataTypes.BOOLEAN,
@@ -96,14 +101,32 @@ const UserFields = {
   },
 };
 
-class UserModel extends Model{
+class UserModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
       modelName: 'User',
       tableName: 'users',
       timestamps: true,
-    };    
+      hooks: {
+        beforeCreate: async (user) => {
+          if (user.password) {
+            user.password = await bcrypt.hash(user.password, 10);
+          }
+        },
+        beforeUpdate: async (user) => {
+          if (user.password && user.password !== user._previousDataValues.password) {
+            user.password = await bcrypt.hash(user.password, 10);
+          }
+        },
+      }
+    };
+  }
+
+  async comparePassword(password) {
+    return bcrypt.compare(password, this.password);
   }
 }
+
+
 export { UserModel, UserFields };

@@ -3,7 +3,7 @@ import { UserModel } from "../models/index.js";
 
 const getUsers = async (event) => {
   try {
-    const users = await UserModel.findAll(); 
+    const users = await UserModel.findAll();
     return response.success(users);
   } catch (error) {
     return response.badRequest(error);
@@ -45,14 +45,21 @@ const createUser = async (event) => {
 const updateUser = async (event) => {
   try {
     const { id } = event.pathParameters;
-    const { username, email, active } = JSON.parse(event.body);
+    const userData = JSON.parse(event.body);
 
     const user = await UserModel.findByPk(id);
     if (!user) {
       return response.notFound("Usuario no encontrado");
     }
 
-    await user.update({ username, email, active });
+    const updatedFields = {};
+    for (const [key, value] of Object.entries(userData)) {
+      if (value !== undefined) {
+        updatedFields[key] = value;
+      }
+    }
+
+    await user.update(updatedFields);
 
     return response.success({
       message: `Usuario con id ${id} actualizado`,
@@ -62,6 +69,7 @@ const updateUser = async (event) => {
     return response.badRequest(error);
   }
 };
+
 
 const deleteUser = async (event) => {
   try {
@@ -73,7 +81,7 @@ const deleteUser = async (event) => {
     }
 
     await user.destroy();
-    
+
     return response.success({
       message: `Usuario con id ${id} eliminado`
     });
@@ -91,7 +99,7 @@ const activateUser = async (event) => {
       return response.notFound({ message: "Usuario no encontrado" });
     }
 
-    user.active = true;
+    user.is_active = true;
     await user.save();
 
     return response.success({
@@ -112,7 +120,7 @@ const deactivateUser = async (event) => {
       return response.notFound({ message: "Usuario no encontrado" });
     }
 
-    user.active = false;
+    user.is_active = false;
     await user.save();
 
     return response.success({
