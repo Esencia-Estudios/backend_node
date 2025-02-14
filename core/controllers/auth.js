@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { UserModel } from "../models/index.js";
 import { ResponseHelper as response } from "../helpers/response.js";
 
