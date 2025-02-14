@@ -6,7 +6,7 @@ service: core-service
 provider:
   name: aws
   runtime: nodejs20.x
-  profile: esencia
+  profile: devSamuel
   stage: dev
   region: us-east-1
   deploymentBucket:
