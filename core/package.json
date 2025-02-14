@@ -10,6 +10,7 @@
     "offline": "serverless offline --stage dev --noAuth --noTimeout --reloadHandler --verbose"
   },
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.7",
     "express": "^4.19.2",
     "mysql2": "^3.12.0",
