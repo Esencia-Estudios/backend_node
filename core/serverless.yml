@@ -149,7 +149,6 @@ package:
   patterns:
     - "!layer.zip"
     - "!layer/**"
-    - "!node_modules/**"
     - "!.git/**"
     - "!.env"
     - "!test/**"

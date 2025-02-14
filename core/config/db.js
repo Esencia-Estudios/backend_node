@@ -9,13 +9,13 @@ class Database {
         process.env.DB_NAME,
         process.env.DB_USERNAME,
         process.env.DB_PASSWORD, {
-          host: process.env.DB_HOST,
-          dialect: process.env.DB_DIALECT,
-          logging: false,
-          dialectOptions: {
-            connectTimeout: 60000
-          }
+        host: process.env.DB_HOST,
+        dialect: 'mysql',
+        logging: false,
+        dialectOptions: {
+          connectTimeout: 60000
         }
+      }
       );
 
       Database.instance = this;
