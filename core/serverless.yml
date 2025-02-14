@@ -1,18 +1,84 @@
 # "org" ensures this Service is used with the correct Serverless Framework Access Key.
-org: esenciaestudios
+##org: esenciaestudios
 # "service" is the name of this project. This will also be added to your AWS resource names.
-service: core
+service: core-service
 
 provider:
   name: aws
   runtime: nodejs20.x
-  # environment:
-  #   DB_HOST: ${env:DB_HOST}
-  #   DB_USER: ${env:DB_USER}
-  #   DB_PASSWORD: ${env:DB_PASSWORD}
-  #   DB_NAME: ${env:DB_NAME}
-  #   DB_PORT: ${env:DB_PORT}
-  #   IS_OFFLINE: true
+  profile: esencia
+  stage: dev
+  region: us-east-1
+  deploymentBucket:
+    name: esencia-backend-deployment
+    serverSideEncryption: AES256
+    blockPublicAccess: true
+  
+  role: arn:aws:iam::${aws:accountId}:role/lambda-role-execution
+  vpc:
+    securityGroupIds:
+      - sg-083d8b2d9ba91627a
+    subnetIds:
+      - subnet-00a83d29f11333109
+      - subnet-0fe2c0c7efdd332c9
+      - subnet-0e71dc73600fde75a
+      - subnet-0001da65ac21b3935
+      - subnet-050448c98ab862173
+      - subnet-0912aaf196b1f0adb
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - secretsmanager:GetSecretValue
+        - ssm:GetParameters
+        - s3:PutObject
+      Resource: "*" 
+  
+  environment:
+    DB_HOST: ${env:DB_HOST}
+    DB_USERNAME: ${env:DB_USERNAME}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DB_NAME: ${env:DB_NAME}
+    DB_PORT: ${env:DB_PORT}
+    COGNITO_USER_POOL_ID: ${env:COGNITO_USER_POOL_ID}
+    COGNITO_CLIENT_ID: ${env:COGNITO_CLIENT_ID}
+    ENVIRONMENT: ${self:provider.stage}
+  
+  layers:
+    - arn:aws:lambda:${aws:region}:${aws:accountId}:layer:BackendEsenciaLayer:1
+
+resources:
+  Resources:
+    HttpApi:
+        Type: AWS::ApiGatewayV2::Api
+        Properties:
+          Name: EsenciaHttpApi
+          ProtocolType: HTTP
+
+    EsenciaAuthorizer:
+      Type: AWS::ApiGatewayV2::Authorizer
+      Properties:
+        AuthorizerType: JWT
+        Name: EsenciaAuthorizer
+        ApiId: !Ref HttpApi
+        IdentitySource:
+          - "$request.header.Authorization"
+        JwtConfiguration:
+          Issuer: https://cognito-idp.${self:provider.region}.amazonaws.com/${env:COGNITO_USER_POOL_ID}
+          Audience:
+            - ${env:COGNITO_CLIENT_ID}
+
+  Outputs:
+    EsenciaAuthorizerId:
+      Value:
+        Ref: EsenciaAuthorizer
+      Export:
+        Name: EsenciaAuthorizerId
+  
+    HttpApiId:
+      Value: !Ref HttpApi
+      Export:
+        Name: HttpApiId-${self:provider.stage}
 
 functions:
   get-users:
@@ -78,3 +144,14 @@ custom:
 
 plugins:
   - serverless-offline
+
+package:
+  patterns:
+    - "!layer.zip"
+    - "!layer/**"
+    - "!node_modules/**"
+    - "!.git/**"
+    - "!.env"
+    - "!test/**"
+    - "!jest.config.js"
+    - "!bitbucket-pipelines.yml"
