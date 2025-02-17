@@ -1,9 +1,21 @@
 import { ResponseHelper as response } from "../helpers/response.js";
-import { UserModel } from "../models/index.js";
+import { UserModel, RoleModel, PermissionModel } from "../models/index.js";
 
 const getUsers = async (event) => {
   try {
-    const users = await UserModel.findAll();
+    const users = await UserModel.findAll({
+      include: [
+        {
+          model: RoleModel,
+          through: { attributes: [] },
+          include: {
+            model: PermissionModel,
+            through: { attributes: [] }
+          }
+        }
+      ]
+    });
+
     return response.success(users);
   } catch (error) {
     return response.badRequest(error);
@@ -28,9 +40,24 @@ const getUserById = async (event) => {
 const createUser = async (event) => {
   try {
     const userData = JSON.parse(event.body);
+    const roleIds = userData.role_ids;
+    delete userData.role_ids;
 
-    // Crear el nuevo usuario de forma dinámica
     const newUser = await UserModel.create(userData);
+
+    if (roleIds && roleIds.length > 0) {
+      const roles = await RoleModel.findAll({
+        where: {
+          id: roleIds
+        }
+      });
+
+      if (roles.length === 0) {
+        return response.notFound("Roles no encontrados");
+      }
+
+      await newUser.addRoles(roles);
+    }
 
     return response.success({
       message: "Usuario creado exitosamente",
@@ -41,13 +68,26 @@ const createUser = async (event) => {
   }
 };
 
-
 const updateUser = async (event) => {
   try {
     const { id } = event.pathParameters;
     const userData = JSON.parse(event.body);
+    const roleIds = userData.role_ids;
 
-    const user = await UserModel.findByPk(id);
+    // Eliminar el campo role_ids de los datos del usuario antes de hacer la actualización
+    delete userData.role_ids;
+
+    const user = await UserModel.findByPk(id, {
+      include: {
+        model: RoleModel,
+        through: { attributes: [] },
+        include: {
+          model: PermissionModel,
+          through: { attributes: [] }
+        }
+      }
+    });
+
     if (!user) {
       return response.notFound("Usuario no encontrado");
     }
@@ -61,15 +101,43 @@ const updateUser = async (event) => {
 
     await user.update(updatedFields);
 
+    if (roleIds !== undefined) {
+      if (roleIds.length === 0) {
+        await user.setRoles([]);
+      } else {
+        const roles = await RoleModel.findAll({
+          where: {
+            id: roleIds
+          }
+        });
+
+        if (roles.length === 0) {
+          return response.notFound("Roles no encontrados");
+        }
+
+        await user.setRoles(roles);
+      }
+    }
+
+    const updatedUser = await UserModel.findByPk(id, {
+      include: {
+        model: RoleModel,
+        through: { attributes: [] },
+        include: {
+          model: PermissionModel,
+          through: { attributes: [] }
+        }
+      }
+    });
+
     return response.success({
       message: `Usuario con id ${id} actualizado`,
-      user
+      user: updatedUser
     });
   } catch (error) {
     return response.badRequest(error);
   }
 };
-
 
 const deleteUser = async (event) => {
   try {

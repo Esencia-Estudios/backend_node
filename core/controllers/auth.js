@@ -24,7 +24,16 @@ const loginUser = async (event) => {
       });
     }
 
-    return response.success("Login successful");
+    return response.success(
+      {
+        message: "Credenciales correctas",
+        user: {
+          id: user.user_id,
+          username: user.username,
+          email: user.email,
+        }
+      }
+    );
 
   } catch (error) {
     return response.badRequest("ERROR:" + error);
