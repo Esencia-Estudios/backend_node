@@ -87,6 +87,8 @@ functions:
       - httpApi:
           path: /users
           method: get
+          authorizer:
+            name: JwtAuthorizer
           
   get-users-by-id:
     handler: handlers/usersHandlers.getUserById
@@ -94,6 +96,8 @@ functions:
       - httpApi:
           path: /users/{id}
           method: get
+          authorizer:
+            name: JwtAuthorizer
 
   create-user:
     handler: handlers/usersHandlers.createUser
@@ -101,6 +105,8 @@ functions:
       - httpApi:
           path: /users
           method: post
+          authorizer:
+            name: JwtAuthorizer
           
   update-user:
     handler: handlers/usersHandlers.updateUser
@@ -108,6 +114,8 @@ functions:
       - httpApi:
           path: /users/{id}
           method: put
+          authorizer:
+            name: JwtAuthorizer
 
   delete-user:
     handler: handlers/usersHandlers.deleteUser
@@ -115,6 +123,8 @@ functions:
       - httpApi:
           path: /users/{id}
           method: delete
+          authorizer:
+            name: JwtAuthorizer
 
   activate-user:
     handler: handlers/usersHandlers.activateUser
@@ -122,6 +132,8 @@ functions:
       - httpApi:
           path: /users/{id}/activate
           method: post
+          authorizer:
+            name: JwtAuthorizer
 
   deactivate-user:
     handler: handlers/usersHandlers.deactivateUser
@@ -129,6 +141,8 @@ functions:
       - httpApi:
           path: /users/{id}/deactivate
           method: post
+          authorizer:
+            name: JwtAuthorizer
 
   login-user:
     handler: handlers/usersHandlers.loginUser
@@ -136,6 +150,98 @@ functions:
       - httpApi:
           path: /login
           method: post
+          authorizer:
+            name: JwtAuthorizer
+
+  get-roles:
+    handler: handlers/rolesPermissionsHandlers.getRoles
+    events:
+      - httpApi:
+          path: /roles
+          method: get
+          authorizer:
+            name: JwtAuthorizer
+
+  create-role:
+    handler: handlers/rolesPermissionsHandlers.createRole
+    events:
+      - httpApi:
+          path: /role
+          method: post
+          authorizer:
+            name: JwtAuthorizer
+
+  update-role:
+    handler: handlers/rolesPermissionsHandlers.updateRole
+    events:
+      - httpApi:
+          path: /role/{id}
+          method: put
+          authorizer:
+            name: JwtAuthorizer
+
+  delete-role:
+    handler: handlers/rolesPermissionsHandlers.deleteRole
+    events:
+      - httpApi:
+          path: /role/{id}
+          method: delete
+          authorizer:
+            name: JwtAuthorizer
+
+  get-permissions:
+    handler: handlers/rolesPermissionsHandlers.getPermissions
+    events:
+      - httpApi:
+          path: /permissions
+          method: get
+          authorizer:
+            name: JwtAuthorizer
+
+  create-permission:
+    handler: handlers/rolesPermissionsHandlers.createPermission
+    events:
+      - httpApi:
+          path: /permission
+          method: post
+          authorizer:
+            name: JwtAuthorizer
+
+  update-permission:
+    handler: handlers/rolesPermissionsHandlers.updatePermission
+    events:
+      - httpApi:
+          path: /permission/{id}
+          method: put
+          authorizer:
+            name: JwtAuthorizer
+
+  delete-permissions:
+    handler: handlers/rolesPermissionsHandlers.deletePermission
+    events:
+      - httpApi:
+          path: /permission/{id}
+          method: delete
+          authorizer:
+            name: JwtAuthorizer
+
+  assign-permissions-to-role:
+    handler: handlers/rolesPermissionsHandlers.assignPermissionsToRole
+    events:
+      - httpApi:
+          path: /role/{id}/permissions
+          method: post
+          authorizer:
+            name: JwtAuthorizer
+
+  get-role-with-permissions:
+    handler: handlers/rolesPermissionsHandlers.getRoleWithPermissions
+    events:
+      - httpApi:
+          path: /role/{id}/permissions
+          method: get
+          authorizer:
+            name: JwtAuthorizer
 
 custom:
   serverless-offline:
