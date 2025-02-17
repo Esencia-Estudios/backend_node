@@ -6,7 +6,7 @@ service: core-service
 provider:
   name: aws
   runtime: nodejs20.x
-  profile: devSamuel
+  profile: esencia
   stage: dev
   region: us-east-1
   deploymentBucket:
@@ -45,7 +45,7 @@ provider:
     ENVIRONMENT: ${self:provider.stage}
   
   layers:
-    - arn:aws:lambda:${aws:region}:${aws:accountId}:layer:BackendEsenciaLayer:1
+    - arn:aws:lambda:${aws:region}:${aws:accountId}:layer:BackendEsenciaLayer:2
 
 resources:
   Resources:
@@ -150,8 +150,6 @@ functions:
       - httpApi:
           path: /login
           method: post
-          authorizer:
-            name: JwtAuthorizer
 
   get-roles:
     handler: handlers/rolesPermissionsHandlers.getRoles
@@ -260,3 +258,4 @@ package:
     - "!test/**"
     - "!jest.config.js"
     - "!bitbucket-pipelines.yml"
+    - "!node_modules/**"

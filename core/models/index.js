@@ -34,5 +34,13 @@ UserModel.hasMany(AccessLogModel, { foreignKey: "userId", as: "accessLogs" });
 RoleModel.belongsToMany(PermissionModel, { through: "role_permissions", foreignKey: "roleId" });
 PermissionModel.belongsToMany(RoleModel, { through: "role_permissions", foreignKey: "permissionId" });
 
-export { UserModel, ApplicationModel, DynamicRouteModel, MenuItemModel, AccessLogModel, RoleModel, PermissionModel };
+export {
+    UserModel,
+    ApplicationModel,
+    DynamicRouteModel,
+    MenuItemModel,
+    AccessLogModel,
+    RoleModel,
+    PermissionModel
+};
 export default sequelize.models
