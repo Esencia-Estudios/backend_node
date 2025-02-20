@@ -1,0 +1,7 @@
+functions:
+  get-application-by-id:
+    handler: handlers/applicationHandlers.getApplication
+    events:
+      - httpApi:
+          path: /applications/{id}
+          method: get

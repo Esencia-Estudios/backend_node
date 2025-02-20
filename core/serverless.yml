@@ -6,7 +6,7 @@ service: core-service
 provider:
   name: aws
   runtime: nodejs20.x
-  profile: devSamuel
+  profile: esencia
   stage: dev
   region: us-east-1
   deploymentBucket:
@@ -45,7 +45,7 @@ provider:
     ENVIRONMENT: ${self:provider.stage}
   
   layers:
-    - arn:aws:lambda:${aws:region}:${aws:accountId}:layer:BackendEsenciaLayer:1
+    - arn:aws:lambda:${aws:region}:${aws:accountId}:layer:BackendEsenciaLayer:2
 
 resources:
   Resources:
@@ -81,61 +81,9 @@ resources:
         Name: HttpApiId-${self:provider.stage}
 
 functions:
-  get-users:
-    handler: handlers/usersHandlers.getUsers
-    events:
-      - httpApi:
-          path: /users
-          method: get
-          
-  get-users-by-id:
-    handler: handlers/usersHandlers.getUserById
-    events:
-      - httpApi:
-          path: /users/{id}
-          method: get
-
-  create-user:
-    handler: handlers/usersHandlers.createUser
-    events:
-      - httpApi:
-          path: /users
-          method: post
-          
-  update-user:
-    handler: handlers/usersHandlers.updateUser
-    events:
-      - httpApi:
-          path: /users/{id}
-          method: put
-
-  delete-user:
-    handler: handlers/usersHandlers.deleteUser
-    events:
-      - httpApi:
-          path: /users/{id}
-          method: delete
-
-  activate-user:
-    handler: handlers/usersHandlers.activateUser
-    events:
-      - httpApi:
-          path: /users/{id}/activate
-          method: post
-
-  deactivate-user:
-    handler: handlers/usersHandlers.deactivateUser
-    events:
-      - httpApi:
-          path: /users/{id}/deactivate
-          method: post
-
-  login-user:
-    handler: handlers/usersHandlers.loginUser
-    events:
-      - httpApi:
-          path: /login
-          method: post
+  - ${file(./functions/users.yml):functions}
+  - ${file(./functions/rolesPermissions.yml):functions}
+  - ${file(./functions/applications.yml):functions}
 
 custom:
   serverless-offline:
@@ -154,3 +102,4 @@ package:
     - "!test/**"
     - "!jest.config.js"
     - "!bitbucket-pipelines.yml"
+    - "!node_modules/**"

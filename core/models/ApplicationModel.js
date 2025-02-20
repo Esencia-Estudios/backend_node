@@ -1,6 +1,12 @@
 import { DataTypes, Model } from 'sequelize';
 
 const ApplicationFields = {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        allowNull: false,
+    },
     name: {
         type: DataTypes.STRING,
         unique: true,

@@ -99,6 +99,7 @@ const UserFields = {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
+
 };
 
 class UserModel extends Model {
