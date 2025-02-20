@@ -144,6 +144,13 @@ functions:
           authorizer:
             name: JwtAuthorizer
 
+  change-password:
+    handler: handlers/usersHandlers.changePassword
+    events:
+      - httpApi:
+          path: /change-password
+          method: post
+
   login-user:
     handler: handlers/usersHandlers.loginUser
     events:

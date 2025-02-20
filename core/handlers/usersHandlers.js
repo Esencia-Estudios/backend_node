@@ -1,5 +1,5 @@
 import { getUsers, getUserById, createUser, updateUser, deleteUser, activateUser, deactivateUser } from "../controllers/users.js";
-import { loginUser } from "../controllers/auth.js";
+import { loginUser, changePassword } from "../controllers/auth.js";
 
 export {
     getUsers,
@@ -9,5 +9,6 @@ export {
     activateUser,
     deactivateUser,
     loginUser,
+    changePassword,
     updateUser,
 };
