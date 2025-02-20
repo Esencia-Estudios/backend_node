@@ -144,15 +144,15 @@ functions:
           authorizer:
             name: JwtAuthorizer
 
-  change-password:
-    handler: handlers/usersHandlers.changePassword
+  force-change-password:
+    handler: handlers/authHandler.forceChangePassword
     events:
       - httpApi:
-          path: /change-password
+          path: /force-change-password
           method: post
 
   login-user:
-    handler: handlers/usersHandlers.loginUser
+    handler: handlers/authHandler.loginUser
     events:
       - httpApi:
           path: /login

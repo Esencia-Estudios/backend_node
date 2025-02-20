@@ -30,7 +30,7 @@ const calculateSecretHash = (username, clientId, clientSecret) => {
     return hmac.digest('base64');
 };
 
-export const loginUserHelper = async (username, password) => {
+export const loginUserAWS = async (username, password) => {
     const params = {
         AuthFlow: 'USER_PASSWORD_AUTH',
         ClientId: process.env.COGNITO_CLIENT_ID,
@@ -44,12 +44,6 @@ export const loginUserHelper = async (username, password) => {
     try {
         const command = new InitiateAuthCommand(params);
         const response = await client.send(command);
-
-        if (response.ChallengeName === 'NEW_PASSWORD_REQUIRED') {
-            console.log("Session: ", response.Session)
-        }
-
-        // Devolver los tokens si es necesario
         return response;
     } catch (error) {
         console.error('Error logging in:', error);
@@ -57,7 +51,7 @@ export const loginUserHelper = async (username, password) => {
     }
 };
 
-export const changePasswordHelper = async ({ username, newPassword, session }) => {
+export const changePasswordRequieredInCognito = async ({ username, newPassword, session }) => {
     const params = {
         ChallengeName: 'NEW_PASSWORD_REQUIRED',
         ClientId: process.env.COGNITO_CLIENT_ID,
@@ -71,10 +65,24 @@ export const changePasswordHelper = async ({ username, newPassword, session }) =
 
     try {
         const command = new RespondToAuthChallengeCommand(params);
-        const response = await client.send(command);
-        return response;
+        await client.send(command);
     } catch (error) {
-        console.error('Error cambiando la contraseña:', error);
+        console.error('Error change password in cognito:', error);
+        throw error;
+    }
+};
+
+export const updatePasswordInCognito = async ({ username, newPassword }) => {
+    try {
+        const command = new AdminSetUserPasswordCommand({
+            UserPoolId: process.env.COGNITO_USER_POOL_ID,
+            Username: username,
+            Password: newPassword,
+            Permanent: true,
+        });
+        await client.send(command);
+    } catch (error) {
+        console.error('Error updating password in Cognito:', error);
         throw error;
     }
 };
@@ -93,21 +101,6 @@ export const enableOrDisableUserInCognito = async ({ username, is_active }) => {
         await client.send(command);
     } catch (error) {
         console.error('Error enabling or disabling user in Cognito:', error);
-        throw error;
-    }
-};
-
-export const updatePasswordInCognito = async ({ username, newPassword }) => {
-    try {
-        const command = new AdminSetUserPasswordCommand({
-            UserPoolId: process.env.COGNITO_USER_POOL_ID,
-            Username: username,
-            Password: newPassword,
-            Permanent: true,
-        });
-        await client.send(command);
-    } catch (error) {
-        console.error('Error updating password in Cognito:', error);
         throw error;
     }
 };
