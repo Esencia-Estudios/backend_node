@@ -1,129 +1,93 @@
 import { ResponseHelper as response } from "../helpers/response.js";
 import { RoleModel, PermissionModel } from "../models/index.js";
+import * as rolesPermissionsService from "../services/rolesPermissionsService.js";
+import { validateRoleSchema, validatePermissionSchema } from "../validations/rolesPermissionsValidations.js";
 
 
 //Roles CRUD
+
+//✓ check
 const getRoles = async () => {
     try {
-        const roles = await RoleModel.findAll();
-        return response.success(roles);
+        return await rolesPermissionsService.getRoles();
     } catch (error) {
-        return response.badRequest(error);
+        return response.handleError(error);
     }
 };
 
+//✓ check
 const createRole = async (event) => {
     try {
         const roleData = JSON.parse(event.body);
-        const role = await RoleModel.create(roleData);
-        return response.success(role);
+        await validateRoleSchema(roleData);
+        return await rolesPermissionsService.createRole(roleData);
     } catch (error) {
-        return response.badRequest(error);
+        return response.handleError(error);
     }
 };
 
+//✓ check
 const updateRole = async (event) => {
     try {
         const { id } = event.pathParameters;
         const roleData = JSON.parse(event.body);
-
-        const role = await RoleModel.findByPk(id);
-        const lastRoleName = role.name;
-        if (!role) {
-            return response.notFound("Role no encontrado");
-        }
-
-        const updatedFields = {};
-        for (const [key, value] of Object.entries(roleData)) {
-            if (value !== undefined) {
-                updatedFields[key] = value;
-            }
-        }
-
-        await role.update(updatedFields);
-
-        return response.success({
-            message: `Role: ${lastRoleName}, has been updated.`,
-            role
-        });
+        return await rolesPermissionsService.updateRole(id, roleData);
     } catch (error) {
-        return response.badRequest(error);
+        return response.handleError(error);
     }
 };
 
+//✓ check
 const deleteRole = async (event) => {
     try {
         const { id } = event.pathParameters;
-        const role = await RoleModel.findByPk(id);
-        if (!role) {
-            return response.notFound("Role not found");
-        }
-        await role.destroy();
-        return response.success("Role deleted");
+        return await rolesPermissionsService.deleteRole(id);
     } catch (error) {
-        return response.badRequest(error);
+        return response.handleError(error);
     }
 };
 
 //Permissions CRUD
+
+//✓ check
 const getPermissions = async () => {
     try {
-        const permissions = await PermissionModel.findAll();
-        return response.success(permissions);
+        return await rolesPermissionsService.getPermissions();
     } catch (error) {
-        return response.badRequest(error);
+        return response.handleError(error);
     }
 };
 
+//✓ check
 const createPermission = async (event) => {
     try {
-        const permissionData = JSON.parse(event.body);
-        const permission = await PermissionModel.create(permissionData);
-        return response.success(permission);
+        const { body } = event;
+        const permissionData = JSON.parse(body);
+        await validatePermissionSchema(permissionData);
+        return await rolesPermissionsService.createPermission(permissionData);
     } catch (error) {
-        return response.badRequest(error);
+        return response.handleError(error);
     }
 };
 
+//✓ check
 const updatePermission = async (event) => {
     try {
         const { id } = event.pathParameters;
         const permissionData = JSON.parse(event.body);
-
-        const permission = await PermissionModel.findByPk(id);
-        if (!permission) {
-            return response.notFound("Permission no encontrado");
-        }
-
-        const updatedFields = {};
-        for (const [key, value] of Object.entries(permissionData)) {
-            if (value !== undefined) {
-                updatedFields[key] = value;
-            }
-        }
-
-        await permission.update(updatedFields);
-
-        return response.success({
-            message: `Permission: ${permission.name}, has been updated.`,
-            permission
-        });
+        return await rolesPermissionsService.updatePermission(id, permissionData);
     } catch (error) {
-        return response.badRequest(error);
+        return response.handleError(error);
     }
 };
 
+//✓ check
 const deletePermission = async (event) => {
     try {
         const { id } = event.pathParameters;
-        const permission = await PermissionModel.findByPk(id);
-        if (!permission) {
-            return response.notFound("Permission no encontrado");
-        }
-        await permission.destroy();
-        return response.success("Permission deleted");
+        return await rolesPermissionsService.deletePermission(id);
     } catch (error) {
-        return response.badRequest(error);
+        return response.handleError(error);
     }
 };
 
@@ -134,29 +98,9 @@ const assignPermissionsToRole = async (event) => {
     try {
         const { id } = event.pathParameters;
         const { permissionIds } = JSON.parse(event.body);
-
-        const role = await RoleModel.findByPk(id);
-        if (!role) {
-            return response.notFound("Role no encontrado");
-        }
-
-        const permissions = await PermissionModel.findAll({
-            where: { id: permissionIds }
-        });
-
-        if (permissions.length !== permissionIds.length) {
-            return response.badRequest("Algunos permisos no existen");
-        }
-
-        await role.setPermissions(permissions);
-
-        return response.success({
-            message: `Permisos asignados al rol ${role.name}`,
-            role,
-            assignedPermissions: permissions
-        });
+        return await rolesPermissionsService.assignPermissionsToRole(id, permissionIds);
     } catch (error) {
-        return response.badRequest(error);
+        return response.handleError(error);
     }
 };
 
@@ -164,21 +108,9 @@ const assignPermissionsToRole = async (event) => {
 const getRoleWithPermissions = async (event) => {
     try {
         const { id } = event.pathParameters;
-
-        const role = await RoleModel.findByPk(id, {
-            include: {
-                model: PermissionModel,
-                through: { attributes: [] }
-            }
-        });
-
-        if (!role) {
-            return response.notFound("Role no encontrado");
-        }
-
-        return response.success(role);
+        return await rolesPermissionsService.getRoleWithPermissions(id);
     } catch (error) {
-        return response.badRequest(error);
+        return response.handleError(error);
     }
 };
 
