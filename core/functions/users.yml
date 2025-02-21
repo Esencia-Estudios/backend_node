@@ -43,3 +43,21 @@ functions:
           method: delete
           authorizer:
             name: JwtAuthorizer
+  
+  activate-user:
+    handler: handlers/usersHandlers.activateUser
+    events:
+      - httpApi:
+          path: /users/{id}/activate
+          method: post
+          authorizer:
+            name: JwtAuthorizer
+
+  deactivate-user:
+    handler: handlers/usersHandlers.deactivateUser
+    events:
+      - httpApi:
+          path: /users/{id}/deactivate
+          method: post
+          authorizer:
+            name: JwtAuthorizer

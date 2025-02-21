@@ -1,0 +1,14 @@
+functions:
+  force-change-password:
+    handler: handlers/authHandler.forceChangePassword
+    events:
+      - httpApi:
+          path: /force-change-password
+          method: post
+
+  login-user:
+    handler: handlers/authHandler.loginUser
+    events:
+      - httpApi:
+          path: /login
+          method: post
