@@ -1,0 +1,45 @@
+functions:
+  get-users:
+    handler: handlers/usersHandlers.getUsers
+    events:
+      - httpApi:
+          path: /users
+          method: get
+          authorizer:
+            name: JwtAuthorizer
+
+  get-users-by-id:
+    handler: handlers/usersHandlers.getUserById
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: get
+          authorizer:
+            name: JwtAuthorizer
+
+  create-user:
+    handler: handlers/usersHandlers.createUser
+    events:
+      - httpApi:
+          path: /users
+          method: post
+          authorizer:
+            name: JwtAuthorizer
+          
+  update-user:
+    handler: handlers/usersHandlers.updateUser
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: put
+          authorizer:
+            name: JwtAuthorizer
+
+  delete-user:
+    handler: handlers/usersHandlers.deleteUser
+    events:
+      - httpApi:
+          path: /users/{id}
+          method: delete
+          authorizer:
+            name: JwtAuthorizer

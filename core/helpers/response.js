@@ -5,7 +5,7 @@ class ResponseHelper {
             message,
             data,
             error: error || false,
-        }
+        };
 
         return {
             statusCode,
@@ -39,6 +39,21 @@ class ResponseHelper {
 
     static internalServerError(error, message = 'Internal Server Error') {
         return this._createResponse(500, 'error', message, null, error);
+    }
+
+    static handleError(error) {
+        switch (error.name) {
+            case 'NotFoundError':
+                return this.notFound(error.message);
+            case 'ValidationError':
+                return this.badRequest(error, error.message);
+            case 'UnauthorizedError':
+                return this.unauthorized(error.message);
+            case 'ForbiddenError':
+                return this.forbidden(error.message);
+            default:
+                return this.internalServerError(error.message || 'Unexpected error');
+        }
     }
 }
 
