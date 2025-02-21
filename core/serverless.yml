@@ -104,3 +104,6 @@ package:
     - "!jest.config.js"
     - "!bitbucket-pipelines.yml"
     - "!node_modules/**"
+    - "!.serverless/**"
+    - "!README.md"
+    - "!initDB.js"
