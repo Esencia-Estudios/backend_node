@@ -5,6 +5,9 @@ functions:
       - httpApi:
           path: /users
           method: get
+          authorizer:
+            type: jwt
+            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
 
   get-users-by-id:
     handler: handlers/usersHandlers.getUserById
@@ -12,6 +15,9 @@ functions:
       - httpApi:
           path: /users/{id}
           method: get
+          authorizer:
+            type: jwt
+            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
 
   create-user:
     handler: handlers/usersHandlers.createUser
@@ -19,6 +25,9 @@ functions:
       - httpApi:
           path: /users
           method: post
+          authorizer:
+            type: jwt
+            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
 
   update-user:
     handler: handlers/usersHandlers.updateUser
@@ -26,6 +35,9 @@ functions:
       - httpApi:
           path: /users/{id}
           method: put
+          authorizer:
+            type: jwt
+            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
 
   delete-user:
     handler: handlers/usersHandlers.deleteUser
@@ -33,6 +45,9 @@ functions:
       - httpApi:
           path: /users/{id}
           method: delete
+          authorizer:
+            type: jwt
+            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
 
   activate-user:
     handler: handlers/usersHandlers.activateUser
@@ -40,6 +55,9 @@ functions:
       - httpApi:
           path: /users/{id}/activate
           method: post
+          authorizer:
+            type: jwt
+            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
 
   deactivate-user:
     handler: handlers/usersHandlers.deactivateUser
@@ -47,3 +65,6 @@ functions:
       - httpApi:
           path: /users/{id}/deactivate
           method: post
+          authorizer:
+            type: jwt
+            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
