@@ -7,8 +7,6 @@ functions:
       - httpApi:
           path: /roles
           method: get
-          authorizer:
-            name: JwtAuthorizer
 
   create-role:
     handler: handlers/rolesPermissionsHandlers.createRole
@@ -16,8 +14,6 @@ functions:
       - httpApi:
           path: /role
           method: post
-          authorizer:
-            name: JwtAuthorizer
 
   update-role:
     handler: handlers/rolesPermissionsHandlers.updateRole
@@ -25,8 +21,6 @@ functions:
       - httpApi:
           path: /role/{id}
           method: put
-          authorizer:
-            name: JwtAuthorizer
 
   delete-role:
     handler: handlers/rolesPermissionsHandlers.deleteRole
@@ -34,8 +28,6 @@ functions:
       - httpApi:
           path: /role/{id}
           method: delete
-          authorizer:
-            name: JwtAuthorizer
 
 #Permissions
   get-permissions:
@@ -44,8 +36,6 @@ functions:
       - httpApi:
           path: /permissions
           method: get
-          authorizer:
-            name: JwtAuthorizer
 
   create-permission:
     handler: handlers/rolesPermissionsHandlers.createPermission
@@ -53,8 +43,6 @@ functions:
       - httpApi:
           path: /permission
           method: post
-          authorizer:
-            name: JwtAuthorizer
 
   update-permission:
     handler: handlers/rolesPermissionsHandlers.updatePermission
@@ -62,8 +50,6 @@ functions:
       - httpApi:
           path: /permission/{id}
           method: put
-          authorizer:
-            name: JwtAuthorizer
 
   delete-permissions:
     handler: handlers/rolesPermissionsHandlers.deletePermission
@@ -71,8 +57,6 @@ functions:
       - httpApi:
           path: /permission/{id}
           method: delete
-          authorizer:
-            name: JwtAuthorizer
 
   assign-permissions-to-role:
     handler: handlers/rolesPermissionsHandlers.assignPermissionsToRole
@@ -80,8 +64,6 @@ functions:
       - httpApi:
           path: /role/{id}/permissions
           method: post
-          authorizer:
-            name: JwtAuthorizer
 
   get-role-with-permissions:
     handler: handlers/rolesPermissionsHandlers.getRoleWithPermissions
@@ -89,5 +71,3 @@ functions:
       - httpApi:
           path: /role/{id}/permissions
           method: get
-          authorizer:
-            name: JwtAuthorizer
