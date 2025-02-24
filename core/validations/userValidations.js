@@ -1,4 +1,5 @@
 import yup from 'yup';
+import { validateUniqueUser } from '../validators/userValidators.js';
 
 const userSchema = yup.object().shape({
     user_code: yup.string()
@@ -95,7 +96,9 @@ export const validateUserIdParameters = async (userIdData) => {
 };
 
 export const validateUserParameters = async (userData) => {
-    return await userSchema.validate(userData, { abortEarly: false });
+    await userSchema.validate(userData, { abortEarly: false });
+    const unique = await validateUniqueUser(userData);
+    return unique;
 };
 
 export const validateUserUpdateParameters = async (userData) => {

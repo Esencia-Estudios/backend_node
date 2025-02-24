@@ -37,7 +37,7 @@ export const login = async (loginData) => {
     const authResponse = await loginUserAWS(username, password);
 
     if (authResponse.ChallengeName === 'NEW_PASSWORD_REQUIRED') {
-        return response.success({ session: authResponse.Session }, 'New Password Required',);
+        return response.success({ session: authResponse.Session, forceChangePassword: true }, 'New Password Required',);
     }
 
     return response.success({

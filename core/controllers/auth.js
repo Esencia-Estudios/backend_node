@@ -23,7 +23,7 @@ export const loginUser = async (event) => {
         errors: error.errors,
       });
     }
-    return response.badRequest("ERROR: " + error.message);
+    return response.badRequest(error.message);
   }
 };
 
@@ -33,6 +33,6 @@ export const forceChangePassword = async (event) => {
     const data = JSON.parse(event.body);
     return await authService.forceChangePassword(data);
   } catch (error) {
-    return response.badRequest("ERROR: " + error.message);
+    return response.badRequest(error.message);
   }
 };
