@@ -33,13 +33,12 @@ export const createUser = async (userData) => {
     const cognitoUser = await createUserInCognito({ email, password, username });
     if (!cognitoUser) throw new Error('Error creating user in Cognito');
 
-    const newUser = await UserModel.create({ ...userData, cognito_user_id: cognitoUser.id });
-
+    const newUser = await UserModel.create({ ...userData });
     if (role_ids && role_ids.length > 0) {
         await assignRoles(newUser, role_ids);
     }
 
-    return await getUserById(newUser.user_id);
+    return await getUserById(newUser.id);
 }
 
 export const updateUser = async (id, userData) => {
@@ -108,4 +107,16 @@ export const activateOrDisableUser = async (id, is_active) => {
     await user.save();
 
     return user;
+}
+
+export const findByUserCode = async (user_code) => {
+    return await UserModel.findOne({ where: { user_code } });
+}
+
+export const findByEmail = async (email) => {
+    return await UserModel.findOne({ where: { email } });
+}
+
+export const findByUsername = async (username) => {
+    return await UserModel.findOne({ where: { username } });
 }

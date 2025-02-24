@@ -2,7 +2,7 @@ import { DataTypes, Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
 
 const UserFields = {
-  user_id: {
+  id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     unique: true,

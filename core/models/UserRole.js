@@ -12,16 +12,16 @@ class UserRoleModel extends Model {
 }
 
 const UserRoleFields = {
-    user_id: {
+    userId: {
         type: DataTypes.UUID,
         references: {
             model: 'users',
-            key: 'user_id',
+            key: 'id',
         },
         allowNull: false,
         primaryKey: true,
     },
-    role_id: {
+    roleId: {
         type: DataTypes.INTEGER,
         references: {
             model: 'roles',
