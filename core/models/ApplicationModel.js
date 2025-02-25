@@ -20,6 +20,11 @@ const ApplicationFields = {
         type: DataTypes.TEXT,
         allowNull: true,
     },
+    status: {
+        type: DataTypes.ENUM('active', 'inactive'),
+        defaultValue: 'active',
+        allowNull: false,
+    }
 };
 
 class ApplicationModel extends Model {

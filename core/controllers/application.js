@@ -1,5 +1,14 @@
-import { getApplicationService } from '../services/applicationService.js';
+import { getApplicationsService, getApplicationService } from '../services/applicationService.js';
 import { ResponseHelper } from '../helpers/response.js'
+
+const getApplications = async (event) => {
+    try {
+        const applications = await getApplicationsService();
+        return applications
+    } catch (error) {
+        return ResponseHelper.handleError(error)
+    }
+}
 
 const getApplication = async (event) => {
     try {
@@ -11,4 +20,4 @@ const getApplication = async (event) => {
     }
 }
 
-export { getApplication };
+export { getApplications, getApplication };

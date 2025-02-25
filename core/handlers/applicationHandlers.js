@@ -1,5 +1,6 @@
-import { getApplication } from "../controllers/application.js";
+import { getApplication, getApplications } from "../controllers/application.js";
 
 export {
-    getApplication
+    getApplication,
+    getApplications
 };

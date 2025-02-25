@@ -1,4 +1,13 @@
 functions:
+  get-applications:
+    handler: handlers/applicationHandlers.getApplications
+    events:
+      - httpApi:
+          path: /applications
+          method: get
+          authorizer:
+            type: jwt
+            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
   get-application-by-id:
     handler: handlers/applicationHandlers.getApplication
     events:
