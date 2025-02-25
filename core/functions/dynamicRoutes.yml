@@ -1,0 +1,28 @@
+functions:
+  getDynamicRoutes:
+    handler: controllers/dynamicRoutes.getDynamicRoutes
+    events:
+      - httpApi:
+          path: /dynamic-routes
+          method: get
+
+  createDynamicRoute:
+    handler: controllers/dynamicRoutes.createDynamicRoute
+    events:
+      - httpApi:
+          path: /dynamic-routes
+          method: post
+
+  updateDynamicRoute:
+    handler: controllers/dynamicRoutes.updateDynamicRoute
+    events:
+      - httpApi:
+          path: /dynamic-routes/{id}
+          method: put
+
+  deleteDynamicRoute:
+    handler: controllers/dynamicRoutes.deleteDynamicRoute
+    events:
+      - httpApi:
+          path: /dynamic-routes/{id}
+          method: delete
