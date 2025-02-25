@@ -85,6 +85,7 @@ functions:
   - ${file(./functions/rolesPermissions.yml):functions}
   - ${file(./functions/applications.yml):functions}
   - ${file(./functions/auth.yml):functions}
+  - ${file(./functions/dynamicRoutes.yml):functions}
 
 custom:
   serverless-offline:
