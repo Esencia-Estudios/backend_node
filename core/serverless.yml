@@ -44,6 +44,9 @@ provider:
     COGNITO_CLIENT_ID: ${env:COGNITO_CLIENT_ID}
     ENVIRONMENT: ${self:provider.stage}
 
+  #httpApi:
+    #id: ${cf:core-service-{self:stage}.HttpApiId}
+
   layers:
     - arn:aws:lambda:${aws:region}:${aws:accountId}:layer:BackendEsenciaLayer:2
 
@@ -105,3 +108,6 @@ package:
     - "!jest.config.js"
     - "!bitbucket-pipelines.yml"
     - "!node_modules/**"
+    - "!.serverless/**"
+    - "!README.md"
+    - "!initDB.js"

@@ -5,3 +5,6 @@ functions:
       - httpApi:
           path: /applications/{id}
           method: get
+          authorizer:
+            type: jwt
+            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
