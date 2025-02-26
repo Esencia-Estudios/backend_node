@@ -6,7 +6,6 @@ const Repository = new ApplicationRepository();
 const getApplicationsService = async () => {
   try {
     const applications = await Repository.getApplications();
-
     return applications;
   } catch (error) {
     throw error;
@@ -29,11 +28,40 @@ const getApplicationService = async (id) => {
 
 const createApplicationService = async (applicationData) => {
   try {
-    const createdApplication = await Repository.createApplication(applicationData);
+    const createdApplication = await Repository.createApplication(
+      applicationData
+    );
     return createdApplication;
   } catch (error) {
-    throw error; 
+    throw error;
   }
-}
+};
 
-export { getApplicationService, getApplicationsService };
+const updateApplicationService = async (id, applicationData) => {
+  try {
+    const createdApplication = await Repository.updateApplication(
+      id,
+      applicationData
+    );
+    return createdApplication;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const deactivateApplicationService = async (id) => {
+  try {
+    const deactivateApplication = await Repository.deactivateApplication(id);
+    return deactivateApplication;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export {
+  getApplicationService,
+  getApplicationsService,
+  createApplicationService,
+  updateApplicationService,
+  deactivateApplicationService,
+};

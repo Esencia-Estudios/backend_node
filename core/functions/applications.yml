@@ -28,3 +28,23 @@ functions:
           authorizer:
             type: jwt
             name: EsenciaAuthorizer
+
+  update-application:
+    handler: handlers/applicationHandlers.updateApplication
+    events:
+      - httpApi:
+          path: /applications/{id}
+          method: PUT
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  deactivate-application:
+    handler: handlers/applicationHandlers.deactivateApplication
+    events:
+      - httpApi:
+          path: /applications/{id}
+          method: DELETE
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
