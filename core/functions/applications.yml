@@ -7,7 +7,8 @@ functions:
           method: get
           authorizer:
             type: jwt
-            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
+            name: EsenciaAuthorizer
+
   get-application-by-id:
     handler: handlers/applicationHandlers.getApplication
     events:
@@ -16,4 +17,14 @@ functions:
           method: get
           authorizer:
             type: jwt
-            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
+            name: EsenciaAuthorizer
+
+  create-application:
+    handler: handlers/applicationHandlers.createApplication
+    events:
+      - httpApi:
+          path: /applications
+          method: POST
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
