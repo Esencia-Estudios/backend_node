@@ -8,7 +8,7 @@ functions:
           method: get
           authorizer:
             type: jwt
-            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
+            name: EsenciaAuthorizer
 
   create-role:
     handler: handlers/rolesPermissionsHandlers.createRole
@@ -18,7 +18,7 @@ functions:
           method: post
           authorizer:
             type: jwt
-            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
+            name: EsenciaAuthorizer
 
   update-role:
     handler: handlers/rolesPermissionsHandlers.updateRole
@@ -28,7 +28,7 @@ functions:
           method: put
           authorizer:
             type: jwt
-            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
+            name: EsenciaAuthorizer
 
   delete-role:
     handler: handlers/rolesPermissionsHandlers.deleteRole
@@ -38,7 +38,7 @@ functions:
           method: delete
           authorizer:
             type: jwt
-            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
+            name: EsenciaAuthorizer
 
 #Permissions
   get-permissions:
@@ -49,7 +49,7 @@ functions:
           method: get
           authorizer:
             type: jwt
-            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
+            name: EsenciaAuthorizer
 
   create-permission:
     handler: handlers/rolesPermissionsHandlers.createPermission
@@ -59,7 +59,7 @@ functions:
           method: post
           authorizer:
             type: jwt
-            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
+            name: EsenciaAuthorizer
 
   update-permission:
     handler: handlers/rolesPermissionsHandlers.updatePermission
@@ -69,7 +69,7 @@ functions:
           method: put
           authorizer:
             type: jwt
-            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
+            name: EsenciaAuthorizer
 
   delete-permissions:
     handler: handlers/rolesPermissionsHandlers.deletePermission
@@ -79,7 +79,7 @@ functions:
           method: delete
           authorizer:
             type: jwt
-            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
+            name: EsenciaAuthorizer
 
   assign-permissions-to-role:
     handler: handlers/rolesPermissionsHandlers.assignPermissionsToRole
@@ -89,7 +89,7 @@ functions:
           method: post
           authorizer:
             type: jwt
-            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
+            name: EsenciaAuthorizer
 
   get-role-with-permissions:
     handler: handlers/rolesPermissionsHandlers.getRoleWithPermissions
@@ -99,4 +99,4 @@ functions:
           method: get
           authorizer:
             type: jwt
-            id: ${cf:core-service-${self:provider.stage}.EsenciaAuthorizerId}
+            name: EsenciaAuthorizer
