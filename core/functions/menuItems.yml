@@ -1,0 +1,50 @@
+functions:
+  get-menu-items:
+    handler: handlers/menuItemsHandlers.getMenuItems
+    events:
+      - httpApi:
+          path: /menu-items
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  get-menu-item-by-aplication:
+    handler: handlers/menuItemsHandlers.getMenuItemsByApplication
+    events:
+      - httpApi:
+          path: /menu-items-by-application/{id}
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  create-menu-item:
+    handler: handlers/menuItemsHandlers.createMenuItem
+    events:
+      - httpApi:
+          path: /menu-items
+          method: post
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  update-menu-item:
+    handler: handlers/menuItemsHandlers.updateMenuItem
+    events:
+      - httpApi:
+          path: /menu-items/{id}
+          method: put
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  delete-menu-item:
+    handler: handlers/menuItemsHandlers.deleteMenuItem
+    events:
+      - httpApi:
+          path: /menu-items/{id}
+          method: delete
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
