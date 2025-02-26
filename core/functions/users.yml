@@ -3,7 +3,7 @@ functions:
     handler: handlers/usersHandlers.getUsers
     events:
       - httpApi:
-          path: /users
+          path: /core/users
           method: get
           authorizer:
             type: jwt
@@ -13,7 +13,7 @@ functions:
     handler: handlers/usersHandlers.getUserById
     events:
       - httpApi:
-          path: /users/{id}
+          path: /core/users/{id}
           method: get
           authorizer:
             type: jwt
@@ -23,7 +23,7 @@ functions:
     handler: handlers/usersHandlers.createUser
     events:
       - httpApi:
-          path: /users
+          path: /core/users
           method: post
           authorizer:
             type: jwt
@@ -33,7 +33,7 @@ functions:
     handler: handlers/usersHandlers.updateUser
     events:
       - httpApi:
-          path: /users/{id}
+          path: /core/users/{id}
           method: put
           authorizer:
             type: jwt
@@ -43,7 +43,7 @@ functions:
     handler: handlers/usersHandlers.deleteUser
     events:
       - httpApi:
-          path: /users/{id}
+          path: /core/users/{id}
           method: delete
           authorizer:
             type: jwt
@@ -53,7 +53,7 @@ functions:
     handler: handlers/usersHandlers.activateUser
     events:
       - httpApi:
-          path: /users/{id}/activate
+          path: /core/users/{id}/activate
           method: post
           authorizer:
             type: jwt
@@ -63,7 +63,7 @@ functions:
     handler: handlers/usersHandlers.deactivateUser
     events:
       - httpApi:
-          path: /users/{id}/deactivate
+          path: /core/users/{id}/deactivate
           method: post
           authorizer:
             type: jwt

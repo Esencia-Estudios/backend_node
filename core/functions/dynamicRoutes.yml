@@ -3,7 +3,7 @@ functions:
     handler: controllers/dynamicRoutes.getDynamicRoutes
     events:
       - httpApi:
-          path: /dynamic-routes
+          path: /core/dynamic-routes
           method: get
           authorizer:
             type: jwt
@@ -13,7 +13,7 @@ functions:
     handler: controllers/dynamicRoutes.createDynamicRoute
     events:
       - httpApi:
-          path: /dynamic-routes
+          path: /core/dynamic-routes
           method: post
           authorizer:
             type: jwt
@@ -23,7 +23,7 @@ functions:
     handler: controllers/dynamicRoutes.updateDynamicRoute
     events:
       - httpApi:
-          path: /dynamic-routes/{id}
+          path: /core/dynamic-routes/{id}
           method: put
           authorizer:
             type: jwt
@@ -33,7 +33,7 @@ functions:
     handler: controllers/dynamicRoutes.deleteDynamicRoute
     events:
       - httpApi:
-          path: /dynamic-routes/{id}
+          path: /core/dynamic-routes/{id}
           method: delete
           authorizer:
             type: jwt

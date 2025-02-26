@@ -3,12 +3,12 @@ functions:
     handler: handlers/authHandler.forceChangePassword
     events:
       - httpApi:
-          path: /force-change-password
+          path: auth/force-change-password
           method: post
 
   login-user:
     handler: handlers/authHandler.loginUser
     events:
       - httpApi:
-          path: /login
+          path: auth/login
           method: post
