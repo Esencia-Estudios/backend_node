@@ -77,6 +77,7 @@ functions:
   - ${file(./functions/applications.yml):functions}
   - ${file(./functions/auth.yml):functions}
   - ${file(./functions/dynamicRoutes.yml):functions}
+  - ${file(./functions/menuItems.yml):functions}
 
 custom:
   serverless-offline:
