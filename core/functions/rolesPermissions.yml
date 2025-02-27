@@ -4,7 +4,7 @@ functions:
     handler: handlers/rolesPermissionsHandlers.getRoles
     events:
       - httpApi:
-          path: /roles
+          path: /core/roles
           method: get
           authorizer:
             type: jwt
@@ -14,7 +14,7 @@ functions:
     handler: handlers/rolesPermissionsHandlers.createRole
     events:
       - httpApi:
-          path: /role
+          path: /core/roles
           method: post
           authorizer:
             type: jwt
@@ -24,7 +24,7 @@ functions:
     handler: handlers/rolesPermissionsHandlers.updateRole
     events:
       - httpApi:
-          path: /role/{id}
+          path: /core/roles/{id}
           method: put
           authorizer:
             type: jwt
@@ -34,7 +34,7 @@ functions:
     handler: handlers/rolesPermissionsHandlers.deleteRole
     events:
       - httpApi:
-          path: /role/{id}
+          path: /core/roles/{id}
           method: delete
           authorizer:
             type: jwt
@@ -45,7 +45,7 @@ functions:
     handler: handlers/rolesPermissionsHandlers.getPermissions
     events:
       - httpApi:
-          path: /permissions
+          path: /core/permissions
           method: get
           authorizer:
             type: jwt
@@ -55,7 +55,7 @@ functions:
     handler: handlers/rolesPermissionsHandlers.createPermission
     events:
       - httpApi:
-          path: /permission
+          path: /core/permissions
           method: post
           authorizer:
             type: jwt
@@ -65,7 +65,7 @@ functions:
     handler: handlers/rolesPermissionsHandlers.updatePermission
     events:
       - httpApi:
-          path: /permission/{id}
+          path: /core/permissions/{id}
           method: put
           authorizer:
             type: jwt
@@ -75,7 +75,7 @@ functions:
     handler: handlers/rolesPermissionsHandlers.deletePermission
     events:
       - httpApi:
-          path: /permission/{id}
+          path: /core/permission/{id}
           method: delete
           authorizer:
             type: jwt
@@ -85,7 +85,7 @@ functions:
     handler: handlers/rolesPermissionsHandlers.assignPermissionsToRole
     events:
       - httpApi:
-          path: /role/{id}/permissions
+          path: /core/roles/{id}/permissions
           method: post
           authorizer:
             type: jwt
@@ -95,7 +95,7 @@ functions:
     handler: handlers/rolesPermissionsHandlers.getRoleWithPermissions
     events:
       - httpApi:
-          path: /role/{id}/permissions
+          path: /core/roles/{id}/permissions
           method: get
           authorizer:
             type: jwt

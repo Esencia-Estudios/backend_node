@@ -44,10 +44,8 @@ provider:
     COGNITO_CLIENT_ID: ${env:COGNITO_CLIENT_ID}
     ENVIRONMENT: ${self:provider.stage}
 
-  #httpApi:
-  #id: ${cf:core-service-{self:stage}.HttpApiId}
-
   httpApi:
+    #id: ${cf:core-service-{self:stage}.HttpApiId}
     authorizers:
       EsenciaAuthorizer:
         type: jwt

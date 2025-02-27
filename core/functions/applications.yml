@@ -3,7 +3,7 @@ functions:
     handler: handlers/applicationHandlers.getApplications
     events:
       - httpApi:
-          path: /applications
+          path: /core/applications
           method: get
           authorizer:
             type: jwt
@@ -13,7 +13,7 @@ functions:
     handler: handlers/applicationHandlers.getApplication
     events:
       - httpApi:
-          path: /applications/{id}
+          path: /core/applications/{id}
           method: get
           authorizer:
             type: jwt
@@ -23,7 +23,7 @@ functions:
     handler: handlers/applicationHandlers.createApplication
     events:
       - httpApi:
-          path: /applications
+          path: /core/applications
           method: POST
           authorizer:
             type: jwt
@@ -33,7 +33,7 @@ functions:
     handler: handlers/applicationHandlers.updateApplication
     events:
       - httpApi:
-          path: /applications/{id}
+          path: /core/applications/{id}
           method: PUT
           authorizer:
             type: jwt
@@ -43,7 +43,7 @@ functions:
     handler: handlers/applicationHandlers.deactivateApplication
     events:
       - httpApi:
-          path: /applications/{id}
+          path: /core/applications/{id}
           method: DELETE
           authorizer:
             type: jwt
