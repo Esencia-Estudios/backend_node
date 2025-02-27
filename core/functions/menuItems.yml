@@ -3,7 +3,7 @@ functions:
     handler: handlers/menuItemsHandlers.getMenuItems
     events:
       - httpApi:
-          path: /menu-items
+          path: /core/menu-items
           method: get
           authorizer:
             type: jwt
@@ -13,7 +13,7 @@ functions:
     handler: handlers/menuItemsHandlers.getMenuItemsByApplication
     events:
       - httpApi:
-          path: /menu-items-by-application/{id}
+          path: /core/menu-items-by-application/{id}
           method: get
           authorizer:
             type: jwt
@@ -23,7 +23,7 @@ functions:
     handler: handlers/menuItemsHandlers.createMenuItem
     events:
       - httpApi:
-          path: /menu-items
+          path: /core/menu-items
           method: post
           authorizer:
             type: jwt
@@ -33,7 +33,7 @@ functions:
     handler: handlers/menuItemsHandlers.updateMenuItem
     events:
       - httpApi:
-          path: /menu-items/{id}
+          path: /core/menu-items/{id}
           method: put
           authorizer:
             type: jwt
@@ -43,7 +43,7 @@ functions:
     handler: handlers/menuItemsHandlers.deleteMenuItem
     events:
       - httpApi:
-          path: /menu-items/{id}
+          path: /core/menu-items/{id}
           method: delete
           authorizer:
             type: jwt
