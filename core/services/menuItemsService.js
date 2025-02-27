@@ -30,7 +30,6 @@ export const getMenuItemsByApplication = async (applicationId) => {
             return {
                 id: item.id,
                 key: item.id + '-' + item.route?.name,
-                keyPath: item.route?.name,
                 label: item.name,
                 name: item.name,
                 application_name: item.application?.name || null,

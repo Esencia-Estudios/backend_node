@@ -24,13 +24,5 @@ export const validateRoleSchema = async (body) => {
     }
 }
 export const validatePermissionSchema = async (body) => {
-    try {
-        const validate = await permissionSchema.validate(body, {
-            abortEarly: false,
-            stripUnknown: true
-        });
-        return validate;
-    } catch (error) {
-        throw new ValidationError(error, 'Invalid permission schema')
-    }
+    return await permissionSchema.validate(body, { abortEarly: false });
 }

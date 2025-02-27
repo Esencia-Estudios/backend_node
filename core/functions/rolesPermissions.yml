@@ -1,5 +1,5 @@
 functions:
-# Roles
+  # Roles
   get-roles:
     handler: handlers/rolesPermissionsHandlers.getRoles
     events:
@@ -40,7 +40,7 @@ functions:
             type: jwt
             name: EsenciaAuthorizer
 
-#Permissions
+  #Permissions
   get-permissions:
     handler: handlers/rolesPermissionsHandlers.getPermissions
     events:
@@ -75,7 +75,7 @@ functions:
     handler: handlers/rolesPermissionsHandlers.deletePermission
     events:
       - httpApi:
-          path: /core/permission/{id}
+          path: /core/permissions/{id}
           method: delete
           authorizer:
             type: jwt
@@ -85,7 +85,7 @@ functions:
     handler: handlers/rolesPermissionsHandlers.assignPermissionsToRole
     events:
       - httpApi:
-          path: /core/roles/{id}/permissions
+          path: /core/assign-permissions-to-role/{id}
           method: post
           authorizer:
             type: jwt
@@ -95,7 +95,7 @@ functions:
     handler: handlers/rolesPermissionsHandlers.getRoleWithPermissions
     events:
       - httpApi:
-          path: /core/roles/{id}/permissions
+          path: /core/roles-permissions/{id}
           method: get
           authorizer:
             type: jwt
