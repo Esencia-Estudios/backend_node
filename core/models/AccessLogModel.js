@@ -8,6 +8,9 @@ class AccessLogModel extends Model {
             tableName: "access_logs",
             modelName: "AccessLog",
             timestamps: false,
+            defaultScope: {
+                raw: true
+            }
         };
     }
 }
