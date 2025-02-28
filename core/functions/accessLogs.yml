@@ -1,0 +1,12 @@
+functions:
+  get-access-logs:
+    handler: handlers/accessLogHandlers.getAccessLogs
+    events:
+      - httpApi:
+          path: /core/access-logs
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+

@@ -35,6 +35,7 @@ provider:
       Resource: "*"
 
   environment:
+    REGION: ${self:provider.region}
     DB_HOST: ${env:DB_HOST}
     DB_USERNAME: ${env:DB_USERNAME}
     DB_PASSWORD: ${env:DB_PASSWORD}
@@ -42,6 +43,7 @@ provider:
     DB_PORT: ${env:DB_PORT}
     COGNITO_USER_POOL_ID: ${env:COGNITO_USER_POOL_ID}
     COGNITO_CLIENT_ID: ${env:COGNITO_CLIENT_ID}
+    COGNITO_CLIENT_SECRET: ${env:COGNITO_CLIENT_SECRET}
     ENVIRONMENT: ${self:provider.stage}
 
   httpApi:
@@ -78,6 +80,7 @@ functions:
   - ${file(./functions/auth.yml):functions}
   - ${file(./functions/dynamicRoutes.yml):functions}
   - ${file(./functions/menuItems.yml):functions}
+  - ${file(./functions/accessLogs.yml):functions}
 
 custom:
   serverless-offline:
