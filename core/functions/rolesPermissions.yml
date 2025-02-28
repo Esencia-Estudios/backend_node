@@ -1,93 +1,102 @@
 functions:
-
-# Roles
+  # Roles
   get-roles:
     handler: handlers/rolesPermissionsHandlers.getRoles
     events:
       - httpApi:
-          path: /roles
+          path: /core/roles
           method: get
           authorizer:
-            name: JwtAuthorizer
+            type: jwt
+            name: EsenciaAuthorizer
 
   create-role:
     handler: handlers/rolesPermissionsHandlers.createRole
     events:
       - httpApi:
-          path: /role
+          path: /core/roles
           method: post
           authorizer:
-            name: JwtAuthorizer
+            type: jwt
+            name: EsenciaAuthorizer
 
   update-role:
     handler: handlers/rolesPermissionsHandlers.updateRole
     events:
       - httpApi:
-          path: /role/{id}
+          path: /core/roles/{id}
           method: put
           authorizer:
-            name: JwtAuthorizer
+            type: jwt
+            name: EsenciaAuthorizer
 
   delete-role:
     handler: handlers/rolesPermissionsHandlers.deleteRole
     events:
       - httpApi:
-          path: /role/{id}
+          path: /core/roles/{id}
           method: delete
           authorizer:
-            name: JwtAuthorizer
+            type: jwt
+            name: EsenciaAuthorizer
 
-#Permissions
+  #Permissions
   get-permissions:
     handler: handlers/rolesPermissionsHandlers.getPermissions
     events:
       - httpApi:
-          path: /permissions
+          path: /core/permissions
           method: get
           authorizer:
-            name: JwtAuthorizer
+            type: jwt
+            name: EsenciaAuthorizer
 
   create-permission:
     handler: handlers/rolesPermissionsHandlers.createPermission
     events:
       - httpApi:
-          path: /permission
+          path: /core/permissions
           method: post
           authorizer:
-            name: JwtAuthorizer
+            type: jwt
+            name: EsenciaAuthorizer
 
   update-permission:
     handler: handlers/rolesPermissionsHandlers.updatePermission
     events:
       - httpApi:
-          path: /permission/{id}
+          path: /core/permissions/{id}
           method: put
           authorizer:
-            name: JwtAuthorizer
+            type: jwt
+            name: EsenciaAuthorizer
 
   delete-permissions:
     handler: handlers/rolesPermissionsHandlers.deletePermission
     events:
       - httpApi:
-          path: /permission/{id}
+          path: /core/permissions/{id}
           method: delete
           authorizer:
-            name: JwtAuthorizer
+            type: jwt
+            name: EsenciaAuthorizer
 
   assign-permissions-to-role:
     handler: handlers/rolesPermissionsHandlers.assignPermissionsToRole
     events:
       - httpApi:
-          path: /role/{id}/permissions
+          path: /core/assign-permissions-to-role/{id}
           method: post
           authorizer:
-            name: JwtAuthorizer
+            type: jwt
+            name: EsenciaAuthorizer
 
   get-role-with-permissions:
     handler: handlers/rolesPermissionsHandlers.getRoleWithPermissions
     events:
       - httpApi:
-          path: /role/{id}/permissions
+          path: /core/roles-permissions/{id}
           method: get
           authorizer:
-            name: JwtAuthorizer
+            type: jwt
+            name: EsenciaAuthorizer

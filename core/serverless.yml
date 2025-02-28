@@ -13,7 +13,7 @@ provider:
     name: esencia-backend-deployment
     serverSideEncryption: AES256
     blockPublicAccess: true
-  
+
   role: arn:aws:iam::${aws:accountId}:role/lambda-role-execution
   vpc:
     securityGroupIds:
@@ -32,9 +32,10 @@ provider:
         - secretsmanager:GetSecretValue
         - ssm:GetParameters
         - s3:PutObject
-      Resource: "*" 
-  
+      Resource: "*"
+
   environment:
+    REGION: ${self:provider.region}
     DB_HOST: ${env:DB_HOST}
     DB_USERNAME: ${env:DB_USERNAME}
     DB_PASSWORD: ${env:DB_PASSWORD}
@@ -42,49 +43,44 @@ provider:
     DB_PORT: ${env:DB_PORT}
     COGNITO_USER_POOL_ID: ${env:COGNITO_USER_POOL_ID}
     COGNITO_CLIENT_ID: ${env:COGNITO_CLIENT_ID}
+    COGNITO_CLIENT_SECRET: ${env:COGNITO_CLIENT_SECRET}
     ENVIRONMENT: ${self:provider.stage}
-  
+
+  httpApi:
+    #id: ${cf:core-service-{self:stage}.HttpApiId}
+    authorizers:
+      EsenciaAuthorizer:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: https://cognito-idp.${self:provider.region}.amazonaws.com/${env:COGNITO_USER_POOL_ID}
+        audience:
+          - ${env:COGNITO_CLIENT_ID}
+
   layers:
     - arn:aws:lambda:${aws:region}:${aws:accountId}:layer:BackendEsenciaLayer:2
 
-resources:
-  Resources:
-    HttpApi:
-        Type: AWS::ApiGatewayV2::Api
-        Properties:
-          Name: EsenciaHttpApi
-          ProtocolType: HTTP
-
-    EsenciaAuthorizer:
-      Type: AWS::ApiGatewayV2::Authorizer
-      Properties:
-        AuthorizerType: JWT
-        Name: EsenciaAuthorizer
-        ApiId: !Ref HttpApi
-        IdentitySource:
-          - "$request.header.Authorization"
-        JwtConfiguration:
-          Issuer: https://cognito-idp.${self:provider.region}.amazonaws.com/${env:COGNITO_USER_POOL_ID}
-          Audience:
-            - ${env:COGNITO_CLIENT_ID}
-
-  Outputs:
-    EsenciaAuthorizerId:
-      Value:
-        Ref: EsenciaAuthorizer
-      Export:
-        Name: EsenciaAuthorizerId
-  
-    HttpApiId:
-      Value: !Ref HttpApi
-      Export:
-        Name: HttpApiId-${self:provider.stage}
+#resources:
+#  Resources:
+#    HttpApi:
+#      Type: AWS::ApiGatewayV2::Api
+#      Properties:
+#        Name: EsenciaHttpApi
+#        ProtocolType: HTTP
+#
+#  Outputs:
+#    HttpApiId:
+#      Value: !Ref HttpApi
+#      Export:
+#        Name: HttpApiId-${self:provider.stage}
 
 functions:
   - ${file(./functions/users.yml):functions}
   - ${file(./functions/rolesPermissions.yml):functions}
   - ${file(./functions/applications.yml):functions}
   - ${file(./functions/auth.yml):functions}
+  - ${file(./functions/dynamicRoutes.yml):functions}
+  - ${file(./functions/menuItems.yml):functions}
+  - ${file(./functions/accessLogs.yml):functions}
 
 custom:
   serverless-offline:
@@ -104,3 +100,6 @@ package:
     - "!jest.config.js"
     - "!bitbucket-pipelines.yml"
     - "!node_modules/**"
+    - "!.serverless/**"
+    - "!README.md"
+    - "!initDB.js"

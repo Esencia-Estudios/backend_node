@@ -27,6 +27,19 @@ const PermissionFields = {
         allowNull: false,
         unique: true,
     },
+    group: {
+        type: DataTypes.STRING(100),
+        allowNull: false,
+    },
+    subGroup: {
+        type: DataTypes.STRING(100),
+        allowNull: true,
+    },
+    type: {
+        type: DataTypes.ENUM('checkbox', 'radio'),
+        allowNull: false,
+        defaultValue: 'checkbox',
+    },
 };
 
 export { PermissionModel, PermissionFields };

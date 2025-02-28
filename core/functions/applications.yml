@@ -1,7 +1,50 @@
 functions:
+  get-applications:
+    handler: handlers/applicationHandlers.getApplications
+    events:
+      - httpApi:
+          path: /core/applications
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
   get-application-by-id:
     handler: handlers/applicationHandlers.getApplication
     events:
       - httpApi:
-          path: /applications/{id}
+          path: /core/applications/{id}
           method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  create-application:
+    handler: handlers/applicationHandlers.createApplication
+    events:
+      - httpApi:
+          path: /core/applications
+          method: POST
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  update-application:
+    handler: handlers/applicationHandlers.updateApplication
+    events:
+      - httpApi:
+          path: /core/applications/{id}
+          method: PUT
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  deactivate-application:
+    handler: handlers/applicationHandlers.deactivateApplication
+    events:
+      - httpApi:
+          path: /core/applications/{id}
+          method: DELETE
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer

@@ -1,5 +1,5 @@
 import yup from 'yup'
-import { ValidationError } from '../helpers/errorHandler'
+import { ValidationError } from '../helpers/errorHandler.js'
 
 const applicationSchema = yup.object().shape({
     name: yup.string().required('Name is required'),

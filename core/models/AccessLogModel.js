@@ -1,5 +1,4 @@
 import { DataTypes, Model } from "sequelize";
-import { sequelize } from "../config/db.js";
 import { UserModel } from "./UserModel.js";
 
 class AccessLogModel extends Model {
@@ -9,6 +8,9 @@ class AccessLogModel extends Model {
             tableName: "access_logs",
             modelName: "AccessLog",
             timestamps: false,
+            defaultScope: {
+                raw: true
+            }
         };
     }
 }
@@ -19,7 +21,7 @@ const AccessLogFields = {
         allowNull: false,
         references: {
             model: UserModel,
-            key: "user_id",
+            key: "id",
         },
         onDelete: "CASCADE",
     },

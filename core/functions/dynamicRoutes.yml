@@ -1,0 +1,40 @@
+functions:
+  get-dynamic-routes:
+    handler: controllers/dynamicRoutes.getDynamicRoutes
+    events:
+      - httpApi:
+          path: /core/dynamic-routes
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  create-dynamic-route:
+    handler: controllers/dynamicRoutes.createDynamicRoute
+    events:
+      - httpApi:
+          path: /core/dynamic-routes
+          method: post
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  update-dynamic-route:
+    handler: controllers/dynamicRoutes.updateDynamicRoute
+    events:
+      - httpApi:
+          path: /core/dynamic-routes/{id}
+          method: put
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  delete-dynamic-route:
+    handler: controllers/dynamicRoutes.deleteDynamicRoute
+    events:
+      - httpApi:
+          path: /core/dynamic-routes/{id}
+          method: delete
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
