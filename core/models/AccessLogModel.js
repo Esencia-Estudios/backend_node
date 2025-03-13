@@ -5,7 +5,7 @@ class AccessLogModel extends Model {
     static config(sequelize) {
         return {
             sequelize,
-            tableName: "access_logs",
+            tableName: "core_access_logs",
             modelName: "AccessLog",
             timestamps: false,
             defaultScope: {

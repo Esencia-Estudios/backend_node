@@ -32,7 +32,7 @@ class ApplicationModel extends Model {
         return {
             sequelize,
             modelName: 'Application',
-            tableName: 'applications',
+            tableName: 'core_applications',
             timestamps: true,
         };
     }
