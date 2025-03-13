@@ -4,7 +4,7 @@ class PermissionModel extends Model {
     static config(sequelize) {
         return {
             sequelize,
-            tableName: "permissions",
+            tableName: "core_permissions",
             modelName: "Permission",
             timestamps: false,
         };
