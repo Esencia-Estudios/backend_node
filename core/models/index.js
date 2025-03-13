@@ -28,7 +28,7 @@ MenuItemModel.belongsTo(MenuItemModel, { foreignKey: "parentId", as: "parent" })
 MenuItemModel.hasMany(MenuItemModel, { foreignKey: "parentId", as: "children" });
 
 AccessLogModel.belongsTo(UserModel, { foreignKey: "userId", as: "user" });
-UserModel.belongsToMany(RoleModel, { through: "user_roles", foreignKey: "userId", otherKey: "roleId" });
+UserModel.belongsToMany(RoleModel, { through: "core_user_roles", foreignKey: "userId", otherKey: "roleId" });
 UserModel.hasMany(AccessLogModel, { foreignKey: "userId", as: "accessLogs" });
 
 RoleModel.belongsToMany(PermissionModel, { through: "role_permissions", foreignKey: "roleId" });
@@ -41,6 +41,7 @@ export {
     MenuItemModel,
     AccessLogModel,
     RoleModel,
-    PermissionModel
+    PermissionModel,
+    UserRoleModel
 };
 export default sequelize.models

@@ -4,7 +4,7 @@ class UserRoleModel extends Model {
     static config(sequelize) {
         return {
             sequelize,
-            tableName: 'core_user_roles',
+            tableName: 'user_roles',
             modelName: 'UserRole',
             timestamps: false,
         };
