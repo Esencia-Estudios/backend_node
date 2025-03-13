@@ -6,7 +6,6 @@ import { ValidationError } from "yup";
 
 dotenv.config();
 
-//✓ check
 export const getUsers = async () => {
   try {
     const users = await userService.getUsers();
@@ -16,7 +15,6 @@ export const getUsers = async () => {
   }
 };
 
-//✓ check
 export const getUserById = async (event) => {
   try {
     const { id } = event.pathParameters;
@@ -39,14 +37,12 @@ export const getUserById = async (event) => {
   }
 };
 
-//✓ check
 export const createUser = async (event) => {
   try {
     const userData = JSON.parse(event.body);
 
     await validateUserParameters(userData);
     const newUser = await userService.createUser(userData);
-
     return response.success({
       message: "User created successfully",
       user: newUser
@@ -62,7 +58,6 @@ export const createUser = async (event) => {
   }
 }
 
-//✓ check
 export const updateUser = async (event) => {
   try {
     const { id } = event.pathParameters;
@@ -85,7 +80,6 @@ export const updateUser = async (event) => {
   }
 };
 
-//✓ check
 export const deleteUser = async (event) => {
   try {
     const { id } = event.pathParameters;
@@ -104,7 +98,6 @@ export const deleteUser = async (event) => {
   }
 };
 
-//✓ check
 export const activateUser = async (event) => {
   try {
     const { id } = event.pathParameters;
@@ -127,7 +120,6 @@ export const activateUser = async (event) => {
   }
 };
 
-//✓ check
 export const deactivateUser = async (event) => {
   try {
     const { id } = event.pathParameters;

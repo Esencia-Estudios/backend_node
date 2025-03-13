@@ -52,7 +52,7 @@ class MenuItemModel extends Model {
     static config(sequelize) {
         return {
             sequelize,
-            tableName: "menu_items",
+            tableName: "core_menu_items",
             modelName: "MenuItem",
             timestamps: false,
         };
