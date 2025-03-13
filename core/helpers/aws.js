@@ -17,7 +17,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const client = new CognitoIdentityProviderClient({
-  region: process.env.REGION || "us-east-1"
+  region: process.env.REGION || "us-east-1",
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  },
 });
 
 const calculateSecretHash = (username, clientId, clientSecret) => {
@@ -41,7 +45,7 @@ export const loginUserAWS = async (username, password) => {
     const command = new InitiateAuthCommand(params);
     const response = await client.send(command);
 
-    return response;  
+    return response;
   } catch (error) {
     console.error("Error logging in:", error);
     throw error;
@@ -96,13 +100,13 @@ export const enableOrDisableUserInCognito = async ({ username, is_active }) => {
   try {
     const command = is_active
       ? new AdminEnableUserCommand({
-          UserPoolId: process.env.COGNITO_USER_POOL_ID,
-          Username: username,
-        })
+        UserPoolId: process.env.COGNITO_USER_POOL_ID,
+        Username: username,
+      })
       : new AdminDisableUserCommand({
-          UserPoolId: process.env.COGNITO_USER_POOL_ID,
-          Username: username,
-        });
+        UserPoolId: process.env.COGNITO_USER_POOL_ID,
+        Username: username,
+      });
     await client.send(command);
   } catch (error) {
     console.error("Error enabling or disabling user in Cognito:", error);

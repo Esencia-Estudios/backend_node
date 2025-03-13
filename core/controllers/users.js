@@ -43,7 +43,6 @@ export const createUser = async (event) => {
 
     await validateUserParameters(userData);
     const newUser = await userService.createUser(userData);
-
     return response.success({
       message: "User created successfully",
       user: newUser
