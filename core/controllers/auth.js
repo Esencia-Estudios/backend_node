@@ -20,7 +20,7 @@ export const forceChangePassword = async (event) => {
   try {
     const data = JSON.parse(event.body);
     const res = await authService.forceChangePassword(data);
-    response.success(message=res);
+    return response.success(res);
   } catch (error) {
     return response.handleError(error);
   }
