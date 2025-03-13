@@ -16,13 +16,21 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const client = new CognitoIdentityProviderClient({
-  region: process.env.REGION || "us-east-1",
-  credentials: {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  },
-});
+let clientConfig = {
+  region: process.env.REGION || "us-east-1"
+}
+
+if(process.env.ENVIRONMENT === 'DEV'){
+  clientConfig = { 
+    ...clientConfig, 
+    credentials: {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+    }
+  }
+}
+
+const client = new CognitoIdentityProviderClient(clientConfig);
 
 const calculateSecretHash = (username, clientId, clientSecret) => {
   const hmac = crypto.createHmac("sha256", clientSecret);

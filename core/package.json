@@ -7,7 +7,7 @@
     "test": "jest",
     "deploy_dev": "serverless deploy --stage dev",
     "deploy_function_dev": "serverless deploy function --stage dev --function",
-    "offline": "serverless offline --stage dev --noAuth --noTimeout --reloadHandler --verbose"
+    "dev": "serverless offline --stage dev --noAuth --noTimeout --reloadHandler --verbose"
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.749.0",

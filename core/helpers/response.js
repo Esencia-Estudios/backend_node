@@ -52,7 +52,7 @@ class ResponseHelper {
             case 'ForbiddenError':
                 return this.forbidden(error.message);
             default:
-                return this.internalServerError(error.message || 'Unexpected error');
+                return this.internalServerError(error.message || 'Unexpected error', error.message);
         }
     }
 }
