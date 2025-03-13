@@ -7,6 +7,7 @@ provider:
   name: aws
   runtime: nodejs20.x
   profile: esencia
+  timeout: 120
   stage: dev
   region: us-east-1
   deploymentBucket:
@@ -15,16 +16,16 @@ provider:
     blockPublicAccess: true
 
   role: arn:aws:iam::${aws:accountId}:role/lambda-role-execution
-  vpc:
-    securityGroupIds:
-      - sg-083d8b2d9ba91627a
-    subnetIds:
-      - subnet-00a83d29f11333109
-      - subnet-0fe2c0c7efdd332c9
-      - subnet-0e71dc73600fde75a
-      - subnet-0001da65ac21b3935
-      - subnet-050448c98ab862173
-      - subnet-0912aaf196b1f0adb
+  #vpc:
+  #  securityGroupIds:
+  #    - sg-083d8b2d9ba91627a
+  #  subnetIds:
+  #    - subnet-00a83d29f11333109
+  #    - subnet-0fe2c0c7efdd332c9
+  #    - subnet-0e71dc73600fde75a
+  #    - subnet-0001da65ac21b3935
+  #    - subnet-050448c98ab862173
+  #    - subnet-0912aaf196b1f0adb
 
   iamRoleStatements:
     - Effect: "Allow"
@@ -32,6 +33,11 @@ provider:
         - secretsmanager:GetSecretValue
         - ssm:GetParameters
         - s3:PutObject
+        - cognito-idp:AdminInitiateAuth
+        - cognito-idp:InitiateAuth
+        - cognito-idp:RespondToAuthChallenge
+        - cognito-idp:GetUser
+        - cognito-idp:ListUsers
       Resource: "*"
 
   environment:
@@ -44,7 +50,7 @@ provider:
     COGNITO_USER_POOL_ID: ${env:COGNITO_USER_POOL_ID}
     COGNITO_CLIENT_ID: ${env:COGNITO_CLIENT_ID}
     COGNITO_CLIENT_SECRET: ${env:COGNITO_CLIENT_SECRET}
-    ENVIRONMENT: ${self:provider.stage}
+    STAGE: ${self:provider.stage}
 
   httpApi:
     #id: ${cf:core-service-{self:stage}.HttpApiId}
@@ -57,7 +63,7 @@ provider:
           - ${env:COGNITO_CLIENT_ID}
 
   layers:
-    - arn:aws:lambda:${aws:region}:${aws:accountId}:layer:BackendEsenciaLayer:2
+    - arn:aws:lambda:${aws:region}:${aws:accountId}:layer:BackendEsenciaLayer:3
 
 #resources:
 #  Resources:

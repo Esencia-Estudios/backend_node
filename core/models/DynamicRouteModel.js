@@ -21,7 +21,7 @@ class DynamicRouteModel extends Model {
     static config(sequelize) {
         return {
             sequelize,
-            tableName: "dynamic_routes",
+            tableName: "core_dynamic_routes",
             modelName: "DynamicRoute",
             timestamps: false,
         };
