@@ -1,0 +1,35 @@
+{
+  "name": "core",
+  "version": "1.0.0",
+  "description": "<!--\r title: 'Serverless Framework Node Express API on AWS'\r description: 'This template demonstrates how to develop and deploy a simple Node Express API running on AWS Lambda using the Serverless Framework.'\r layout: Doc\r framework: v4\r platform: AWS\r language: nodeJS\r priority: 1\r authorLink: 'https://github.com/serverless'\r authorName: 'Serverless, Inc.'\r authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'\r -->",
+  "type": "module",
+  "scripts": {
+    "test": "jest",
+    "deploy_dev": "serverless deploy --stage dev",
+    "deploy_function_dev": "serverless deploy function --stage dev --function",
+    "dev": "serverless offline --stage dev --noAuth --noTimeout --reloadHandler --verbose"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.749.0",
+    "aws-sdk": "^2.1692.0",
+    "bcryptjs": "^3.0.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.19.2",
+    "mysql2": "^3.13.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5",
+    "serverless-http": "^3.2.0",
+    "typeorm": "^0.3.21",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.147",
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-esbuild": "^1.55.0",
+    "serverless-offline": "^12.0.4"
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
