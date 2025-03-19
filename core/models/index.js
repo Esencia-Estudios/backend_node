@@ -1,4 +1,5 @@
 import { UserFields, UserModel } from "./UserModel.js";
+import { TimeTrackerFields, TimeTrackerModel } from "./timeTrackerModels.js";
 import { ApplicationFields, ApplicationModel } from "./ApplicationModel.js";
 import { DynamicRouteFields, DynamicRouteModel } from "./DynamicRouteModel.js";
 import { MenuItemFields, MenuItemModel } from "./MenuItemModel.js";
@@ -17,9 +18,10 @@ const setupModels = () => {
     AccessLogModel.init(AccessLogFields, AccessLogModel.config(sequelize));
     PermissionModel.init(PermissionFields, PermissionModel.config(sequelize));
     RoleModel.init(RoleFields, RoleModel.config(sequelize));
-}
+    TimeTrackerModel.init(TimeTrackerFields, TimeTrackerModel.config(sequelize));
+};
 
-setupModels()
+setupModels();
 
 // Definir relaciones
 MenuItemModel.belongsTo(ApplicationModel, { foreignKey: "applicationId", as: "application" });
@@ -34,8 +36,12 @@ UserModel.hasMany(AccessLogModel, { foreignKey: "userId", as: "accessLogs" });
 RoleModel.belongsToMany(PermissionModel, { through: "role_permissions", foreignKey: "roleId" });
 PermissionModel.belongsToMany(RoleModel, { through: "role_permissions", foreignKey: "permissionId" });
 
+TimeTrackerModel.belongsTo(UserModel, { foreignKey: "user_id", as: "user" });
+UserModel.hasMany(TimeTrackerModel, { foreignKey: "user_id", as: "timeTrackers" });
+
 export {
     UserModel,
+    TimeTrackerModel,
     ApplicationModel,
     DynamicRouteModel,
     MenuItemModel,
@@ -44,4 +50,5 @@ export {
     PermissionModel,
     UserRoleModel
 };
-export default sequelize.models
+
+export default sequelize.models;

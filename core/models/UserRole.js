@@ -15,7 +15,7 @@ const UserRoleFields = {
     userId: {
         type: DataTypes.UUID,
         references: {
-            model: 'users',
+            model: 'core_users',
             key: 'id',
         },
         allowNull: false,
@@ -24,7 +24,7 @@ const UserRoleFields = {
     roleId: {
         type: DataTypes.INTEGER,
         references: {
-            model: 'roles',
+            model: 'core_roles',
             key: 'id',
         },
         allowNull: false,
