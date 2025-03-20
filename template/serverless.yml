@@ -1,0 +1,94 @@
+service: template-service
+frameworkVersion: '4'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  profile: esencia
+  timeout: 120
+  stage: dev
+  region: us-east-1
+  deploymentBucket:
+    name: esencia-backend-deployment
+    serverSideEncryption: AES256
+    blockPublicAccess: true
+
+  role: arn:aws:iam::${aws:accountId}:role/lambda-role-execution
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - secretsmanager:GetSecretValue
+        - ssm:GetParameters
+        - s3:PutObject
+        - cognito-idp:AdminInitiateAuth
+        - cognito-idp:InitiateAuth
+        - cognito-idp:RespondToAuthChallenge
+        - cognito-idp:GetUser
+        - cognito-idp:ListUsers
+      Resource: "*"
+
+  environment:
+    REGION: ${self:provider.region}
+    DB_HOST: ${env:DB_HOST}
+    DB_USERNAME: ${env:DB_USERNAME}
+    DB_PASSWORD: ${env:DB_PASSWORD}
+    DB_NAME: ${env:DB_NAME}
+    DB_PORT: ${env:DB_PORT}
+    COGNITO_USER_POOL_ID: ${env:COGNITO_USER_POOL_ID}
+    COGNITO_CLIENT_ID: ${env:COGNITO_CLIENT_ID}
+    COGNITO_CLIENT_SECRET: ${env:COGNITO_CLIENT_SECRET}
+    STAGE: ${self:provider.stage}
+
+  httpApi:
+    id: ${cf:core-service-${self:provider.stage}.HttpApiId}
+    authorizers:
+      EsenciaAuthorizer:
+        type: jwt
+        identitySource: $request.header.Authorization
+        issuerUrl: https://cognito-idp.${self:provider.region}.amazonaws.com/${env:COGNITO_USER_POOL_ID}
+        audience:
+          - ${env:COGNITO_CLIENT_ID}
+
+  layers:
+    - arn:aws:lambda:${self:provider.region}:${aws:accountId}:layer:BackendEsenciaLayer:3
+
+functions:
+  - ${file(./functions/users.yml):functions}
+
+custom:
+  serverless-offline:
+    host: 0.0.0.0
+    httpPort: 4000
+    useChildProcesses: true
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: linked
+    exclude:
+      - aws-sdk
+    target: 'node18'
+    platform: 'node'
+    format: 'cjs'
+    keepNames: true
+    define:
+      'process.env.NODE_ENV': '"production"'
+    tsconfig: './tsconfig.json'
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-scripts
+
+package:
+  patterns:
+    - "!layer.zip"
+    - "!layer/**"
+    - "!.git/**"
+    - "!.env"
+    - "!test/**"
+    - "!jest.config.js"
+    - "!bitbucket-pipelines.yml"
+    - "!node_modules/**"
+    - "!.serverless/**"
+    - "!README.md"
+    - "!initDB.js"
