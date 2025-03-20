@@ -31,7 +31,6 @@ const getTimeTracker = async (event) => {
 };
 
 const getTimeTrackerByUser = async (event) => {
-  console.log(event?.pathParameters, '😈😈😈😈');
   try {
     const user_id = event?.pathParameters?.id;
     if (!user_id) throw new ValidationError("Params idUser is required");
