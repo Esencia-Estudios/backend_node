@@ -3,7 +3,7 @@ functions:
     handler: handlers/timeTrackerHandlers.getTimeTrackers
     events:
       - httpApi:
-          path: /core/time-trackers
+          path: /core/time-tracker
           method: get
           authorizer:
             type: jwt
@@ -13,7 +13,7 @@ functions:
     handler: handlers/timeTrackerHandlers.getTimeTracker
     events:
       - httpApi:
-          path: /core/time-trackers/{id}
+          path: /core/time-tracker/{id}
           method: get
           authorizer:
             type: jwt
@@ -23,7 +23,7 @@ functions:
     handler: handlers/timeTrackerHandlers.createTimeTracker
     events:
       - httpApi:
-          path: /core/time-trackers
+          path: /core/time-tracker
           method: post
           authorizer:
             type: jwt
@@ -33,7 +33,7 @@ functions:
     handler: handlers/timeTrackerHandlers.updateTimeTracker
     events:
       - httpApi:
-          path: /core/time-trackers/{id}
+          path: /core/time-tracker/{id}
           method: put
           authorizer:
             type: jwt
@@ -43,7 +43,7 @@ functions:
     handler: handlers/timeTrackerHandlers.deactivateTimeTracker
     events:
       - httpApi:
-          path: /core/time-trackers/{id}
+          path: /core/time-tracker/{id}
           method: delete
           authorizer:
             type: jwt
