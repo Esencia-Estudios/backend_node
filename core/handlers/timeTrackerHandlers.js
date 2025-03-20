@@ -3,7 +3,8 @@ import {
     deactivateTimeTracker,
     getTimeTracker,
     getTimeTrackers,
-    updateTimeTracker
+    updateTimeTracker,
+    getTimeTrackerByUser,
 } from "../controllers/timeTrackerController.js";
 
 export {
@@ -11,5 +12,6 @@ export {
     deactivateTimeTracker,
     getTimeTracker,
     getTimeTrackers,
-    updateTimeTracker
+    updateTimeTracker,
+    getTimeTrackerByUser
 };

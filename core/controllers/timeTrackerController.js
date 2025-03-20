@@ -3,7 +3,8 @@ import {
   getTimeTrackerService,
   createTimeTrackerService,
   updateTimeTrackerService,
-  deactivateTimeTrackerService
+  deactivateTimeTrackerService,
+  getTimeTrackerServiceByUser
 } from "../services/timeTrackerService.js";
 import { ResponseHelper } from "../helpers/response.js";
 import { ValidationError } from "../helpers/errorHandler.js";
@@ -24,6 +25,19 @@ const getTimeTracker = async (event) => {
 
     const timeTracker = await getTimeTrackerService(id);
     return ResponseHelper.success(timeTracker);
+  } catch (error) {
+    return ResponseHelper.handleError(error);
+  }
+};
+
+const getTimeTrackerByUser = async (event) => {
+  console.log(event?.pathParameters, '😈😈😈😈');
+  try {
+    const user_id = event?.pathParameters?.id;
+    if (!user_id) throw new ValidationError("Params idUser is required");
+
+    const timeTrackerByUser = await getTimeTrackerServiceByUser(user_id);
+    return ResponseHelper.success(timeTrackerByUser);
   } catch (error) {
     return ResponseHelper.handleError(error);
   }
@@ -69,5 +83,6 @@ export {
   getTimeTracker,
   createTimeTracker,
   updateTimeTracker,
-  deactivateTimeTracker
+  deactivateTimeTracker,
+  getTimeTrackerByUser
 };

@@ -19,6 +19,16 @@ functions:
             type: jwt
             name: EsenciaAuthorizer
 
+  get-time-tracker-by-user:
+    handler: handlers/timeTrackerHandlers.getTimeTrackerByUser
+    events:
+      - httpApi:
+          path: /core/time-tracker/user/{id}
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
   create-time-tracker:
     handler: handlers/timeTrackerHandlers.createTimeTracker
     events:

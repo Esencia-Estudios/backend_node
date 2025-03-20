@@ -26,6 +26,20 @@ const getTimeTrackerService = async (id) => {
   }
 };
 
+const getTimeTrackerServiceByUser = async (user_id) => {
+  try {
+    const timeTrackerByUser = await Repository.getTimeTrackerByIdUser(user_id);
+
+    if (!timeTrackerByUser) {
+      throw new NotFoundError("Time Tracker By User not found");
+    }
+
+    return timeTrackerByUser;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const createTimeTrackerService = async (timeTrackerData) => {
   try {
     const createdTimeTracker = await Repository.createTimeTracker(timeTrackerData);
@@ -59,4 +73,5 @@ export {
   createTimeTrackerService,
   updateTimeTrackerService,
   deactivateTimeTrackerService,
+  getTimeTrackerServiceByUser,
 };

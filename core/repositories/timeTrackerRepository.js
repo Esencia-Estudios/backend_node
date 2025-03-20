@@ -27,6 +27,26 @@ class TimeTrackerRepository {
     }
 
     /**
+     * Obtiene un registro de seguimiento de tiempo por ID user
+     * @param {number} user_id - ID del usuario
+     * @returns {Promise<Object|null>}
+     */
+    async getTimeTrackerByIdUser(user_id) {
+        try {
+            const timeTrackerByUser = await this.model.findAll({
+                where: { user_id, active: true },
+                raw: true
+            });
+
+            if (!timeTrackerByUser) throw new ValidationError("Time Tracker by User not found or inactive");
+
+            return timeTrackerByUser;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    /**
      * Obtiene todos los registros de seguimiento de tiempo
      * @returns {Promise<Array>}
      */
