@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { validateUniqueUser } from '../validators/userValidators';
+import { validateUniqueUser } from '@/validators/userValidators';
 
 // Definimos una interfaz para el usuario
 interface User {

@@ -1,70 +1,10 @@
 functions:
   get-users:
-    handler: handlers/usersHandlers.getUsers
+    handler: handlers/userHandler.getUsers
     events:
       - httpApi:
           path: /core/users
           method: get
-          authorizer:
-            type: jwt
-            name: EsenciaAuthorizer
-
-  get-users-by-id:
-    handler: handlers/usersHandlers.getUserById
-    events:
-      - httpApi:
-          path: /core/users/{id}
-          method: get
-          authorizer:
-            type: jwt
-            name: EsenciaAuthorizer
-
-  create-user:
-    handler: handlers/usersHandlers.createUser
-    events:
-      - httpApi:
-          path: /core/users
-          method: post
-          authorizer:
-            type: jwt
-            name: EsenciaAuthorizer
-
-  update-user:
-    handler: handlers/usersHandlers.updateUser
-    events:
-      - httpApi:
-          path: /core/users/{id}
-          method: put
-          authorizer:
-            type: jwt
-            name: EsenciaAuthorizer
-
-  delete-user:
-    handler: handlers/usersHandlers.deleteUser
-    events:
-      - httpApi:
-          path: /core/users/{id}
-          method: delete
-          authorizer:
-            type: jwt
-            name: EsenciaAuthorizer
-
-  activate-user:
-    handler: handlers/usersHandlers.activateUser
-    events:
-      - httpApi:
-          path: /core/users/{id}/activate
-          method: post
-          authorizer:
-            type: jwt
-            name: EsenciaAuthorizer
-
-  deactivate-user:
-    handler: handlers/usersHandlers.deactivateUser
-    events:
-      - httpApi:
-          path: /core/users/{id}/deactivate
-          method: post
           authorizer:
             type: jwt
             name: EsenciaAuthorizer

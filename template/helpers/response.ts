@@ -47,7 +47,7 @@ class ResponseHelper {
         return this._createResponse(500, 'error', message, null, error);
     }
 
-    static handleError(error: { name: string; message: string }) {
+    static handleError(error: any) {
         switch (error.name) {
             case 'NotFoundError':
                 return this.notFound(error.message);

@@ -1,8 +1,9 @@
 service: template-service
+frameworkVersion: '4'
 
 provider:
   name: aws
-  runtime: nodejs20.x
+  runtime: nodejs18.x
   profile: esencia
   timeout: 120
   stage: dev
@@ -40,6 +41,7 @@ provider:
     STAGE: ${self:provider.stage}
 
   httpApi:
+    id: ${cf:core-service-${self:provider.stage}.HttpApiId}
     authorizers:
       EsenciaAuthorizer:
         type: jwt
@@ -52,21 +54,30 @@ provider:
     - arn:aws:lambda:${self:provider.region}:${aws:accountId}:layer:BackendEsenciaLayer:3
 
 functions:
-  getUsers:
-    handler: handlers/userHandler.getUsersHandler
-    events:
-      - http:
-          path: get-users
-          method: get
+  - ${file(./functions/users.yml):functions}
 
 custom:
   serverless-offline:
     host: 0.0.0.0
     httpPort: 4000
+    useChildProcesses: true
+  esbuild:
+    bundle: true
+    minify: false
+    sourcemap: linked
+    exclude:
+      - aws-sdk
+    target: 'node18'
+    platform: 'node'
+    format: 'cjs'
+    keepNames: true
+    define:
+      'process.env.NODE_ENV': '"production"'
+    tsconfig: './tsconfig.json'
 
 plugins:
   - serverless-offline
-  - serverless-dotenv-plugin
+  - serverless-plugin-scripts
 
 package:
   patterns:

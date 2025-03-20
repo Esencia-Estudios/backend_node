@@ -1,4 +1,5 @@
 class NotFoundError extends Error {
+    statusCode: number;
     constructor(message = 'Resource not found') {
         super(message);
         this.name = 'NotFoundError';
@@ -7,6 +8,7 @@ class NotFoundError extends Error {
 }
 
 class ValidationError extends Error {
+    statusCode: number;
     constructor(message = 'Invalid data') {
         super(message);
         this.name = 'ValidationError';

@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { UserRepository } from '../repositories/userRepository';
+import { UserRepository } from '@/repositories/userRepository';
 
 // Esquema de validación para la creación de usuario
 export const userSchema = Yup.object().shape({
