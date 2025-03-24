@@ -7,9 +7,11 @@ import { RoleFields, RoleModel } from "./RolesModel.js";
 import { PermissionFields, PermissionModel } from "./PermissionsModel.js";
 import { UserRoleFields, UserRoleModel } from "./UserRole.js";
 import { sequelize } from "../config/db.js";
+import { UserInfoFields, UserInfoModel } from "./UserInfoModel.js";
 
 const setupModels = () => {
     UserModel.init(UserFields, UserModel.config(sequelize));
+    UserInfoModel.init(UserInfoFields, UserInfoModel.config(sequelize));
     UserRoleModel.init(UserRoleFields, UserRoleModel.config(sequelize));
     ApplicationModel.init(ApplicationFields, ApplicationModel.config(sequelize));
     DynamicRouteModel.init(DynamicRouteFields, DynamicRouteModel.config(sequelize));
@@ -22,6 +24,10 @@ const setupModels = () => {
 setupModels()
 
 // Definir relaciones
+
+UserModel.hasOne(UserInfoModel, { foreignKey: "user_id", as: "userInfo", onDelete: "CASCADE" });
+UserInfoModel.belongsTo(UserModel, { foreignKey: "user_id", as: "user" });
+
 MenuItemModel.belongsTo(ApplicationModel, { foreignKey: "applicationId", as: "application" });
 MenuItemModel.belongsTo(DynamicRouteModel, { foreignKey: "routeId", as: "route" });
 MenuItemModel.belongsTo(MenuItemModel, { foreignKey: "parentId", as: "parent" });
@@ -32,7 +38,7 @@ UserModel.belongsToMany(RoleModel, { through: "core_user_roles", foreignKey: "us
 UserModel.hasMany(AccessLogModel, { foreignKey: "userId", as: "accessLogs" });
 
 RoleModel.belongsToMany(PermissionModel, { through: "role_permissions", foreignKey: "roleId" });
-PermissionModel.belongsToMany(RoleModel, { through: "role_permissions", foreignKey: "permissionId" });
+PermissionModel.belongsToMany(RoleModel, { through: "role_permissions", foreignKey: "permissionId" })
 
 export {
     UserModel,
@@ -42,6 +48,7 @@ export {
     AccessLogModel,
     RoleModel,
     PermissionModel,
-    UserRoleModel
+    UserRoleModel,
+    UserInfoModel,
 };
 export default sequelize.models
