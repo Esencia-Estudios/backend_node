@@ -1,0 +1,10 @@
+functions:
+  get-users:
+    handler: handlers/userHandler.getUsers
+    events:
+      - httpApi:
+          path: /core/users
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
