@@ -1,0 +1,60 @@
+functions:
+  get-time-trackers:
+    handler: handlers/timeTrackerHandlers.getTimeTrackers
+    events:
+      - httpApi:
+          path: /core/time-tracker
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  get-time-tracker-by-id:
+    handler: handlers/timeTrackerHandlers.getTimeTracker
+    events:
+      - httpApi:
+          path: /core/time-tracker/{id}
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  get-time-tracker-by-user:
+    handler: handlers/timeTrackerHandlers.getTimeTrackerByUser
+    events:
+      - httpApi:
+          path: /core/time-tracker/user/{id}
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  create-time-tracker:
+    handler: handlers/timeTrackerHandlers.createTimeTracker
+    events:
+      - httpApi:
+          path: /core/time-tracker
+          method: post
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  update-time-tracker:
+    handler: handlers/timeTrackerHandlers.updateTimeTracker
+    events:
+      - httpApi:
+          path: /core/time-tracker/{id}
+          method: put
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  deactivate-time-tracker:
+    handler: handlers/timeTrackerHandlers.deactivateTimeTracker
+    events:
+      - httpApi:
+          path: /core/time-tracker/{id}
+          method: delete
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
