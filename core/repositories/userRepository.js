@@ -1,4 +1,4 @@
-import { UserModel, RoleModel, PermissionModel } from '../models/index.js';
+import { UserModel, RoleModel, PermissionModel, UserInfoModel, UserWorkInfoModel } from '../models/index.js';
 import { createUserInCognito, updateUserInCognito, deleteUserInCognito, enableOrDisableUserInCognito } from '../helpers/aws.js';
 
 export const getUsers = async () => {
@@ -18,11 +18,20 @@ export const getUsers = async () => {
 
 export const getUserById = async (id) => {
     return await UserModel.findByPk(id, {
-        include: {
+        include: [{
             model: RoleModel,
             through: { attributes: [] },
             include: { model: PermissionModel, through: { attributes: [] } }
+        },
+        {
+            model: UserInfoModel,
+            as: 'userInfo'
+        },
+        {
+            model: UserWorkInfoModel,
+            as: 'userWorkInfo'
         }
+        ]
     });
 }
 
