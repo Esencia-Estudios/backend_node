@@ -29,9 +29,10 @@ setupModels();
 
 // Definir relaciones
 UserModel.hasOne(UserInfoModel, { foreignKey: "user_id", as: "userInfo", onDelete: "CASCADE" });
-UserInfoModel.belongsTo(UserModel, { foreignKey: "user_id", as: "user" });
-UserModel.hasOne(UserWorkInfoModel, { foreignKey: "user_id", as: "UserWorkInfo", onDelete: "CASCADE" });
-UserWorkInfoModel.belongsTo(UserModel, { foreignKey: "user_id", as: "user" });
+UserInfoModel.belongsTo(UserModel, { foreignKey: "user_id", as: "userInfo" });
+
+UserModel.hasOne(UserWorkInfoModel, { foreignKey: "user_id", as: "userWorkInfo", onDelete: "CASCADE" });
+UserWorkInfoModel.belongsTo(UserModel, { foreignKey: "user_id", as: "userWorkInfo" });
 
 MenuItemModel.belongsTo(ApplicationModel, { foreignKey: "applicationId", as: "application" });
 MenuItemModel.belongsTo(DynamicRouteModel, { foreignKey: "routeId", as: "route" });
