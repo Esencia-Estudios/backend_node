@@ -9,6 +9,17 @@ const UserFields = {
     allowNull: false,
     primaryKey: true,
   },
+  organization_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: 'core_organizations',
+      key: 'id',
+    },
+  },
+  role: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   user_code: {
     type: DataTypes.STRING,
     unique: true,

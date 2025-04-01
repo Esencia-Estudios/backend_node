@@ -10,6 +10,12 @@ import { UserRoleFields, UserRoleModel } from "./UserRole.js";
 import { sequelize } from "../config/db.js";
 import { UserInfoFields, UserInfoModel } from "./UserInfoModel.js";
 import { UserWorkInfoFields, UserWorkInfoModel } from "./UserIWorkModel.js";
+import { CustomModuleFields, CustomModuleModel } from "./CustomModuleModel.js";
+import { ModuleFields, ModuleModel } from "./ModuleModel.js";
+import { OrganizationModuleFields, OrganizationModuleModel } from "./OrganizationModuleModel.js";
+import { OrganizationModel, OrganizationFields } from "./OrganizationModel.js";
+import { PaymentFields, PaymentModel } from "./paymentModel.js";
+import { SubscriptionFields, SubscriptionModel } from "./subcriptionModel.js";
 
 const setupModels = () => {
     UserModel.init(UserFields, UserModel.config(sequelize));
@@ -23,31 +29,59 @@ const setupModels = () => {
     PermissionModel.init(PermissionFields, PermissionModel.config(sequelize));
     RoleModel.init(RoleFields, RoleModel.config(sequelize));
     TimeTrackerModel.init(TimeTrackerFields, TimeTrackerModel.config(sequelize));
+    CustomModuleModel.init(CustomModuleFields, CustomModuleModel.config(sequelize));
+    ModuleModel.init(ModuleFields, ModuleModel.config(sequelize));
+    OrganizationModuleModel.init(OrganizationModuleFields, OrganizationModuleModel.config(sequelize));
+    OrganizationModel.init(OrganizationFields, OrganizationModel.config(sequelize));
+    PaymentModel.init(PaymentFields, PaymentModel.config(sequelize));
+    SubscriptionModel.init(SubscriptionFields, SubscriptionModel.config(sequelize));
 };
 
 setupModels();
 
 // Definir relaciones
+// Relaciones de usuario con información adicional
 UserModel.hasOne(UserInfoModel, { foreignKey: "user_id", as: "userInfo", onDelete: "CASCADE" });
-UserInfoModel.belongsTo(UserModel, { foreignKey: "user_id", as: "userInfo" });
+UserInfoModel.belongsTo(UserModel, { foreignKey: "user_id", as: "user" });
 
 UserModel.hasOne(UserWorkInfoModel, { foreignKey: "user_id", as: "userWorkInfo", onDelete: "CASCADE" });
-UserWorkInfoModel.belongsTo(UserModel, { foreignKey: "user_id", as: "userWorkInfo" });
+UserWorkInfoModel.belongsTo(UserModel, { foreignKey: "user_id", as: "user" });
 
+// Relaciones de menú con aplicación y rutas dinámicas
 MenuItemModel.belongsTo(ApplicationModel, { foreignKey: "applicationId", as: "application" });
 MenuItemModel.belongsTo(DynamicRouteModel, { foreignKey: "routeId", as: "route" });
 MenuItemModel.belongsTo(MenuItemModel, { foreignKey: "parentId", as: "parent" });
 MenuItemModel.hasMany(MenuItemModel, { foreignKey: "parentId", as: "children" });
 
+// Registro de accesos de usuario
 AccessLogModel.belongsTo(UserModel, { foreignKey: "userId", as: "user" });
-UserModel.belongsToMany(RoleModel, { through: "core_user_roles", foreignKey: "userId", otherKey: "roleId" });
 UserModel.hasMany(AccessLogModel, { foreignKey: "userId", as: "accessLogs" });
 
+// Relaciones entre usuarios y roles
+UserModel.belongsToMany(RoleModel, { through: "core_user_roles", foreignKey: "userId", otherKey: "roleId" });
 RoleModel.belongsToMany(PermissionModel, { through: "role_permissions", foreignKey: "roleId" });
-PermissionModel.belongsToMany(RoleModel, { through: "role_permissions", foreignKey: "permissionId" })
+PermissionModel.belongsToMany(RoleModel, { through: "role_permissions", foreignKey: "permissionId" });
 
+// Seguimiento de tiempo
 TimeTrackerModel.belongsTo(UserModel, { foreignKey: "user_id", as: "user" });
 UserModel.hasMany(TimeTrackerModel, { foreignKey: "user_id", as: "timeTrackers" });
+
+// Relación de módulos personalizados con módulos y organizaciones
+CustomModuleModel.belongsTo(ModuleModel, { foreignKey: "module_id", as: "module" });
+ModuleModel.hasMany(CustomModuleModel, { foreignKey: "module_id", as: "customModules" });
+
+CustomModuleModel.belongsTo(OrganizationModel, { foreignKey: "organization_id", as: "organization" });
+
+// Relación de organizaciones con módulos
+OrganizationModuleModel.belongsTo(OrganizationModel, { foreignKey: "organization_id", as: "organization" });
+OrganizationModel.hasMany(OrganizationModuleModel, { foreignKey: "organization_id", as: "organizationModules" });
+
+OrganizationModuleModel.belongsTo(ModuleModel, { foreignKey: "module_id", as: "module" });
+ModuleModel.hasMany(OrganizationModuleModel, { foreignKey: "module_id", as: "moduleOrganizations" });
+
+// Relación de pagos con suscripciones
+PaymentModel.belongsTo(SubscriptionModel, { foreignKey: "subscription_id", as: "subscription" });
+SubscriptionModel.hasMany(PaymentModel, { foreignKey: "subscription_id", as: "payments" });
 
 export {
     UserModel,
@@ -61,6 +95,12 @@ export {
     PermissionModel,
     UserWorkInfoModel,
     DynamicRouteModel,
+    CustomModuleModel,
+    ModuleModel,
+    SubscriptionModel,
+    PaymentModel,
+    OrganizationModuleModel,
+    OrganizationModel,
 };
 
 export default sequelize.models;
