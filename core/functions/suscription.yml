@@ -1,0 +1,7 @@
+functions:
+  get-plans:
+    handler: handlers/subcriptionHandlers.getPlans
+    events:
+      - httpApi:
+          path: /core/subscription/plans
+          method: get
