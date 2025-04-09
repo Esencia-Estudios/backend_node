@@ -1,14 +1,14 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model } from "sequelize";
 
 class CustomModuleModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: 'CustomModule',
-      tableName: 'core_custom_modules',
+      modelName: "CustomModule",
+      tableName: "core_custom_modules",
       timestamps: true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      createdAt: "created_at",
+      updatedAt: "updated_at",
     };
   }
 }
@@ -22,8 +22,8 @@ const CustomModuleFields = {
   organization_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'core_organizations',
-      key: 'id',
+      model: "core_organizations",
+      key: "id",
     },
   },
   name: {

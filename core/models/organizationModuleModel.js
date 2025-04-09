@@ -1,14 +1,14 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model } from "sequelize";
 
 class OrganizationModuleModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: 'OrganizationModule',
-      tableName: 'core_organization_module',
+      modelName: "OrganizationModule",
+      tableName: "core_organization_module",
       timestamps: true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      createdAt: "created_at",
+      updatedAt: "updated_at",
     };
   }
 }
@@ -22,15 +22,15 @@ const OrganizationModuleFields = {
   organization_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'core_organizations',
-      key: 'id',
+      model: "core_organizations",
+      key: "id",
     },
   },
   module_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'core_modules',
-      key: 'id',
+      model: "core_modules",
+      key: "id",
     },
   },
   status: {
