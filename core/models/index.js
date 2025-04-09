@@ -18,7 +18,7 @@ import {
 } from "./OrganizationModuleModel.js";
 import { OrganizationModel, OrganizationFields } from "./OrganizationModel.js";
 import { PaymentFields, PaymentModel } from "./paymentModel.js";
-import { SubscriptionFields, SubscriptionModel } from "./subcriptionModel.js";
+import { SubscriptionFields, SubscriptionModel } from "./SubcriptionModel.js";
 import { PlanFields, PlanModel } from "./PlanModel.js";
 import { PlanFeatureFields, PlanFeatureModel } from "./PlanFeatureModel.js";
 
