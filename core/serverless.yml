@@ -80,6 +80,7 @@ provider:
 #        Name: HttpApiId-${self:provider.stage}
 
 functions:
+  - ${file(./functions/suscription.yml):functions}
   - ${file(./functions/users.yml):functions}
   - ${file(./functions/rolesPermissions.yml):functions}
   - ${file(./functions/applications.yml):functions}

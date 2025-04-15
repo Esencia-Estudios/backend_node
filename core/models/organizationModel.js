@@ -1,14 +1,14 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model } from "sequelize";
 
 class OrganizationModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: 'Organization',
-      tableName: 'core_organizations',
+      modelName: "Organization",
+      tableName: "core_organizations",
       timestamps: true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      createdAt: "created_at",
+      updatedAt: "updated_at",
     };
   }
 }
