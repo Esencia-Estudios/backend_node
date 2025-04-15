@@ -34,8 +34,9 @@ const CustomModuleFields = {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-  status: {
-    type: DataTypes.STRING,
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
     allowNull: false,
   },
   created_at: {

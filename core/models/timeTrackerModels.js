@@ -41,9 +41,10 @@ const TimeTrackerFields = {
         type: DataTypes.TEXT,
         allowNull: true,
     },
-    active: {
+    isActive: {
         type: DataTypes.BOOLEAN,
-        defaultValue: true
+        defaultValue: true,
+        allowNull: false,
     }
 };
 

@@ -66,10 +66,6 @@ const UserFields = {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
-  status: {
-    type: DataTypes.ENUM("active", "inactive"),
-    defaultValue: "active",
-  },
   message_checked_at: {
     type: DataTypes.DATE,
     allowNull: true,

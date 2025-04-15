@@ -11,11 +11,11 @@ class ApplicationRepository {
             return await this.model.findOne({
                 where: {
                     id,
-                    status: 'active'
+                    isActive: 1
                 },
                 raw: true
             });
-        }catch (e) {
+        } catch (e) {
             throw e;
         }
     }
@@ -23,7 +23,7 @@ class ApplicationRepository {
     async getApplications() {
         try {
             return await this.model.findAll({
-                where: { status: 'active' },
+                where: { isActive: 1 },
                 raw: true
             });
         } catch (error) {
@@ -37,7 +37,7 @@ class ApplicationRepository {
             const existing = await this.model.findOne({
                 where: {
                     name: applicationData?.name,
-                    status: 'active'
+                    isActive: 1
                 },
                 raw: true
             });
@@ -64,7 +64,7 @@ class ApplicationRepository {
         try {
             const application = await this.model.findByPk(id);
             if (!application) throw new ValidationError("Application not found");
-            application.status = 'inactive';
+            application.isActive = 0;
             return await application.save();
         } catch (error) {
             throw error;

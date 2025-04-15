@@ -26,6 +26,11 @@ const RoleFields = {
         type: DataTypes.STRING(255),
         allowNull: true,
     },
+    isActive: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false,
+    }
 };
 
 export { RoleModel, RoleFields };
