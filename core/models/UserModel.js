@@ -1,5 +1,5 @@
-import { DataTypes, Model } from 'sequelize';
-import bcrypt from 'bcryptjs';
+import { DataTypes, Model } from "sequelize";
+import bcrypt from "bcryptjs";
 
 const UserFields = {
   id: {
@@ -8,17 +8,6 @@ const UserFields = {
     unique: true,
     allowNull: false,
     primaryKey: true,
-  },
-  organization_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: 'core_organizations',
-      key: 'id',
-    },
-  },
-  role: {
-    type: DataTypes.STRING,
-    allowNull: false,
   },
   user_code: {
     type: DataTypes.STRING,
@@ -106,15 +95,14 @@ const UserFields = {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
   },
-
 };
 
 class UserModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: 'User',
-      tableName: 'core_users',
+      modelName: "User",
+      tableName: "core_users",
       timestamps: true,
       hooks: {
         beforeCreate: async (user) => {
@@ -123,11 +111,14 @@ class UserModel extends Model {
           }
         },
         beforeUpdate: async (user) => {
-          if (user.password && user.password !== user._previousDataValues.password) {
+          if (
+            user.password &&
+            user.password !== user._previousDataValues.password
+          ) {
             user.password = await bcrypt.hash(user.password, 10);
           }
         },
-      }
+      },
     };
   }
 
@@ -135,6 +126,5 @@ class UserModel extends Model {
     return bcrypt.compare(password, this.password);
   }
 }
-
 
 export { UserModel, UserFields };
