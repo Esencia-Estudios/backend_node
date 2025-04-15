@@ -65,6 +65,11 @@ const UserInfoFields = {
     defaultValue: DataTypes.NOW,
     onUpdate: DataTypes.NOW,
   },
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+    allowNull: false,
+  }
 };
 
 class UserInfoModel extends Model {

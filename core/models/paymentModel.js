@@ -30,8 +30,9 @@ const PaymentFields = {
     type: DataTypes.DECIMAL,
     allowNull: false,
   },
-  status: {
-    type: DataTypes.STRING,
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
     allowNull: false,
   },
   created_at: {

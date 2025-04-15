@@ -20,9 +20,9 @@ const ApplicationFields = {
         type: DataTypes.TEXT,
         allowNull: true,
     },
-    status: {
-        type: DataTypes.ENUM('active', 'inactive'),
-        defaultValue: 'active',
+    isActive: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
         allowNull: false,
     }
 };

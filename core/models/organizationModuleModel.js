@@ -33,10 +33,6 @@ const OrganizationModuleFields = {
       key: "id",
     },
   },
-  status: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   created_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
@@ -46,6 +42,11 @@ const OrganizationModuleFields = {
     defaultValue: DataTypes.NOW,
     onUpdate: DataTypes.NOW,
   },
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+    allowNull: false,
+  }
 };
 
 export { OrganizationModuleModel, OrganizationModuleFields };

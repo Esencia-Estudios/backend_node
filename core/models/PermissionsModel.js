@@ -40,6 +40,11 @@ const PermissionFields = {
         allowNull: false,
         defaultValue: 'checkbox',
     },
+    isActive: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false,
+    }
 };
 
 export { PermissionModel, PermissionFields };

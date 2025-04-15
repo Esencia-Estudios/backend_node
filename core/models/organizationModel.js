@@ -36,6 +36,11 @@ const OrganizationFields = {
     defaultValue: DataTypes.NOW,
     onUpdate: DataTypes.NOW,
   },
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+    allowNull: false,
+  }
 };
 
 export { OrganizationModel, OrganizationFields };

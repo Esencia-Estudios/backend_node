@@ -56,6 +56,11 @@ const UserWorkInfoFields = {
     defaultValue: DataTypes.NOW,
     onUpdate: DataTypes.NOW,
   },
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+    allowNull: false,
+  }
 };
 
 class UserWorkInfoModel extends Model {
