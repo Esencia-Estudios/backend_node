@@ -40,7 +40,7 @@ const OrganizationFields = {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
     allowNull: false,
-  }
+  },
 };
 
 export { OrganizationModel, OrganizationFields };

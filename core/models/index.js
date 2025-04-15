@@ -7,7 +7,6 @@ import { AccessLogFields, AccessLogModel } from "./AccessLogModel.js";
 import { RoleFields, RoleModel } from "./RolesModel.js";
 import { PermissionFields, PermissionModel } from "./PermissionsModel.js";
 import { UserRoleFields, UserRoleModel } from "./UserRole.js";
-import { sequelize } from "../config/db.js";
 import { UserInfoFields, UserInfoModel } from "./UserInfoModel.js";
 import { UserWorkInfoFields, UserWorkInfoModel } from "./UserIWorkModel.js";
 import { CustomModuleFields, CustomModuleModel } from "./CustomModuleModel.js";
@@ -21,6 +20,7 @@ import { PaymentFields, PaymentModel } from "./paymentModel.js";
 import { SubscriptionFields, SubscriptionModel } from "./SubcriptionModel.js";
 import { PlanFields, PlanModel } from "./PlanModel.js";
 import { PlanFeatureFields, PlanFeatureModel } from "./PlanFeatureModel.js";
+import { sequelize } from "../config/db.js";
 
 const setupModels = () => {
   UserModel.init(UserFields, UserModel.config(sequelize));
