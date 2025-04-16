@@ -1,0 +1,43 @@
+{
+  "name": "integrations-service",
+  "version": "1.0.0",
+  "description": "<!--\r title: 'Serverless Framework Node Express API on AWS'\r description: 'This template demonstrates how to develop and deploy a simple Node Express API running on AWS Lambda using the Serverless Framework.'\r layout: Doc\r framework: v4\r platform: AWS\r language: nodeJS\r priority: 1\r authorLink: 'https://github.com/serverless'\r authorName: 'Serverless, Inc.'\r authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'\r -->",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest",
+    "deploy:dev": "serverless deploy --stage dev",
+    "deploy:function:dev": "serverless deploy function --stage dev --function",
+    "offline": "serverless offline start --stage dev --noAuth --noTimeout --reloadHandler --verbose",
+    "dev": "env $(cat .env | xargs) nodemon --exec serverless offline --stage dev --noAuth --noTimeout --reloadHandler --verbose"
+  },
+  "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.749.0",
+    "aws-sdk": "^2.1692.0",
+    "bcryptjs": "^3.0.0",
+    "express": "^5.1.0",
+    "mysql2": "^3.13.0",
+    "pg-hstore": "^2.3.4",
+    "react": "^18.3.1",
+    "resend": "^4.3.0",
+    "sequelize": "^6.37.5",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.147",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.14.1",
+    "@types/react": "^18.3.20",
+    "@types/sequelize": "^4.28.20",
+    "dotenv": "^16.4.7",
+    "esbuild": "^0.25.2",
+    "nodemon": "^3.1.9",
+    "serverless-offline": "^12.0.4",
+    "serverless-plugin-scripts": "^1.0.2",
+    "serverless-plugin-typescript": "^2.1.5",
+    "typescript": "^5.8.3"
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
