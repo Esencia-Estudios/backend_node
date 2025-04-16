@@ -37,14 +37,13 @@ provider:
     COGNITO_USER_POOL_ID: ${env:COGNITO_USER_POOL_ID}
     COGNITO_CLIENT_ID: ${env:COGNITO_CLIENT_ID}
     COGNITO_CLIENT_SECRET: ${env:COGNITO_CLIENT_SECRET}
-    STAGE: ${self:provider.stage}
     SMTP_HOST: ${env:SMTP_HOST}
-    SMTP_PORT: ${env.SMTP_PORT}
-    SMTP_USER: ${env.SMTP_USER}
-    SMTP_PASS: ${env.SMTP_PASS}
+    SMTP_PORT: ${env:SMTP_PORT}
+    SMTP_USER: ${env:SMTP_USER}
+    SMTP_PASS: ${env:SMTP_PASS}
+    STAGE: ${self:provider.stage}
 
   httpApi:
-    # id: ${cf:core-service-${self:provider.stage}.HttpApiId}
     authorizers:
       EsenciaAuthorizer:
         type: jwt
@@ -56,8 +55,9 @@ provider:
   layers:
     - arn:aws:lambda:${self:provider.region}:${aws:accountId}:layer:BackendEsenciaLayer:3
 
+
 functions:
-  - ${file(./functions/sendEmail.yml):functions}
+  - ${file(./functions/email.yml):functions}
 
 custom:
   serverless-offline:
@@ -67,8 +67,10 @@ custom:
 
 plugins:
   - serverless-offline
+  - serverless-dotenv-plugin # Para cargar variables de entorno desde .env automáticamente
 
 package:
+  individually: true
   patterns:
     - "!layer.zip"
     - "!layer/**"
@@ -81,7 +83,6 @@ package:
     - "!.serverless/**"
     - "!README.md"
     - "!initDB.js"
-  individually: true
 
 build:
-  esbuild: true
+  esbuild: true # Usa esbuild si prefieres un empaquetado más rápido para TypeScript

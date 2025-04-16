@@ -1,5 +1,5 @@
-import { sendEmailController } from '@/controllers/emailSendController';
+import { sendEmailController } from "../controllers/emailController";
 
-export {
-    sendEmailController
-}
+export const sendEmailHandler = async (event: any) => {
+    return sendEmailController(event);
+};

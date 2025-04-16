@@ -1,6 +1,6 @@
 functions:
   sendEmail:
-    handler: handlers/emailHandler.sendEmailController
+    handler: handlers/emailHandler.sendEmailHandler
     events:
       - httpApi:
           path: integrations/send-email
