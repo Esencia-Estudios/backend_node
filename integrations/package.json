@@ -7,7 +7,7 @@
     "test": "jest",
     "deploy:dev": "serverless deploy --stage dev",
     "deploy:function:dev": "serverless deploy function --stage dev --function",
-    "offline": "serverless offline start --stage dev --noAuth --noTimeout --reloadHandler --verbose",
+    "offline": "serverless offline --stage dev --noAuth --noTimeout --verbose",
     "dev": "nodemon --exec \"serverless offline --stage dev --noAuth --noTimeout --verbose\" --ext \"ts,yml,json\""
   },
   "dependencies": {

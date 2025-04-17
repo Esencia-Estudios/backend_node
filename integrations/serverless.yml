@@ -45,13 +45,13 @@ provider:
 
   httpApi:
     id: ${cf:core-service-${self:provider.stage}.HttpApiId}
-    authorizers:
-      EsenciaAuthorizer:
-        type: jwt
-        identitySource: $request.header.Authorization
-        issuerUrl: https://cognito-idp.${self:provider.region}.amazonaws.com/${env:COGNITO_USER_POOL_ID}
-        audience:
-          - ${env:COGNITO_CLIENT_ID}
+    #authorizers:
+    #  EsenciaAuthorizer:
+    #    type: jwt
+    #    identitySource: $request.header.Authorization
+    #    issuerUrl: https://cognito-idp.${self:provider.region}.amazonaws.com/${env:COGNITO_USER_POOL_ID}
+    #    audience:
+    #      - ${env:COGNITO_CLIENT_ID}
 
   layers:
     - arn:aws:lambda:${self:provider.region}:${aws:accountId}:layer:typescript-modules:1

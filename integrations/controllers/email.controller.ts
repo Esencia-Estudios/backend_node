@@ -1,6 +1,6 @@
-import { sendEmail } from "../services/emailService";
+import { sendEmail } from "../services/email.service";
 import { ResponseHelper } from "../helpers/response";
-import { validateEmail } from "../validators/emailValidator";
+import { validateEmail } from "../validators/email.validator";
 
 export const sendEmailController = async (event: any) => {
     const { to, subject, html } = JSON.parse(event.body || "{}");
