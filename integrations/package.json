@@ -8,7 +8,7 @@
     "deploy:dev": "serverless deploy --stage dev",
     "deploy:function:dev": "serverless deploy function --stage dev --function",
     "offline": "serverless offline start --stage dev --noAuth --noTimeout --reloadHandler --verbose",
-    "dev": "env $(cat .env | xargs) nodemon --exec serverless offline --stage dev --noAuth --noTimeout --reloadHandler --verbose"
+    "dev": "nodemon --exec \"serverless offline --stage dev --noAuth --noTimeout --verbose\" --ext \"ts,yml,json\""
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.749.0",

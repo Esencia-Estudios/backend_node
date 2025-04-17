@@ -44,6 +44,7 @@ provider:
     STAGE: ${self:provider.stage}
 
   httpApi:
+    id: ${cf:core-service-${self:provider.stage}.HttpApiId}
     authorizers:
       EsenciaAuthorizer:
         type: jwt
@@ -53,7 +54,7 @@ provider:
           - ${env:COGNITO_CLIENT_ID}
 
   layers:
-    - arn:aws:lambda:${self:provider.region}:${aws:accountId}:layer:BackendEsenciaLayer:3
+    - arn:aws:lambda:${self:provider.region}:${aws:accountId}:layer:typescript-modules:1
 
 
 functions:
