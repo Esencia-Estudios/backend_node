@@ -1,16 +1,11 @@
-import { ValidationError } from '../helpers/errorHandler.js';
-import { AccessLogModel } from '../models/index.js';
+import models from "../models/index.js";
 
 export class AccessLogRepository {
-    constructor() {
-        this.model = AccessLogModel;
-    }
+  constructor() {
+    this.model = models?.AccessLogModel;
+  }
 
-    async getAccessLogs() {
-        try {
-            return await this.model.findAll();
-        } catch (error) {
-            throw error;
-        }
-    }
+  async getAccessLogs() {
+    return await this.model.findAll();
+  }
 }
