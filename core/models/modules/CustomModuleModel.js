@@ -1,11 +1,11 @@
 import { DataTypes, Model } from "sequelize";
 
-class OrganizationModuleModel extends Model {
+class CustomModuleModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: "OrganizationModule",
-      tableName: "core_organization_module",
+      modelName: "CustomModuleModel",
+      tableName: "core_custom_modules",
       timestamps: true,
       createdAt: "created_at",
       updatedAt: "updated_at",
@@ -13,7 +13,7 @@ class OrganizationModuleModel extends Model {
   }
 }
 
-const OrganizationModuleFields = {
+const CustomModuleFields = {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -26,12 +26,18 @@ const OrganizationModuleFields = {
       key: "id",
     },
   },
-  module_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: "core_modules",
-      key: "id",
-    },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+    allowNull: false,
   },
   created_at: {
     type: DataTypes.DATE,
@@ -42,11 +48,6 @@ const OrganizationModuleFields = {
     defaultValue: DataTypes.NOW,
     onUpdate: DataTypes.NOW,
   },
-  isActive: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true,
-    allowNull: false,
-  }
 };
 
-export { OrganizationModuleModel, OrganizationModuleFields };
+export { CustomModuleModel, CustomModuleFields };

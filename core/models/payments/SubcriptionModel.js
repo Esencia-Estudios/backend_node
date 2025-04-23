@@ -1,38 +1,42 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model } from "sequelize";
 
-class PaymentModel extends Model {
+class SubscriptionModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: 'Payment',
-      tableName: 'core_payments',
+      modelName: "SubscriptionModel",
+      tableName: "core_subscriptions",
       timestamps: true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      createdAt: "created_at",
+      updatedAt: "updated_at",
     };
   }
 }
 
-const PaymentFields = {
+const SubscriptionFields = {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
-  subscription_id: {
+  organization_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: 'core_subscriptions',
-      key: 'id',
+      model: "core_organizations",
+      key: "id",
     },
   },
-  amount: {
-    type: DataTypes.DECIMAL,
+  plan_type: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
   isActive: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
+    allowNull: false,
+  },
+  total_price: {
+    type: DataTypes.DECIMAL,
     allowNull: false,
   },
   created_at: {
@@ -46,4 +50,4 @@ const PaymentFields = {
   },
 };
 
-export { PaymentModel, PaymentFields };
+export { SubscriptionModel, SubscriptionFields };

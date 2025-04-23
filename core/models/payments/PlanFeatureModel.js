@@ -6,7 +6,7 @@ class PlanFeatureModel extends Model {
     return {
       sequelize,
       tableName: "core_plan_features",
-      modelName: "PlanFeature",
+      modelName: "PlanFeatureModel",
       timestamps: true,
       createdAt: "created_at",
       updatedAt: false,
