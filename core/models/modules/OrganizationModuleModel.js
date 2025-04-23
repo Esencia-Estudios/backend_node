@@ -1,11 +1,11 @@
 import { DataTypes, Model } from "sequelize";
 
-class SubscriptionModel extends Model {
+class OrganizationModuleModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: "Subscription",
-      tableName: "core_subscriptions",
+      modelName: "OrganizationModuleModel",
+      tableName: "core_organization_module",
       timestamps: true,
       createdAt: "created_at",
       updatedAt: "updated_at",
@@ -13,7 +13,7 @@ class SubscriptionModel extends Model {
   }
 }
 
-const SubscriptionFields = {
+const OrganizationModuleFields = {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -26,18 +26,12 @@ const SubscriptionFields = {
       key: "id",
     },
   },
-  plan_type: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  isActive: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true,
-    allowNull: false,
-  },
-  total_price: {
-    type: DataTypes.DECIMAL,
-    allowNull: false,
+  module_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: "core_modules",
+      key: "id",
+    },
   },
   created_at: {
     type: DataTypes.DATE,
@@ -48,6 +42,11 @@ const SubscriptionFields = {
     defaultValue: DataTypes.NOW,
     onUpdate: DataTypes.NOW,
   },
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+    allowNull: false,
+  },
 };
 
-export { SubscriptionModel, SubscriptionFields };
+export { OrganizationModuleModel, OrganizationModuleFields };

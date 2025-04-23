@@ -101,7 +101,7 @@ class UserModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: "User",
+      modelName: "UserModel",
       tableName: "core_users",
       timestamps: true,
       hooks: {

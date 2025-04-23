@@ -1,4 +1,4 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model } from "sequelize";
 
 const UserInfoFields = {
   id: {
@@ -11,8 +11,8 @@ const UserInfoFields = {
     allowNull: false,
     unique: true,
     references: {
-      model: 'core_users',
-      key: 'id',
+      model: "core_users",
+      key: "id",
     },
   },
   first_name: {
@@ -24,7 +24,7 @@ const UserInfoFields = {
     allowNull: false,
   },
   document_type: {
-    type: DataTypes.ENUM('DNI', 'PASSPORT', 'OTHER'),
+    type: DataTypes.ENUM("DNI", "PASSPORT", "OTHER"),
     allowNull: false,
   },
   document_number: {
@@ -37,7 +37,7 @@ const UserInfoFields = {
     allowNull: true,
   },
   gender: {
-    type: DataTypes.ENUM('MALE', 'FEMALE', 'OTHER'),
+    type: DataTypes.ENUM("MALE", "FEMALE", "OTHER"),
     allowNull: true,
   },
   address: {
@@ -69,18 +69,18 @@ const UserInfoFields = {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
     allowNull: false,
-  }
+  },
 };
 
 class UserInfoModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: 'UserInfo',
-      tableName: 'core_user_info',
+      modelName: "UserInfoModel",
+      tableName: "core_user_info",
       timestamps: true,
-      updatedAt: 'updated_at',
-      createdAt: 'created_at',
+      updatedAt: "updated_at",
+      createdAt: "created_at",
     };
   }
 }

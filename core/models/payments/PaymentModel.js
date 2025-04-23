@@ -1,11 +1,11 @@
 import { DataTypes, Model } from "sequelize";
 
-class CustomModuleModel extends Model {
+class PaymentModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: "CustomModule",
-      tableName: "core_custom_modules",
+      modelName: "PaymentModel",
+      tableName: "core_payments",
       timestamps: true,
       createdAt: "created_at",
       updatedAt: "updated_at",
@@ -13,26 +13,22 @@ class CustomModuleModel extends Model {
   }
 }
 
-const CustomModuleFields = {
+const PaymentFields = {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
-  organization_id: {
+  subscription_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: "core_organizations",
+      model: "core_subscriptions",
       key: "id",
     },
   },
-  name: {
-    type: DataTypes.STRING,
+  amount: {
+    type: DataTypes.DECIMAL,
     allowNull: false,
-  },
-  description: {
-    type: DataTypes.TEXT,
-    allowNull: true,
   },
   isActive: {
     type: DataTypes.BOOLEAN,
@@ -50,4 +46,4 @@ const CustomModuleFields = {
   },
 };
 
-export { CustomModuleModel, CustomModuleFields };
+export { PaymentModel, PaymentFields };

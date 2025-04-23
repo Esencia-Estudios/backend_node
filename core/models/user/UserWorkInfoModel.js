@@ -1,4 +1,4 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model } from "sequelize";
 
 const UserWorkInfoFields = {
   id: {
@@ -10,8 +10,8 @@ const UserWorkInfoFields = {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
-      model: 'core_users',
-      key: 'id',
+      model: "core_users",
+      key: "id",
     },
   },
   company_name: {
@@ -60,18 +60,18 @@ const UserWorkInfoFields = {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
     allowNull: false,
-  }
+  },
 };
 
 class UserWorkInfoModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: 'UserWorkInfo',
-      tableName: 'core_user_work_info',
+      modelName: "UserWorkInfoModel",
+      tableName: "core_user_work_info",
       timestamps: true,
-      updatedAt: 'updated_at',
-      createdAt: 'created_at',
+      updatedAt: "updated_at",
+      createdAt: "created_at",
     };
   }
 }

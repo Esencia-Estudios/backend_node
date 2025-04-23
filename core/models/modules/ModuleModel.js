@@ -1,14 +1,14 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes, Model } from "sequelize";
 
 class ModuleModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: 'Module',
-      tableName: 'core_modules',
+      modelName: "ModuleModel",
+      tableName: "core_modules",
       timestamps: true,
-      createdAt: 'created_at',
-      updatedAt: 'updated_at',
+      createdAt: "created_at",
+      updatedAt: "updated_at",
     };
   }
 }
@@ -44,7 +44,7 @@ const ModuleFields = {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
     allowNull: false,
-  }
+  },
 };
 
 export { ModuleModel, ModuleFields };

@@ -4,7 +4,7 @@ class OrganizationModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: "Organization",
+      modelName: "OrganizationModel",
       tableName: "core_organizations",
       timestamps: true,
       createdAt: "created_at",
