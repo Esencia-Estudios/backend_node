@@ -1,9 +1,10 @@
 import { PlanRepository } from "../repositories/planRepository.js";
+import { NotFoundError } from "../helpers/errorHandler.js";
 
 export const getPlanService = async () => {
-  try {
-    return await PlanRepository.getPlans();
-  } catch (error) {
-    throw error;
+  const plans = await PlanRepository.getPlans();
+  if (plans.length === 0) {
+    throw new NotFoundError("No plans found");
   }
+  return plans;
 };

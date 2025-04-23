@@ -23,7 +23,6 @@ const setupModels = () => {
 
 setupModels();
 
-console.log("sequelize.models ------ ", sequelize.models);
 import setupAssociations from "./setupAssociations.js";
 setupAssociations();
 
