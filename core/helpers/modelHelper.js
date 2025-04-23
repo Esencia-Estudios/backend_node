@@ -12,7 +12,6 @@ export const initializeModelGroup = (modelGroup, sequelize) => {
 
       try {
         value.init(fields, value.config(sequelize));
-        console.log(`Modelo ${key} inicializado correctamente`);
       } catch (error) {
         console.error(`Error inicializando ${key}:`, error);
       }
