@@ -19,7 +19,7 @@ const RequirementFields = {
     autoIncrement: true,
     primaryKey: true,
   },
-  full_name: {
+  fullName: {
     type: DataTypes.STRING(100),
     allowNull: false,
   },
@@ -34,31 +34,36 @@ const RequirementFields = {
       isEmail: true,
     },
   },
-  phone_number: {
+  phoneNumber: {
     type: DataTypes.STRING(20),
     allowNull: false,
   },
-  requirement_details: {
+  requirementDetails: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  estimated_budget: {
+  estimatedBudget: {
     type: DataTypes.STRING(50),
     allowNull: true,
   },
-  project_schedule: {
+  projectSchedule: {
     type: DataTypes.STRING(50),
     allowNull: true,
   },
-  file_path: {
+  filePath: {
     type: DataTypes.STRING(255),
     allowNull: true,
+  },
+  stateRequirement: {
+    type: DataTypes.INTEGER,
+    defaultValue: 1,
+    allowNull: false,
   },
   isActive: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
     allowNull: false,
-  },
+  }
 };
 
 export { RequirementModel, RequirementFields };
