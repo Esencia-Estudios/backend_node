@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "skipLibCheck": true,             // Omite chequeos en librerías para velocidad
+    "target": "ES2020",               // Soporte para JavaScript moderno
+    "module": "CommonJS",             // Sistema de módulos compatible con Node.js
+    "strict": true,                   // Activa reglas estrictas de TypeScript
+    "esModuleInterop": true,          // Facilita la interoperabilidad con módulos ES6
+    "outDir": "./dist",               // Carpeta donde se generarán los archivos compilados
+    "rootDir": "./",                  // Carpeta raíz del proyecto (sin src)
+    "sourceMap": true,                // Genera mapas fuente para depuración
+    "baseUrl": "./",                  // Base de rutas para las importaciones relativas
+    "paths": {
+      "@/*": ["./*"]                  // Alias para simplificar rutas relativas
+    }
+  },
+  "include": ["handlers/**/*", "controllers/**/*", "services/**/*"], // Incluye tus carpetas fuente
+  "exclude": ["node_modules", "dist"]                                // Excluye dependencias y compilaciones
+}

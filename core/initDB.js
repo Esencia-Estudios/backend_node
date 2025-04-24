@@ -1,8 +1,9 @@
-import { instance as db } from './config/db.js';
-import mysql from 'mysql2';
-import dotenv from 'dotenv';
-import models from './models/index.js';
+import { instance as db } from "./config/db.js";
+import mysql from "mysql2";
+import dotenv from "dotenv";
+import models from "./models/index.js";
 
+console.log("models", models);
 dotenv.config();
 
 const connection = mysql.createConnection({
@@ -13,13 +14,16 @@ const connection = mysql.createConnection({
 
 const createDatabaseIfNotExists = () => {
   return new Promise((resolve, reject) => {
-    connection.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`, (err) => {
-      if (err) {
-        reject('Error creating database:', err);
-      } else {
-        resolve('Database created or already exists.');
+    connection.query(
+      `CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME}`,
+      (err) => {
+        if (err) {
+          reject("Error creating database:", err);
+        } else {
+          resolve("Database created or already exists.");
+        }
       }
-    });
+    );
   });
 };
 
@@ -29,9 +33,9 @@ const syncDatabase = async () => {
 
     await db.getSequelizeInstance().sync({ alter: false });
 
-    console.log('Database tables have been created or updated.');
+    console.log("Database tables have been created or updated.");
   } catch (error) {
-    console.error('Error syncing database:', error);
+    console.error("Error syncing database:", error);
     throw error;
   }
 };
@@ -42,10 +46,10 @@ const initialize = async () => {
     connection.end();
 
     await syncDatabase();
-    console.log('Database initialization complete.');
+    console.log("Database initialization complete.");
     process.exit(0);
   } catch (error) {
-    console.error('Database initialization failed:', error);
+    console.error("Database initialization failed:", error);
     process.exit(1);
   }
 };

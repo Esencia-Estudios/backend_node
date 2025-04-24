@@ -1,5 +1,5 @@
-import Sequelize from 'sequelize';
-import dotenv from 'dotenv';
+import Sequelize from "sequelize";
+import dotenv from "dotenv";
 dotenv.config();
 
 class Database {
@@ -8,26 +8,27 @@ class Database {
       this._sequelize = new Sequelize(
         process.env.DB_NAME,
         process.env.DB_USERNAME,
-        process.env.DB_PASSWORD, 
+        process.env.DB_PASSWORD,
         {
           host: process.env.DB_HOST,
-          dialect: 'mysql',
+          dialect: "mysql",
           logging: false,
           pool: {
             max: 10,
             min: 0,
             acquire: 30000,
-            idle: 10000
+            idle: 10000,
           },
           dialectOptions: {
-            connectTimeout: 60000
-          }
+            connectTimeout: 60000,
+          },
         }
       );
 
       Database.instance = this;
     }
 
+    // biome-ignore lint/correctness/noConstructorReturn: <explanation>
     return Database.instance;
   }
 
@@ -38,9 +39,9 @@ class Database {
   async authenticate() {
     try {
       await this._sequelize.authenticate();
-      console.log('Database connection has been established successfully.');
+      console.log("Database connection has been established successfully.");
     } catch (error) {
-      console.error('Unable to connect to the database:', error);
+      console.error("Unable to connect to the database:", error);
       throw error;
     }
   }
