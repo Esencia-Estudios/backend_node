@@ -8,6 +8,7 @@ import * as moduleModels from "./modules/index.js";
 import * as orgModels from "./organization/index.js";
 import * as paymentModels from "./payments/index.js";
 import * as timeModels from "./time/index.js";
+import * as requirementModel from "./request/index.js";
 
 const setupModels = () => {
   initializeModelGroup(userModels, sequelize);
@@ -17,6 +18,7 @@ const setupModels = () => {
   initializeModelGroup(orgModels, sequelize);
   initializeModelGroup(paymentModels, sequelize);
   initializeModelGroup(timeModels, sequelize);
+  initializeModelGroup(requirementModel, sequelize);
 };
 
 setupModels();
