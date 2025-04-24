@@ -1,9 +1,9 @@
 import { ValidationError } from "../helpers/errorHandler.js";
-import { TimeTrackerModel } from "../models/index.js";
+import models from "../models/index.js";
 
 class TimeTrackerRepository {
   constructor() {
-    this.model = TimeTrackerModel;
+    this.model = models?.TimeTrackerModel;
   }
 
   /**
@@ -12,19 +12,15 @@ class TimeTrackerRepository {
    * @returns {Promise<Object|null>}
    */
   async getTimeTrackerById(id) {
-    try {
-      const timeTracker = await this.model.findOne({
-        where: { id, isActive: true },
-        raw: true,
-      });
+    const timeTracker = await this.model.findOne({
+      where: { id, isActive: true },
+      raw: true,
+    });
 
-      if (!timeTracker)
-        throw new ValidationError("Time Tracker not found or inactive");
+    if (!timeTracker)
+      throw new ValidationError("Time Tracker not found or inactive");
 
-      return timeTracker;
-    } catch (error) {
-      throw error;
-    }
+    return timeTracker;
   }
 
   /**
@@ -33,19 +29,15 @@ class TimeTrackerRepository {
    * @returns {Promise<Object|null>}
    */
   async getTimeTrackerByIdUser(user_id) {
-    try {
-      const timeTrackerByUser = await this.model.findAll({
-        where: { user_id, isActive: true },
-        raw: true,
-      });
+    const timeTrackerByUser = await this.model.findAll({
+      where: { user_id, isActive: true },
+      raw: true,
+    });
 
-      if (!timeTrackerByUser)
-        throw new ValidationError("Time Tracker by User not found or inactive");
+    if (!timeTrackerByUser)
+      throw new ValidationError("Time Tracker by User not found or inactive");
 
-      return timeTrackerByUser;
-    } catch (error) {
-      throw error;
-    }
+    return timeTrackerByUser;
   }
 
   /**
@@ -53,14 +45,10 @@ class TimeTrackerRepository {
    * @returns {Promise<Array>}
    */
   async getTimeTrackers() {
-    try {
-      return await this.model.findAll({
-        where: { isActive: true },
-        raw: true,
-      });
-    } catch (error) {
-      throw error;
-    }
+    return await this.model.findAll({
+      where: { isActive: true },
+      raw: true,
+    });
   }
 
   /**
@@ -69,11 +57,7 @@ class TimeTrackerRepository {
    * @returns {Promise<Object>}
    */
   async createTimeTracker(timeTrackerData) {
-    try {
-      return await this.model.create(timeTrackerData);
-    } catch (error) {
-      throw error;
-    }
+    return await this.model.create(timeTrackerData);
   }
 
   /**
@@ -83,14 +67,10 @@ class TimeTrackerRepository {
    * @returns {Promise<Object|null>}
    */
   async updateTimeTracker(id, timeTrackerData) {
-    try {
-      const timeTracker = await this.model.findByPk(id);
-      if (!timeTracker) throw new ValidationError("Time Tracker not found");
+    const timeTracker = await this.model.findByPk(id);
+    if (!timeTracker) throw new ValidationError("Time Tracker not found");
 
-      return await timeTracker.update(timeTrackerData);
-    } catch (error) {
-      throw error;
-    }
+    return await timeTracker.update(timeTrackerData);
   }
 
   /**
@@ -99,14 +79,10 @@ class TimeTrackerRepository {
    * @returns {Promise<Object|null>}
    */
   async deactivateTimeTracker(id) {
-    try {
-      const timeTracker = await this.model.findByPk(id);
-      if (!timeTracker) throw new ValidationError("Time Tracker not found");
+    const timeTracker = await this.model.findByPk(id);
+    if (!timeTracker) throw new ValidationError("Time Tracker not found");
 
-      return await timeTracker.update({ isActive: false });
-    } catch (error) {
-      throw error;
-    }
+    return await timeTracker.update({ isActive: false });
   }
 }
 

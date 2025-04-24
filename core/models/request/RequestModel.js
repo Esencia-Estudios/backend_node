@@ -5,7 +5,7 @@ class RequirementModel extends Model {
     return {
       sequelize,
       tableName: "core_requirements",
-      modelName: "Requirement",
+      modelName: "RequirementModel",
       timestamps: true,
       createdAt: "created_at",
       updatedAt: "updated_at",
@@ -63,7 +63,7 @@ const RequirementFields = {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
     allowNull: false,
-  }
+  },
 };
 
 export { RequirementModel, RequirementFields };
