@@ -1,4 +1,3 @@
-// models/PlanModel.js
 import { DataTypes, Model } from "sequelize";
 
 class PlanModel extends Model {

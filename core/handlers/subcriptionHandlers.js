@@ -1,3 +1,3 @@
-import { getPlans } from "../controllers/suscriptionController.js";
+import { getPlans, getModules } from "../controllers/suscriptionController.js";
 
-export { getPlans };
+export { getPlans, getModules };

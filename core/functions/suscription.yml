@@ -5,3 +5,9 @@ functions:
       - httpApi:
           path: /core/subscription/plans
           method: get
+  get-modules:
+    handler: handlers/subcriptionHandlers.getModules
+    events:
+      - httpApi:
+          path: /core/subscription/modules
+          method: get
