@@ -6,7 +6,6 @@ import {
     deleteRequirement,
     findByCompany,
     findByEmail,
-    getActiveRequirements,
 } from "../controllers/requestController.js";
 
 export {
@@ -17,5 +16,4 @@ export {
     deleteRequirement,
     findByCompany,
     findByEmail,
-    getActiveRequirements,
 };

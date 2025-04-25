@@ -70,12 +70,3 @@ export const findByEmail = async (event) => {
         return ResponseHelper.handleError(error);
     }
 };
-
-export const getActiveRequirements = async (event) => {
-    try {
-        const requirements = await requirementService.getActiveRequirements();
-        return ResponseHelper.success(requirements);
-    } catch (error) {
-        return ResponseHelper.handleError(error);
-    }
-};
