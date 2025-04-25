@@ -5,6 +5,6 @@ functions:
       - httpApi:
           path: /integrations/send-email
           method: post
-          authorizer:
-            type: jwt
-            id: osl69b
+          # authorizer:
+          #   type: jwt
+          #   id: osl69b

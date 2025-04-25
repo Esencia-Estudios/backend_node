@@ -1,0 +1,1 @@
+export const URL_SEND_EMAIL = "https://5hf5m5ttnk.execute-api.us-east-1.amazonaws.com/integrations/send-email";

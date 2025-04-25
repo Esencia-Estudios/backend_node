@@ -89,6 +89,7 @@ functions:
   - ${file(./functions/menuItems.yml):functions}
   - ${file(./functions/accessLogs.yml):functions}
   - ${file(./functions/timeTrackers.yml):functions}
+  - ${file(./functions/request.yml):functions}
 
 custom:
   serverless-offline:

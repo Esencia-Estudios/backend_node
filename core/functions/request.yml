@@ -1,0 +1,56 @@
+functions:
+  get-requests:
+    handler: handlers/requestHandlers.getRequirements
+    events:
+      - httpApi:
+          path: /core/requests
+          method: get
+
+  get-requirement-by-id:
+    handler: handlers/requestHandlers.getRequirementById
+    events:
+      - httpApi:
+          path: /core/requests/{id}
+          method: get
+
+  create-requirement:
+    handler: handlers/requestHandlers.createRequirement
+    events:
+      - httpApi:
+          path: /core/requests
+          method: post
+
+  update-requirement:
+    handler: handlers/requestHandlers.updateRequirement
+    events:
+      - httpApi:
+          path: /core/requests/{id}
+          method: put
+
+  delete-requirement:
+    handler: handlers/requestHandlers.deleteRequirement
+    events:
+      - httpApi:
+          path: /core/requests/{id}
+          method: delete
+
+  find-requirement-by-company:
+    handler: handlers/requestHandlers.findByCompany
+    events:
+      - httpApi:
+          path: /core/requests/company/{company}
+          method: get
+
+  find-requirement-by-email:
+    handler: handlers/requestHandlers.findByEmail
+    events:
+      - httpApi:
+          path: /core/requests/email/{email}
+          method: get
+
+  get-active-requests:
+    handler: handlers/requestHandlers.getActiveRequirements
+    events:
+      - httpApi:
+          path: /core/requests/active
+          method: get
