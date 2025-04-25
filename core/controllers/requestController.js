@@ -1,7 +1,6 @@
 import * as requirementService from "../services/requestService.js";
 import { ResponseHelper } from "../helpers/response.js";
 
-// Obtener todos los requerimientos
 export const getRequirements = async (event) => {
     try {
         const requirements = await requirementService.getRequirements();
@@ -11,7 +10,6 @@ export const getRequirements = async (event) => {
     }
 };
 
-// Obtener requerimiento por ID
 export const getRequirementById = async (event) => {
     try {
         const { id } = event.pathParameters;
@@ -22,7 +20,6 @@ export const getRequirementById = async (event) => {
     }
 };
 
-// Crear nuevo requerimiento
 export const createRequirement = async (event) => {
     try {
         const requirementData = JSON.parse(event.body);
@@ -33,7 +30,6 @@ export const createRequirement = async (event) => {
     }
 };
 
-// Actualizar requerimiento
 export const updateRequirement = async (event) => {
     try {
         const { id } = event.pathParameters;
@@ -45,7 +41,6 @@ export const updateRequirement = async (event) => {
     }
 };
 
-// Eliminar requerimiento
 export const deleteRequirement = async (event) => {
     try {
         const { id } = event.pathParameters;
@@ -56,7 +51,6 @@ export const deleteRequirement = async (event) => {
     }
 };
 
-// Buscar requerimientos por empresa
 export const findByCompany = async (event) => {
     try {
         const { company } = event.pathParameters;
@@ -67,7 +61,6 @@ export const findByCompany = async (event) => {
     }
 };
 
-// Buscar requerimiento por correo
 export const findByEmail = async (event) => {
     try {
         const { email } = event.pathParameters;
@@ -78,7 +71,6 @@ export const findByEmail = async (event) => {
     }
 };
 
-// Obtener solo requerimientos activos
 export const getActiveRequirements = async (event) => {
     try {
         const requirements = await requirementService.getActiveRequirements();

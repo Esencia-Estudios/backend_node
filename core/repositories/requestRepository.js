@@ -9,20 +9,17 @@ export const getRequirements = async () => {
     });
 };
 
-// Obtener un requerimiento por ID
 export const getRequirementById = async (id) => {
     return await RequirementModel.findByPk(id, {
         where: { isActive: true },
     });
 };
 
-// Crear un requerimiento
 export const createRequirement = async (requirementData) => {
     const newRequirement = await RequirementModel.create(requirementData);
     return await getRequirementById(newRequirement.id);
 };
 
-// Actualizar un requerimiento por ID
 export const updateRequirement = async (id, requirementData) => {
     const requirement = await RequirementModel.findByPk(id, {
         where: { isActive: true },
@@ -33,7 +30,6 @@ export const updateRequirement = async (id, requirementData) => {
     return await getRequirementById(id);
 };
 
-// Cambiar el estado de un requerimiento (activo/inactivo)
 export const deleteRequirement = async (id) => {
     const requirement = await RequirementModel.findByPk(id, {
         where: { isActive: true },
@@ -46,14 +42,12 @@ export const deleteRequirement = async (id) => {
     return requirement;
 };
 
-// Buscar requerimientos por nombre de empresa
 export const findByCompany = async (company) => {
     return await RequirementModel.findAll({
         where: { company, isActive: true },
     });
 };
 
-// Buscar requerimiento por correo electrónico
 export const findByEmail = async (email) => {
     return await RequirementModel.findOne({
         where: { email, isActive: true },
