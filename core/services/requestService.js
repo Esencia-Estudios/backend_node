@@ -2,11 +2,10 @@ import { sendEmail } from "../helpers/mailer.js";
 import { newRequirementTemplate } from "../helpers/templateRequest.js";
 import * as requirementRepository from "../repositories/requestRepository.js";
 
-// Crear un nuevo requerimiento
 export const createRequirement = async (requirementData) => {
     const newRequirement = await requirementRepository.createRequirement(requirementData);;
     if (newRequirement) {
-        sendEmail("soporteesenciaestudio@gmail.com",
+        await sendEmail("soporteesenciaestudio@gmail.com",
             "Nueva solicitud",
             newRequirementTemplate({
                 companyName: newRequirement.company,
