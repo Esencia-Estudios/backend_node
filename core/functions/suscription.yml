@@ -1,13 +1,49 @@
 functions:
   get-plans:
-    handler: handlers/subcriptionHandlers.getPlans
+    handler: handlers/subscriptionHandlers.getPlans
     events:
       - httpApi:
           path: /core/subscription/plans
           method: get
+
   get-modules:
-    handler: handlers/subcriptionHandlers.getModules
+    handler: handlers/subscriptionHandlers.getModules
     events:
       - httpApi:
           path: /core/subscription/modules
           method: get
+
+  get-subscriptions:
+    handler: handlers/subscriptionHandlers.getSubscriptions
+    events:
+      - httpApi:
+          path: /core/subscriptions
+          method: get
+
+  get-subscription-by-id:
+    handler: handlers/subscriptionHandlers.getSubscriptionById
+    events:
+      - httpApi:
+          path: /core/subscription/{id}
+          method: get
+
+  create-subscription:
+    handler: handlers/subscriptionHandlers.createSubscription
+    events:
+      - httpApi:
+          path: /core/subscription
+          method: post
+
+  update-subscription:
+    handler: handlers/subscriptionHandlers.updateSubscription
+    events:
+      - httpApi:
+          path: /core/subscription/{id}
+          method: put
+
+  delete-subscription:
+    handler: handlers/subscriptionHandlers.deleteSubscription
+    events:
+      - httpApi:
+          path: /core/subscription/{id}
+          method: delete
