@@ -1,0 +1,35 @@
+functions:
+  get-organizations:
+    handler: handlers/organizationHandler.getOrganizations
+    events:
+      - httpApi:
+          path: /core/organizations
+          method: get
+
+  get-organization-by-id:
+    handler: handlers/organizationHandler.getOrganizationById
+    events:
+      - httpApi:
+          path: /core/organization/{id}
+          method: get
+
+  create-organization:
+    handler: handlers/organizationHandler.createOrganization
+    events:
+      - httpApi:
+          path: /core/organization
+          method: post
+
+  update-organization:
+    handler: handlers/organizationHandler.updateOrganization
+    events:
+      - httpApi:
+          path: /core/organization/{id}
+          method: put
+
+  delete-organization:
+    handler: handlers/organizationHandler.deleteOrganization
+    events:
+      - httpApi:
+          path: /core/organization/{id}
+          method: delete
