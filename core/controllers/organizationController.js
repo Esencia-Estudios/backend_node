@@ -5,13 +5,17 @@ import {
     updateOrganizationService,
     deleteOrganizationService,
 } from "../services/organizationService.js";
-
+import { authMiddleware } from "../middleware/validateBasicAuth.js";
 import { ResponseHelper } from "../helpers/response.js";
 
 /**
  * Obtener todas las organizaciones
  */
 export const getOrganizations = async (event) => {
+
+    const authError = authMiddleware(event);
+    if (authError) return authError;
+
     try {
         const organizations = await getAllOrganizationsService();
         return ResponseHelper.success(organizations);
@@ -24,6 +28,10 @@ export const getOrganizations = async (event) => {
  * Obtener organización por ID
  */
 export const getOrganizationById = async (event) => {
+
+    const authError = authMiddleware(event);
+    if (authError) return authError;
+
     try {
         const { id } = event.pathParameters;
         const organization = await getOrganizationByIdService(id);
@@ -37,6 +45,10 @@ export const getOrganizationById = async (event) => {
  * Crear nueva organización
  */
 export const createOrganization = async (event) => {
+
+    const authError = authMiddleware(event);
+    if (authError) return authError;
+
     try {
         const data = JSON.parse(event.body);
         const newOrganization = await createOrganizationService(data);
@@ -50,6 +62,10 @@ export const createOrganization = async (event) => {
  * Actualizar organización
  */
 export const updateOrganization = async (event) => {
+
+    const authError = authMiddleware(event);
+    if (authError) return authError;
+
     try {
         const { id } = event.pathParameters;
         const data = JSON.parse(event.body);
@@ -64,6 +80,10 @@ export const updateOrganization = async (event) => {
  * Eliminar (desactivar) organización
  */
 export const deleteOrganization = async (event) => {
+
+    const authError = authMiddleware(event);
+    if (authError) return authError;
+
     try {
         const { id } = event.pathParameters;
         const result = await deleteOrganizationService(id);
