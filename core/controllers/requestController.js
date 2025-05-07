@@ -2,6 +2,10 @@ import * as requirementService from "../services/requestService.js";
 import { ResponseHelper } from "../helpers/response.js";
 
 export const getRequirements = async (event) => {
+
+    const authError = authMiddleware(event);
+    if (authError) return authError;
+
     try {
         const requirements = await requirementService.getRequirements();
         return ResponseHelper.success(requirements);
@@ -11,6 +15,10 @@ export const getRequirements = async (event) => {
 };
 
 export const getRequirementById = async (event) => {
+
+    const authError = authMiddleware(event);
+    if (authError) return authError;
+
     try {
         const { id } = event.pathParameters;
         const requirement = await requirementService.getRequirementById(id);
@@ -21,6 +29,10 @@ export const getRequirementById = async (event) => {
 };
 
 export const createRequirement = async (event) => {
+
+    const authError = authMiddleware(event);
+    if (authError) return authError;
+
     try {
         const requirementData = JSON.parse(event.body);
         const newRequirement = await requirementService.createRequirement(requirementData);
@@ -31,6 +43,10 @@ export const createRequirement = async (event) => {
 };
 
 export const updateRequirement = async (event) => {
+
+    const authError = authMiddleware(event);
+    if (authError) return authError;
+
     try {
         const { id } = event.pathParameters;
         const requirementData = JSON.parse(event.body);
@@ -42,6 +58,10 @@ export const updateRequirement = async (event) => {
 };
 
 export const deleteRequirement = async (event) => {
+
+    const authError = authMiddleware(event);
+    if (authError) return authError;
+
     try {
         const { id } = event.pathParameters;
         const deletedRequirement = await requirementService.deleteRequirement(id);
@@ -52,6 +72,10 @@ export const deleteRequirement = async (event) => {
 };
 
 export const findByCompany = async (event) => {
+
+    const authError = authMiddleware(event);
+    if (authError) return authError;
+
     try {
         const { company } = event.pathParameters;
         const requirements = await requirementService.findByCompany(company);
@@ -62,6 +86,10 @@ export const findByCompany = async (event) => {
 };
 
 export const findByEmail = async (event) => {
+
+    const authError = authMiddleware(event);
+    if (authError) return authError;
+
     try {
         const { email } = event.pathParameters;
         const requirement = await requirementService.findByEmail(email);

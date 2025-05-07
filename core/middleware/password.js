@@ -1,6 +1,15 @@
-import crypto from "crypto";
+import CryptoJS from "crypto-js";
 
-const password = "MiPasswordSuperSecreta";
-const hash = crypto.createHash("sha256").update(password).digest("hex");
+// Función para encriptar el valor (por ejemplo, la contraseña) con una clave secreta
+function encriptarClave(clave, claveSecreta) {
+    const claveEncriptada = CryptoJS.AES.encrypt(clave, claveSecreta).toString();
+    return claveEncriptada;
+}
 
-console.log(hash);
+// Ejemplo de uso:
+
+const passwordAEncriptar = "";  // El valor que deseas encriptar
+const claveSecreta = "";  // La clave secreta debe ser la misma que usas en el backend
+
+const valorEncriptado = encriptarClave(passwordAEncriptar, claveSecreta);
+console.log("Valor encriptado:", valorEncriptado);
