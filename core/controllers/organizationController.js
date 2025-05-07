@@ -5,13 +5,17 @@ import {
     updateOrganizationService,
     deleteOrganizationService,
 } from "../services/organizationService.js";
-
+import { authMiddleware } from "../middleware/validateBasicAuth.js";
 import { ResponseHelper } from "../helpers/response.js";
 
 /**
  * Obtener todas las organizaciones
  */
 export const getOrganizations = async (event) => {
+
+    const authError = authMiddleware(event);
+    if (authError) return authError;
+
     try {
         const organizations = await getAllOrganizationsService();
         return ResponseHelper.success(organizations);
