@@ -9,6 +9,13 @@ const UserFields = {
     allowNull: false,
     primaryKey: true,
   },
+  role_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: "core_roles",
+      key: "id",
+    },
+  },
   user_code: {
     type: DataTypes.STRING,
     unique: true,
@@ -34,14 +41,6 @@ const UserFields = {
   is_active: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
-  },
-  is_staff: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-  },
-  is_superuser: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
   },
   profile_image: {
     type: DataTypes.STRING,
