@@ -121,14 +121,17 @@ const setupAssociations = () => {
     foreignKey: "plan_id",
     as: "plan",
   });
-  PaymentModel.belongsTo(SubscriptionModel, {
-    foreignKey: "subscription_id",
-    as: "subscription",
-  });
+  // 📦 Una suscripción tiene muchos pagos
   SubscriptionModel.hasMany(PaymentModel, {
     foreignKey: "subscription_id",
     as: "payments",
   });
+  // 📦 Cada pago pertenece a una suscripción
+  PaymentModel.belongsTo(SubscriptionModel, {
+    foreignKey: "subscription_id",
+    as: "subscription",
+  });
+
 };
 
 export default setupAssociations;

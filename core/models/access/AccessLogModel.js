@@ -19,7 +19,7 @@ const AccessLogFields = {
     type: DataTypes.UUID,
     allowNull: false,
     references: {
-      model: "User",
+      model: "core_users",
       key: "id",
     },
     onDelete: "CASCADE",

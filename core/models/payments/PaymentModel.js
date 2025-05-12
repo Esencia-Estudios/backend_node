@@ -19,30 +19,40 @@ const PaymentFields = {
     autoIncrement: true,
     primaryKey: true,
   },
-  subscription_id: {
+  subscription_stripe_id: {
     type: DataTypes.INTEGER,
-    references: {
-      model: "core_subscriptions",
-      key: "id",
-    },
+    allowNull: false,
   },
-  amount: {
+  plan_type: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  price: {
     type: DataTypes.DECIMAL,
     allowNull: false,
   },
-  isActive: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: true,
+  payment_detail: {
+    type: DataTypes.JSON,
     allowNull: false,
+  },
+  subscription_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  is_active: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: true,
   },
   created_at: {
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
+    allowNull: false,
+    field: "created_at",
   },
   updated_at: {
     type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-    onUpdate: DataTypes.NOW,
+    allowNull: false,
+    field: "updated_at",
   },
 };
 
