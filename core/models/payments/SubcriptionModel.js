@@ -19,6 +19,13 @@ const SubscriptionFields = {
     autoIncrement: true,
     primaryKey: true,
   },
+  payment_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: "core_payments",
+      key: "id",
+    },
+  },
   organization_id: {
     type: DataTypes.INTEGER,
     references: {
@@ -26,17 +33,16 @@ const SubscriptionFields = {
       key: "id",
     },
   },
-  plan_type: {
-    type: DataTypes.STRING,
-    allowNull: false,
+  plan_id: {
+    type: DataTypes.UUID,
+    references: {
+      model: "core_plans",
+      key: "id",
+    },
   },
   isActive: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
-    allowNull: false,
-  },
-  total_price: {
-    type: DataTypes.DECIMAL,
     allowNull: false,
   },
   created_at: {
