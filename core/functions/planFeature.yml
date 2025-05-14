@@ -1,0 +1,28 @@
+functions:
+  get-plan-features:
+    handler: handlers/planFeatureHandler.getPlanFeatures
+    events:
+      - httpApi:
+          path: /core/planFeatures
+          method: get
+
+  get-plan-feature-by-id:
+    handler: handlers/planFeatureHandler.getPlanFeatureById
+    events:
+      - httpApi:
+          path: /core/planFeature/{id}
+          method: get
+
+  create-plan-feature:
+    handler: handlers/planFeatureHandler.createPlanFeature
+    events:
+      - httpApi:
+          path: /core/planFeature
+          method: post
+
+  update-plan-feature:
+    handler: handlers/planFeatureHandler.updatePlanFeature
+    events:
+      - httpApi:
+          path: /core/planFeature/{id}
+          method: put
