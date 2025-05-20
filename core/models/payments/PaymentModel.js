@@ -20,11 +20,11 @@ const PaymentFields = {
     primaryKey: true,
   },
   subscription_stripe_id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.TEXT,
     allowNull: false,
   },
   plan_type: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(20),
     allowNull: false,
   },
   price: {
@@ -34,10 +34,6 @@ const PaymentFields = {
   payment_detail: {
     type: DataTypes.JSON,
     allowNull: false,
-  },
-  subscription_id: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
   },
   is_active: {
     type: DataTypes.BOOLEAN,

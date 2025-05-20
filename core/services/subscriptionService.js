@@ -1,14 +1,5 @@
 import * as SubscriptionRepository from "../repositories/subscriptionRepository.js";
-import { PlanRepository } from "../repositories/planRepository.js";
 import { NotFoundError } from "../helpers/errorHandler.js";
-
-export const getPlanService = async () => {
-  const plans = await PlanRepository.getPlans();
-  if (plans.length === 0) {
-    throw new NotFoundError("No plans found");
-  }
-  return plans;
-};
 
 // Obtener todas las suscripciones
 export const getSubscriptionsService = async () => {
@@ -36,7 +27,10 @@ export const createSubscriptionService = async (data) => {
 
 // Actualizar suscripción
 export const updateSubscriptionService = async (id, data) => {
-  const updatedSubscription = await SubscriptionRepository.updateSubscription(id, data);
+  const updatedSubscription = await SubscriptionRepository.updateSubscription(
+    id,
+    data
+  );
   if (!updatedSubscription) {
     throw new NotFoundError(`Subscription with ID ${id} not found`);
   }

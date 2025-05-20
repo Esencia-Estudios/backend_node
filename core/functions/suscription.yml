@@ -1,4 +1,11 @@
 functions:
+  webhook-stripe-checkout-completed:
+    handler: handlers/subscriptionHandlers.webhook
+    events:
+      - httpApi:
+          path: /core/subscription/webhook
+          method: post
+
   get-plans:
     handler: handlers/subscriptionHandlers.getPlans
     events:

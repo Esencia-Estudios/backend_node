@@ -42,7 +42,9 @@ const getTimeTrackerServiceByUser = async (user_id) => {
 
 const createTimeTrackerService = async (timeTrackerData) => {
   try {
-    const createdTimeTracker = await Repository.createTimeTracker(timeTrackerData);
+    const createdTimeTracker = await Repository.createTimeTracker(
+      timeTrackerData
+    );
     return createdTimeTracker;
   } catch (error) {
     throw error;
@@ -51,7 +53,10 @@ const createTimeTrackerService = async (timeTrackerData) => {
 
 const updateTimeTrackerService = async (id, timeTrackerData) => {
   try {
-    const updatedTimeTracker = await Repository.updateTimeTracker(id, timeTrackerData);
+    const updatedTimeTracker = await Repository.updateTimeTracker(
+      id,
+      timeTrackerData
+    );
     return updatedTimeTracker;
   } catch (error) {
     throw error;

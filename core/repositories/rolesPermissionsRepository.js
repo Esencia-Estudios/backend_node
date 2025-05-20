@@ -7,6 +7,11 @@ class RolesPermissionsRepository {
     this.permissionModel = PermissionModel;
   }
 
+  async findRoles(where) {
+    return await this.roleModel.findAll({
+      where,
+    });
+  }
   //Roles
   async getRoles() {
     return await this.roleModel.findAll();
