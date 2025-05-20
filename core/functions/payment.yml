@@ -1,0 +1,35 @@
+functions:
+  get-payments:
+    handler: handlers/paymentHandler.getPayments
+    events:
+      - httpApi:
+          path: /core/payments
+          method: get
+
+  get-payment-by-id:
+    handler: handlers/paymentHandler.getPaymentById
+    events:
+      - httpApi:
+          path: /core/payment/{id}
+          method: get
+
+  create-payment:
+    handler: handlers/paymentHandler.createPayment
+    events:
+      - httpApi:
+          path: /core/payment
+          method: post
+
+  update-payment:
+    handler: handlers/paymentHandler.updatePayment
+    events:
+      - httpApi:
+          path: /core/payment/{id}
+          method: put
+
+  delete-payment:
+    handler: handlers/paymentHandler.deletePayment
+    events:
+      - httpApi:
+          path: /core/payment/{id}
+          method: delete
