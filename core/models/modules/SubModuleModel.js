@@ -55,7 +55,7 @@ const SubModuleFields = {
     defaultValue: DataTypes.NOW,
     onUpdate: DataTypes.NOW,
   },
-  isActive: {
+  is_active: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
     allowNull: false,
