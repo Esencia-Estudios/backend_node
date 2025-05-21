@@ -1,3 +1,3 @@
-import { getUsers } from "../controllers/users.js";
+import { getUsers, getUserById } from "../controllers/users.js";
 
-export { getUsers };
+export { getUsers, getUserById };

@@ -1,4 +1,5 @@
-import { getPlanService } from "../services/subscriptionService.js";
+import { getPlanService } from "../services/planService.js";
+import { authMiddleware } from "../middleware/validateBasicAuth.js";
 import { getModulesService } from "../services/moduleService.js";
 import { ResponseHelper } from "../helpers/response.js";
 import {
@@ -10,7 +11,6 @@ import {
 } from "../services/subscriptionService.js";
 
 export const getPlans = async (event) => {
-
   const authError = authMiddleware(event);
   if (authError) return authError;
 
@@ -23,7 +23,6 @@ export const getPlans = async (event) => {
 };
 
 export const getModules = async (event) => {
-
   const authError = authMiddleware(event);
   if (authError) return authError;
   try {
@@ -36,7 +35,6 @@ export const getModules = async (event) => {
 
 // Obtener todas las suscripciones
 export const getSubscriptions = async (event) => {
-
   const authError = authMiddleware(event);
   if (authError) return authError;
   try {
@@ -49,7 +47,6 @@ export const getSubscriptions = async (event) => {
 
 // Obtener suscripción por ID
 export const getSubscriptionById = async (event) => {
-
   const authError = authMiddleware(event);
   if (authError) return authError;
   try {
@@ -63,7 +60,6 @@ export const getSubscriptionById = async (event) => {
 
 // Crear nueva suscripción
 export const createSubscription = async (event) => {
-
   const authError = authMiddleware(event);
   if (authError) return authError;
   try {
@@ -77,7 +73,6 @@ export const createSubscription = async (event) => {
 
 // Actualizar suscripción
 export const updateSubscription = async (event) => {
-
   const authError = authMiddleware(event);
   if (authError) return authError;
   try {
@@ -92,7 +87,6 @@ export const updateSubscription = async (event) => {
 
 // Eliminar suscripción
 export const deleteSubscription = async (event) => {
-
   const authError = authMiddleware(event);
   if (authError) return authError;
   try {
@@ -103,4 +97,3 @@ export const deleteSubscription = async (event) => {
     return ResponseHelper.handleError(error);
   }
 };
-

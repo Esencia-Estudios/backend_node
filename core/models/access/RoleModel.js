@@ -26,7 +26,7 @@ const RoleFields = {
     type: DataTypes.STRING(255),
     allowNull: true,
   },
-  isActive: {
+  is_active: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
     allowNull: false,

@@ -14,6 +14,11 @@ const {
   UserWorkInfoModel,
 } = models;
 
+export const getUsersCount = async () => {
+  const count = await UserModel.count();
+  return count;
+};
+
 export const getUsers = async () => {
   return await UserModel.findAll({
     include: [

@@ -40,7 +40,7 @@ const SubscriptionFields = {
       key: "id",
     },
   },
-  isActive: {
+  is_active: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
     allowNull: false,
