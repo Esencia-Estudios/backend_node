@@ -1,11 +1,11 @@
 import { DataTypes, Model } from "sequelize";
 
-class ModuleModel extends Model {
+class SubModuleModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: "ModuleModel",
-      tableName: "core_modules",
+      modelName: "SubModuleModel",
+      tableName: "core_sub_modules",
       timestamps: true,
       createdAt: "created_at",
       updatedAt: "updated_at",
@@ -13,11 +13,18 @@ class ModuleModel extends Model {
   }
 }
 
-const ModuleFields = {
+const SubModuleFields = {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
+  },
+  module_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: "core_modules",
+      key: "id",
+    },
   },
   name: {
     type: DataTypes.STRING,
@@ -55,4 +62,4 @@ const ModuleFields = {
   },
 };
 
-export { ModuleModel, ModuleFields };
+export { SubModuleModel, SubModuleFields };

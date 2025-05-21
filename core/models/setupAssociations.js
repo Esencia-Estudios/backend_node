@@ -9,7 +9,7 @@ const setupAssociations = () => {
   const { MenuItemModel, DynamicRouteModel, ApplicationModel } =
     sequelize.models;
   //models domain modules
-  const { CustomModuleModel, ModuleModel, OrganizationModuleModel } =
+  const { CustomModuleModel, ModuleModel, OrganizationModuleModel, OrganizationModuleDetailModel, SubmoduleModel } =
     sequelize.models;
   //models domain organization
   const { OrganizationModel } = sequelize.models;
@@ -130,6 +130,30 @@ const setupAssociations = () => {
   PaymentModel.belongsTo(SubscriptionModel, {
     foreignKey: "subscription_id",
     as: "subscription",
+  });
+
+  // 📦 Un Módulo tiene muchos Sub módulos
+  ModuleModel.hasMany(SubmoduleModel, {
+    foreignKey: "module_id",
+    as: "submodules",
+  });
+
+  // 📦 Cada Sub módulo pertenece a un Módulo
+  SubmoduleModel.belongsTo(ModuleModel, {
+    foreignKey: "module_id",
+    as: "module",
+  });
+
+  // 📦 Un OrganizationModule tiene muchos detalles
+  OrganizationModuleModel.hasMany(OrganizationModuleDetailModel, {
+    foreignKey: "organization_module_id",
+    as: "organizationModuleDetail",
+  });
+
+  // 📦 Cada detalle pertenece a un OrganizationModule
+  OrganizationModuleDetailModel.belongsTo(OrganizationModuleModel, {
+    foreignKey: "organization_module_id",
+    as: "organizationModule",
   });
 
 };
