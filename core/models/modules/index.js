@@ -4,6 +4,8 @@ import {
   OrganizationModuleModel,
   OrganizationModuleFields,
 } from "./OrganizationModuleModel.js";
+import { OrganizationModuleDetailFields, OrganizationModuleDetailModel } from "./OrganizationModuleDetailModel.js";
+import { SubModuleFields, SubModuleModel } from "./SubModuleModel.js";
 
 export {
   CustomModuleModel,
@@ -12,4 +14,8 @@ export {
   ModuleFields,
   OrganizationModuleModel,
   OrganizationModuleFields,
+  OrganizationModuleDetailModel,
+  OrganizationModuleDetailFields,
+  SubModuleModel,
+  SubModuleFields,
 };
