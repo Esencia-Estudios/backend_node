@@ -4,7 +4,7 @@ const setupAssociations = () => {
   //models domain user
   const { UserModel, UserInfoModel, UserWorkInfoModel } = sequelize.models;
   //models domain access
-  const { RoleModel, PermissionModel, AccessLogModel } = sequelize.models;
+  const { RoleModel, PermissionModel, AccessLogModel, RolePermissionsModel } = sequelize.models;
   //models domain application
   const { MenuItemModel, DynamicRouteModel, ApplicationModel } =
     sequelize.models;
@@ -61,14 +61,6 @@ const setupAssociations = () => {
     through: "core_user_roles",
     foreignKey: "userId",
     otherKey: "roleId",
-  });
-  RoleModel.belongsToMany(PermissionModel, {
-    through: "role_permissions",
-    foreignKey: "roleId",
-  });
-  PermissionModel.belongsToMany(RoleModel, {
-    through: "role_permissions",
-    foreignKey: "permissionId",
   });
 
   // Seguimiento de tiempo
@@ -155,6 +147,43 @@ const setupAssociations = () => {
     foreignKey: "organization_module_id",
     as: "organizationModule",
   });
+
+  // 📦 Un Module pertenece a una Application
+  ModuleModel.belongsTo(ApplicationModel, {
+    foreignKey: "application_id",
+    as: "application",
+  });
+
+  // 📦 Un Module pertenece a una DynamicRoute
+  ModuleModel.belongsTo(DynamicRouteModel, {
+    foreignKey: "route",
+    as: "dynamicRoute",
+  });
+
+  // 📦 Un RolePermission pertenece a un Role
+  RolePermissionsModel.belongsTo(RoleModel, {
+    foreignKey: "role_id",
+    as: "role",
+  });
+
+  // 📦 Un RolePermission pertenece a un Permission
+  RolePermissionsModel.belongsTo(PermissionModel, {
+    foreignKey: "permission_id",
+    as: "permission",
+  });
+
+  // 📦 Un Role tiene muchos RolePermissions
+  RoleModel.hasMany(RolePermissionsModel, {
+    foreignKey: "role_id",
+    as: "rolePermissions",
+  });
+
+  // 📦 Un Permission tiene muchos RolePermissions
+  PermissionModel.hasMany(RolePermissionsModel, {
+    foreignKey: "permission_id",
+    as: "rolePermissions",
+  });
+
 
 };
 
