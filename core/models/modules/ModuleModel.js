@@ -19,13 +19,23 @@ const ModuleFields = {
     autoIncrement: true,
     primaryKey: true,
   },
+  application_id: {
+    type: DataTypes.INTEGER,
+    references: {
+      model: "core_applications",
+      key: "id",
+    },
+  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
   route: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.INTEGER,
+    references: {
+      model: "core_dynamic_routes",
+      key: "id",
+    },
   },
   icon: {
     type: DataTypes.STRING,
@@ -48,7 +58,7 @@ const ModuleFields = {
     defaultValue: DataTypes.NOW,
     onUpdate: DataTypes.NOW,
   },
-  isActive: {
+  is_active: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
     allowNull: false,
