@@ -2,20 +2,17 @@ import { sequelize } from "../config/db.js";
 
 const setupAssociations = () => {
   //models domain user
-  const { UserModel, UserInfoModel, UserWorkInfoModel } = sequelize.models;
+  const { UserModel, UserInfoModel, UserWorkInfoModel, UserPermissionModel } = sequelize.models;
   //models domain access
   const { RoleModel, PermissionModel, AccessLogModel, RolePermissionsModel } = sequelize.models;
   //models domain application
-  const { MenuItemModel, DynamicRouteModel, ApplicationModel } =
-    sequelize.models;
+  const { MenuItemModel, DynamicRouteModel, ApplicationModel } = sequelize.models;
   //models domain modules
-  const { CustomModuleModel, ModuleModel, OrganizationModuleModel, OrganizationModuleDetailModel, SubModuleModel } =
-    sequelize.models;
+  const { CustomModuleModel, ModuleModel, OrganizationModuleModel, OrganizationModuleDetailModel, SubModuleModel } = sequelize.models;
   //models domain organization
-  const { OrganizationModel } = sequelize.models;
+  const { OrganizationModel, OrganizationsSettingModel } = sequelize.models;
   //models domain payments
-  const { PaymentModel, PlanFeatureModel, PlanModel, SubscriptionModel } =
-    sequelize.models;
+  const { PaymentModel, PlanFeatureModel, PlanModel, SubscriptionModel } = sequelize.models;
   //models domain time
   const { TimeTrackerModel } = sequelize.models;
 
@@ -184,6 +181,44 @@ const setupAssociations = () => {
     as: "rolePermissions",
   });
 
+  // 📦 Relación muchos a muchos entre User y Permission a través de UserPermission
+  UserModel.belongsToMany(PermissionModel, {
+    through: UserPermissionModel,
+    foreignKey: "user_id",
+    otherKey: "permission_id",
+    as: "permissions",
+  });
+
+  PermissionModel.belongsToMany(UserModel, {
+    through: UserPermissionModel,
+    foreignKey: "permission_id",
+    otherKey: "user_id",
+    as: "users",
+  });
+
+  // 📦 Un UserPermission pertenece a un User
+  UserPermissionModel.belongsTo(UserModel, {
+    foreignKey: "user_id",
+    as: "user",
+  });
+
+  // 📦 Un UserPermission pertenece a un Permission
+  UserPermissionModel.belongsTo(PermissionModel, {
+    foreignKey: "permission_id",
+    as: "permission",
+  });
+
+  // 📦 Una Organization tiene muchas Settings
+  OrganizationModel.hasMany(OrganizationsSettingModel, {
+    foreignKey: "organization_id",
+    as: "settings",
+  });
+
+  // 📦 Cada Setting pertenece a una Organization
+  OrganizationsSettingModel.belongsTo(OrganizationModel, {
+    foreignKey: "organization_id",
+    as: "organization",
+  });
 
 };
 

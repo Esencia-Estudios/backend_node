@@ -1,11 +1,11 @@
 import { DataTypes, Model } from "sequelize";
 
-class OrganizationUserModel extends Model {
+class UserPermissionModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: "OrganizationUserModel",
-      tableName: "core_organizations_users",
+      modelName: "UserPermissionModel",
+      tableName: "user_permissions",
       timestamps: true,
       createdAt: "created_at",
       updatedAt: "updated_at",
@@ -13,9 +13,9 @@ class OrganizationUserModel extends Model {
   }
 }
 
-const OrganizationUserFields = {
+const UserPermissionFields = {
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BIGINT,
     autoIncrement: true,
     primaryKey: true,
   },
@@ -26,24 +26,16 @@ const OrganizationUserFields = {
       key: "id",
     },
   },
-  organization_id: {
+  permission_id: {
     type: DataTypes.INTEGER,
     references: {
-      model: "core_organizations",
+      model: "core_permissions",
       key: "id",
-    },
-  },
-  role_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: "core_roles",
-      key: "id",
-    },
+    }
   },
   is_active: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
-    allowNull: false,
   },
   created_at: {
     type: DataTypes.DATE,
@@ -53,7 +45,7 @@ const OrganizationUserFields = {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
     onUpdate: DataTypes.NOW,
-  }
+  },
 };
 
-export { OrganizationUserModel, OrganizationUserFields };
+export { UserPermissionModel, UserPermissionFields };
