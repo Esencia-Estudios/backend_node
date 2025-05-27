@@ -1,3 +1,5 @@
+import { sendEmail } from "../helpers/mailer.js";
+import { userCredentialsTemplate } from "../helpers/templateSendCredentials.js";
 import { generateCredentials, generateUserCode } from "../helpers/utils.js";
 import { createPayment } from "../repositories/paymentRepository.js";
 import { createOrganizationService } from "./organizationService.js";
@@ -59,6 +61,18 @@ export const webhookStripeService = async (payload) => {
   //asignar los módulos a la organización
 
   //enviar correo para notificar la compra
+  await sendEmail(
+    customer_email,
+    "Bienvenido a Esencia ERP - Credenciales de acceso",
+    userCredentialsTemplate({
+      userName: username,
+      password: password,
+      userEmail: customer_email,
+      planName: plan?.name,
+      planDetails: `ID PAGO: ${payment?.id} SUBSCRIPTION ID: ${newSub?.id}, el nombre de tu organización sera temporalmente tu 'username' podrás personalizarlo cuando gustes.`,
+    })
+  );
+  1;
 
   return "Se ha activado la membresía";
 };

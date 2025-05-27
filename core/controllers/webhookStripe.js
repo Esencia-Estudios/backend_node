@@ -1,6 +1,5 @@
 import { authMiddleware } from "../middleware/validateBasicAuth.js";
 import { ResponseHelper } from "../helpers/response.js";
-import { createPayment } from "../repositories/paymentRepository.js";
 import { webhookStripeService } from "../services/webhookStripeService.js";
 
 export const webhook = async (event) => {
@@ -11,6 +10,7 @@ export const webhook = async (event) => {
     const response = await webhookStripeService(data);
     return ResponseHelper.success(response);
   } catch (error) {
+    console.log("error", error);
     return ResponseHelper.handleError(error);
   }
 };
