@@ -1,11 +1,11 @@
 import { DataTypes, Model } from "sequelize";
 
-class OrganizationUserModel extends Model {
+class OrganizationsSettingModel extends Model {
   static config(sequelize) {
     return {
       sequelize,
-      modelName: "OrganizationUserModel",
-      tableName: "core_organizations_users",
+      modelName: "OrganizationsSettingModel",
+      tableName: "core_organizations_settings",
       timestamps: true,
       createdAt: "created_at",
       updatedAt: "updated_at",
@@ -13,18 +13,11 @@ class OrganizationUserModel extends Model {
   }
 }
 
-const OrganizationUserFields = {
+const OrganizationSettingFields = {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
-  },
-  user_id: {
-    type: DataTypes.UUID,
-    references: {
-      model: "core_users",
-      key: "id",
-    },
   },
   organization_id: {
     type: DataTypes.INTEGER,
@@ -33,12 +26,13 @@ const OrganizationUserFields = {
       key: "id",
     },
   },
-  role_id: {
-    type: DataTypes.INTEGER,
-    references: {
-      model: "core_roles",
-      key: "id",
-    },
+  key: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+  },
+  value: {
+    type: DataTypes.TEXT,
+    allowNull: true,
   },
   is_active: {
     type: DataTypes.BOOLEAN,
@@ -52,8 +46,7 @@ const OrganizationUserFields = {
   updated_at: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
-    onUpdate: DataTypes.NOW,
-  }
+  },
 };
 
-export { OrganizationUserModel, OrganizationUserFields };
+export { OrganizationsSettingModel, OrganizationSettingFields };
