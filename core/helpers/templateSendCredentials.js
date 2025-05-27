@@ -54,7 +54,7 @@ export const userCredentialsTemplate = ({
           <p style="margin-top:10px;">${planDetails}</p>
 
           <div style="margin-top:30px; text-align:center;">
-            <a href="https://esenciacore.com/login" style="display:inline-block; background-color:var(--primary-color); color:var(--button-text-color); text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold;">Iniciar sesión</a>
+            <a href="https://main.d3twcm4ijnvlmt.amplifyapp.com/" style="display:inline-block; background-color:var(--primary-color); color:var(--button-text-color); text-decoration:none; padding:12px 24px; border-radius:6px; font-weight:bold;">Iniciar sesión</a>
           </div>
         </td>
       </tr>

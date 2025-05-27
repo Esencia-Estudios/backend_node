@@ -25,9 +25,11 @@ export const getUsers = async () => {
       {
         model: RoleModel,
         through: { attributes: [] },
+        as: "roles", // ✅ alias definido en la asociación
         include: {
           model: PermissionModel,
           through: { attributes: [] },
+          as: "permissions", // ✅ alias definido en la asociación
         },
       },
     ],
@@ -40,7 +42,12 @@ export const getUserById = async (id) => {
       {
         model: RoleModel,
         through: { attributes: [] },
-        include: { model: PermissionModel, through: { attributes: [] } },
+        as: "roles",
+        include: {
+          model: PermissionModel,
+          through: { attributes: [] },
+          as: "permissions",
+        },
       },
       {
         model: UserInfoModel,
@@ -75,7 +82,12 @@ export const updateUser = async (id, userData) => {
     include: {
       model: RoleModel,
       through: { attributes: [] },
-      include: { model: PermissionModel, through: { attributes: [] } },
+      as: "roles",
+      include: {
+        model: PermissionModel,
+        through: { attributes: [] },
+        as: "permissions",
+      },
     },
   });
 

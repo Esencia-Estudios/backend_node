@@ -104,6 +104,7 @@ class RolesPermissionsRepository {
       include: {
         model: this.permissionModel,
         through: { attributes: [] },
+        as: "permissions",
       },
     });
 
