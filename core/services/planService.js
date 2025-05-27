@@ -8,3 +8,7 @@ export const getPlanService = async () => {
   }
   return plans;
 };
+
+export const findPlanService = async (where) => {
+  return await PlanRepository.findPlan(where);
+};

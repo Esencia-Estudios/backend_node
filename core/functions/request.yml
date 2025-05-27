@@ -1,0 +1,67 @@
+functions:
+  get-requirements:
+    handler: handlers/requestHandlers.getRequirements
+    events:
+      - httpApi:
+          path: /core/requests
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  get-requirement-by-id:
+    handler: handlers/requestHandlers.getRequirementById
+    events:
+      - httpApi:
+          path: /core/requests/{id}
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  create-requirement:
+    handler: handlers/requestHandlers.createRequirement
+    events:
+      - httpApi:
+          path: /core/requests
+          method: post
+
+  update-requirement:
+    handler: handlers/requestHandlers.updateRequirement
+    events:
+      - httpApi:
+          path: /core/requests/{id}
+          method: put
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  delete-requirement:
+    handler: handlers/requestHandlers.deleteRequirement
+    events:
+      - httpApi:
+          path: /core/requests/{id}
+          method: delete
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  find-requirement-by-company:
+    handler: handlers/requestHandlers.findByCompany
+    events:
+      - httpApi:
+          path: /core/requests/company/{company}
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  find-requirement-by-email:
+    handler: handlers/requestHandlers.findByEmail
+    events:
+      - httpApi:
+          path: /core/requests/email/{email}
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer

@@ -14,15 +14,22 @@ const {
   UserWorkInfoModel,
 } = models;
 
+export const getUsersCount = async () => {
+  const count = await UserModel.count();
+  return count;
+};
+
 export const getUsers = async () => {
   return await UserModel.findAll({
     include: [
       {
         model: RoleModel,
         through: { attributes: [] },
+        as: "roles", // ✅ alias definido en la asociación
         include: {
           model: PermissionModel,
           through: { attributes: [] },
+          as: "permissions", // ✅ alias definido en la asociación
         },
       },
     ],
@@ -35,7 +42,12 @@ export const getUserById = async (id) => {
       {
         model: RoleModel,
         through: { attributes: [] },
-        include: { model: PermissionModel, through: { attributes: [] } },
+        as: "roles",
+        include: {
+          model: PermissionModel,
+          through: { attributes: [] },
+          as: "permissions",
+        },
       },
       {
         model: UserInfoModel,
@@ -70,7 +82,12 @@ export const updateUser = async (id, userData) => {
     include: {
       model: RoleModel,
       through: { attributes: [] },
-      include: { model: PermissionModel, through: { attributes: [] } },
+      as: "roles",
+      include: {
+        model: PermissionModel,
+        through: { attributes: [] },
+        as: "permissions",
+      },
     },
   });
 

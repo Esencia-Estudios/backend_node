@@ -35,14 +35,6 @@ const UserFields = {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
   },
-  is_staff: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-  },
-  is_superuser: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false,
-  },
   profile_image: {
     type: DataTypes.STRING,
     allowNull: true,
