@@ -2,15 +2,23 @@ import models from "../models/index.js";
 
 const { OrganizationModel } = models;
 
+export const findOrganization = async (where) => {
+  const orgs = await OrganizationModel?.findAll({
+    where: { is_active: true, ...where },
+  });
+
+  return orgs?.length ? orgs[0] : {};
+};
+
 /**
  * Obtener organización por su ID
  * @param {number} id - ID de la organización
  * @returns {Promise<OrganizationModel|null>}
  */
 export const getOrganizationById = async (id) => {
-    return await OrganizationModel.findByPk(id, {
-        where: { isActive: true },
-    });
+  return await OrganizationModel.findByPk(id, {
+    where: { isActive: true },
+  });
 };
 
 /**
@@ -19,8 +27,8 @@ export const getOrganizationById = async (id) => {
  * @returns {Promise<OrganizationModel>}
  */
 export const createOrganization = async (organizationData) => {
-    const newOrganization = await OrganizationModel.create(organizationData);
-    return await getOrganizationById(newOrganization.id);
+  const newOrganization = await OrganizationModel.create(organizationData);
+  return await getOrganizationById(newOrganization.id);
 };
 
 /**
@@ -28,9 +36,9 @@ export const createOrganization = async (organizationData) => {
  * @returns {Promise<Array<OrganizationModel>>}
  */
 export const getAllOrganizations = async () => {
-    return await OrganizationModel.findAll({
-        where: { isActive: true },
-    });
+  return await OrganizationModel.findAll({
+    where: { isActive: true },
+  });
 };
 
 /**
@@ -40,12 +48,12 @@ export const getAllOrganizations = async () => {
  * @returns {Promise<OrganizationModel|null>}
  */
 export const updateOrganization = async (id, updateData) => {
-    const organization = await OrganizationModel.findByPk(id, {
-        where: { isActive: true },
-    });
-    if (!organization) return null;
-    await organization.update(updateData);
-    return organization;
+  const organization = await OrganizationModel.findByPk(id, {
+    where: { isActive: true },
+  });
+  if (!organization) return null;
+  await organization.update(updateData);
+  return organization;
 };
 
 /**
@@ -55,13 +63,13 @@ export const updateOrganization = async (id, updateData) => {
  * @throws {Error} Si no se encuentra la organización
  */
 export const deleteOrganization = async (id) => {
-    const organization = await OrganizationModel.findByPk(id, {
-        where: { isActive: true },
-    });
-    if (!organization) throw new Error("Organization not found");
+  const organization = await OrganizationModel.findByPk(id, {
+    where: { isActive: true },
+  });
+  if (!organization) throw new Error("Organization not found");
 
-    organization.isActive = false;
-    await organization.save();
+  organization.isActive = false;
+  await organization.save();
 
-    return organization;
+  return organization;
 };

@@ -5,6 +5,7 @@ import {
   deleteUserInCognito,
   enableOrDisableUserInCognito,
 } from "../helpers/aws.js";
+import { findOrganization } from "./organizationRepository.js";
 
 const {
   UserModel,
@@ -37,7 +38,7 @@ export const getUsers = async () => {
 };
 
 export const getUserById = async (id) => {
-  return await UserModel.findByPk(id, {
+  const user = await UserModel.findByPk(id, {
     include: [
       {
         model: RoleModel,
@@ -59,6 +60,21 @@ export const getUserById = async (id) => {
       },
     ],
   });
+
+  const user_organization = user?.roles?.find(
+    (x) => x?.name === "organization_owner"
+  );
+
+  const is_organization_owner = Boolean(user_organization?.id);
+  const organization = await findOrganization({ email: user?.email });
+
+  response = {
+    is_organization_owner,
+    organization,
+    ...user.dataValues,
+  };
+
+  return response;
 };
 
 export const createUser = async (userData) => {
