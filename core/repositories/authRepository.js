@@ -1,55 +1,77 @@
 import models from "../models/index.js";
 import bcrypt from "bcryptjs";
 import { ValidationError } from "../helpers/errorHandler.js";
-import { findOrganization } from "./organizationRepository.js";
 
 export const checkUserInDatabase = async ({ username, password }) => {
-  const user = await models?.UserModel.findOne({
+  const validUser = await models?.UserModel.findOne({
     where: { username },
-    include: [
-      {
-        model: models?.RoleModel,
-        through: { attributes: [] },
-        as: "roles",
-        include: {
-          model: models?.PermissionModel,
-          through: { attributes: [] },
-          as: "permissions",
-        },
-      },
-      {
-        model: models?.UserInfoModel,
-        as: "userInfo",
-      },
-      {
-        model: models?.UserWorkInfoModel,
-        as: "userWorkInfo",
-      },
-    ],
   });
 
-  if (!user) throw new ValidationError("User does not exist in database");
+  if (!validUser) throw new ValidationError("User does not exist in database");
   if (password) {
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(password, validUser.password);
     if (!isPasswordValid) throw new ValidationError("Password is incorrect");
   }
 
-  if (user || (password && isPasswordValid && user)) {
-    let response = {};
-    const user_organization = user?.roles?.find(
-      (x) => x?.name === "organization_owner"
-    );
+  if (validUser || (password && isPasswordValid && validUser)) {
+    const user = await models?.UserModel.findByPk(validUser?.id, {
+      include: [
+        {
+          model: models?.UserInfoModel,
+          as: "userInfo",
+        },
+        {
+          model: models?.UserWorkInfoModel,
+          as: "userWorkInfo",
+        },
+        {
+          model: models.OrganizationUserModel,
+          as: "organizations",
+          where: { is_active: true },
+          attributes: ["id", "organization_id"],
+          include: [
+            {
+              model: models.OrganizationModel,
+              as: "organization",
+              attributes: ["id", "name", "email", "is_active", "created_at"],
+              include: [
+                {
+                  model: models.OrganizationsSettingModel,
+                  as: "settings",
+                  attributes: ["key", "value"],
+                },
+              ],
+            },
+            {
+              model: models.RoleModel,
+              as: "role",
+              attributes: ["id", "name"],
+            },
+          ],
+        },
+      ],
+    });
 
-    const is_organization_owner = Boolean(user_organization?.id);
-    const organization = await findOrganization({ email: user?.email });
+    const organizations = user.organizations.map((o) => {
+      const org = o.organization.toJSON();
 
-    response = {
-      is_organization_owner,
-      organization,
-      ...user.dataValues,
+      return {
+        id: org.id,
+        name: org.name,
+        email: org.email,
+        is_active: org.is_active,
+        created_at: org.created_at,
+        role: o.role,
+        settings: Object.fromEntries(
+          org.settings.map((setting) => [setting.key, setting.value])
+        ),
+      };
+    });
+
+    return {
+      ...user.toJSON(),
+      organizations,
     };
-
-    return response;
   }
 };
 

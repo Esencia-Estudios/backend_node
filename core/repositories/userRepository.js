@@ -5,7 +5,6 @@ import {
   deleteUserInCognito,
   enableOrDisableUserInCognito,
 } from "../helpers/aws.js";
-import { findOrganization } from "./organizationRepository.js";
 
 const {
   UserModel,
@@ -38,43 +37,64 @@ export const getUsers = async () => {
 };
 
 export const getUserById = async (id) => {
-  const user = await UserModel.findByPk(id, {
+  const user = await models?.UserModel.findByPk(id, {
     include: [
       {
-        model: RoleModel,
-        through: { attributes: [] },
-        as: "roles",
-        include: {
-          model: PermissionModel,
-          through: { attributes: [] },
-          as: "permissions",
-        },
-      },
-      {
-        model: UserInfoModel,
+        model: models?.UserInfoModel,
         as: "userInfo",
       },
       {
-        model: UserWorkInfoModel,
+        model: models?.UserWorkInfoModel,
         as: "userWorkInfo",
+      },
+      {
+        model: models.OrganizationUserModel,
+        as: "organizations",
+        where: { is_active: true },
+        attributes: ["id", "organization_id"],
+        include: [
+          {
+            model: models.OrganizationModel,
+            as: "organization",
+            attributes: ["id", "name", "email", "is_active", "created_at"],
+            include: [
+              {
+                model: models.OrganizationsSettingModel,
+                as: "settings",
+                attributes: ["key", "value"],
+              },
+            ],
+          },
+          {
+            model: models.RoleModel,
+            as: "role",
+            attributes: ["id", "name"],
+          },
+        ],
       },
     ],
   });
 
-  const user_organization = user?.roles?.find(
-    (x) => x?.name === "organization_owner"
-  );
+  const organizations = user.organizations.map((o) => {
+    const org = o.organization.toJSON();
 
-  const is_organization_owner = Boolean(user_organization?.id);
-  const organization = await findOrganization({ email: user?.email });
+    return {
+      id: org.id,
+      name: org.name,
+      email: org.email,
+      is_active: org.is_active,
+      created_at: org.created_at,
+      role: o.role,
+      settings: Object.fromEntries(
+        org.settings.map((setting) => [setting.key, setting.value])
+      ),
+    };
+  });
 
-  response = {
-    is_organization_owner,
-    organization,
-    ...user.dataValues,
+  return {
+    ...user.toJSON(),
+    organizations,
   };
-
-  return response;
 };
 
 export const createUser = async (userData) => {
