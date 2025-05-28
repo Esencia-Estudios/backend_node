@@ -19,7 +19,11 @@ const setupAssociations = () => {
     SubModuleModel,
   } = sequelize.models;
   //models domain organization
-  const { OrganizationModel, OrganizationsSettingModel } = sequelize.models;
+  const {
+    OrganizationModel,
+    OrganizationsSettingModel,
+    OrganizationUserModel,
+  } = sequelize.models;
   //models domain payments
   const { PaymentModel, PlanFeatureModel, PlanModel, SubscriptionModel } =
     sequelize.models;
@@ -63,13 +67,13 @@ const setupAssociations = () => {
   AccessLogModel.belongsTo(UserModel, { foreignKey: "userId", as: "user" });
   UserModel.hasMany(AccessLogModel, { foreignKey: "userId", as: "accessLogs" });
 
-  // Relaciones entre usuarios y roles
+  /* // Relaciones entre usuarios y roles
   UserModel.belongsToMany(RoleModel, {
     through: "core_user_roles",
     foreignKey: "userId",
     otherKey: "roleId",
     as: "roles",
-  });
+  }); */
 
   // Seguimiento de tiempo
   TimeTrackerModel.belongsTo(UserModel, { foreignKey: "user_id", as: "user" });
@@ -210,16 +214,34 @@ const setupAssociations = () => {
     as: "permission",
   });
 
-  // 📦 Una Organization tiene muchas Settings
+  UserModel.hasMany(OrganizationUserModel, {
+    foreignKey: "user_id",
+    as: "organizations",
+  });
+
+  OrganizationModel.hasMany(OrganizationUserModel, {
+    foreignKey: "organization_id",
+    as: "members",
+  });
+
   OrganizationModel.hasMany(OrganizationsSettingModel, {
     foreignKey: "organization_id",
     as: "settings",
   });
 
-  // 📦 Cada Setting pertenece a una Organization
-  OrganizationsSettingModel.belongsTo(OrganizationModel, {
+  OrganizationUserModel.belongsTo(UserModel, {
+    foreignKey: "user_id",
+    as: "user",
+  });
+
+  OrganizationUserModel.belongsTo(OrganizationModel, {
     foreignKey: "organization_id",
     as: "organization",
+  });
+
+  OrganizationUserModel.belongsTo(RoleModel, {
+    foreignKey: "role_id",
+    as: "role",
   });
 };
 

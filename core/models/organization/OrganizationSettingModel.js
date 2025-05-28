@@ -27,7 +27,7 @@ const OrganizationSettingFields = {
     },
   },
   key: {
-    type: DataTypes.STRING(100),
+    type: DataTypes.TEXT,
     allowNull: false,
   },
   value: {

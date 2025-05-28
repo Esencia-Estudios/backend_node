@@ -53,7 +53,7 @@ const OrganizationUserFields = {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
     onUpdate: DataTypes.NOW,
-  }
+  },
 };
 
 export { OrganizationUserModel, OrganizationUserFields };
