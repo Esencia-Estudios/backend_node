@@ -1,6 +1,6 @@
 import models from "../models/index.js";
 
-const { OrganizationModuleModel } = models;
+const { OrganizationModuleModel, ModuleModel, ApplicationModel, DynamicRouteModel } = models;
 
 /**
  * Buscar un módulo de organización por condición
@@ -10,9 +10,18 @@ const { OrganizationModuleModel } = models;
 export const findOrganizationModules = async (where) => {
   const modules = await OrganizationModuleModel.findAll({
     where: { is_active: true, ...where },
+    include: [
+      {
+        model: ModuleModel, as: "module", include: [
+          { model: ApplicationModel, as: "application" },
+          { model: DynamicRouteModel, as: "dynamicRoute" }
+        ]
+      }
+    ]
   });
+  const jsonResponse = modules.map(module => module.toJSON());
 
-  return modules;
+  return jsonResponse;
 };
 
 /**
