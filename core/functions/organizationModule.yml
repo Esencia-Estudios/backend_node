@@ -1,0 +1,42 @@
+functions:
+  get-organization-modules:
+    handler: handlers/organizationModuleHandler.getOrganizationModules
+    events:
+      - httpApi:
+          path: /core/organization-modules
+          method: get
+
+  get-organization-module-by-id:
+    handler: handlers/organizationModuleHandler.getOrganizationModuleById
+    events:
+      - httpApi:
+          path: /core/organization-module/{id}
+          method: get
+
+  create-organization-module:
+    handler: handlers/organizationModuleHandler.createOrganizationModule
+    events:
+      - httpApi:
+          path: /core/organization-module
+          method: post
+
+  update-organization-module:
+    handler: handlers/organizationModuleHandler.updateOrganizationModule
+    events:
+      - httpApi:
+          path: /core/organization-module/{id}
+          method: put
+
+  delete-organization-module:
+    handler: handlers/organizationModuleHandler.deleteOrganizationModule
+    events:
+      - httpApi:
+          path: /core/organization-module/{id}
+          method: delete
+
+  get-modules-by-organization-id:
+    handler: handlers/organizationModuleHandler.getModulesByOrganizationId
+    events:
+      - httpApi:
+          path: /core/organization-modules-by-organization/{organization_id}
+          method: get
