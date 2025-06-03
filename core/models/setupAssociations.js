@@ -243,6 +243,42 @@ const setupAssociations = () => {
     foreignKey: "role_id",
     as: "role",
   });
+
+  // 📦 Un Rol pertenece a una Organización
+  RoleModel.belongsTo(OrganizationModel, {
+    foreignKey: "organization_id",
+    as: "organization",
+  });
+
+  // 📦 Una Organización tiene muchos Roles
+  OrganizationModel.hasMany(RoleModel, {
+    foreignKey: "organization_id",
+    as: "roles",
+  });
+  // 📦 Un permiso pertenece a un módulo
+  PermissionModel.belongsTo(ModuleModel, {
+    foreignKey: "module",
+    as: "moduleData",
+  });
+
+  // 📦 Un módulo tiene muchos permisos
+  ModuleModel.hasMany(PermissionModel, {
+    foreignKey: "module",
+    as: "permissions",
+  });
+
+  // 📦 Un permiso pertenece a un submódulo
+  PermissionModel.belongsTo(SubModuleModel, {
+    foreignKey: "subModule",
+    as: "subModuleData",
+  });
+
+  // 📦 Un submódulo tiene muchos permisos
+  SubModuleModel.hasMany(PermissionModel, {
+    foreignKey: "subModule",
+    as: "permissions",
+  });
+
 };
 
 export default setupAssociations;

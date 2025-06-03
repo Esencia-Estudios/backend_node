@@ -27,13 +27,21 @@ const PermissionFields = {
     allowNull: false,
     unique: true,
   },
-  group: {
-    type: DataTypes.STRING(100),
-    allowNull: false,
-  },
-  subGroup: {
-    type: DataTypes.STRING(100),
+  module: {
+    type: DataTypes.INTEGER,
     allowNull: true,
+    references: {
+      model: "core_modules",
+      key: "id",
+    },
+  },
+  subModule: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: "core_sub_modules",
+      key: "id",
+    },
   },
   type: {
     type: DataTypes.ENUM("checkbox", "radio"),
