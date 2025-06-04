@@ -5,7 +5,7 @@ class UserPermissionModel extends Model {
     return {
       sequelize,
       modelName: "UserPermissionModel",
-      tableName: "user_permissions",
+      tableName: "core_user_permissions",
       timestamps: true,
       createdAt: "created_at",
       updatedAt: "updated_at",
@@ -32,6 +32,10 @@ const UserPermissionFields = {
       model: "core_permissions",
       key: "id",
     }
+  },
+  granted: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
   },
   is_active: {
     type: DataTypes.BOOLEAN,
