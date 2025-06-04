@@ -269,16 +269,15 @@ const setupAssociations = () => {
 
   // 📦 Un permiso pertenece a un submódulo
   PermissionModel.belongsTo(SubModuleModel, {
-    foreignKey: "subModule",
+    foreignKey: "sub_module",
     as: "subModuleData",
   });
 
   // 📦 Un submódulo tiene muchos permisos
   SubModuleModel.hasMany(PermissionModel, {
-    foreignKey: "subModule",
+    foreignKey: "sub_module",
     as: "permissions",
   });
-
 };
 
 export default setupAssociations;

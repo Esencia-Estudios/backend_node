@@ -48,9 +48,6 @@ const deleteRole = async (event) => {
   }
 };
 
-//Permissions CRUD
-
-//✓ check
 const getPermissions = async () => {
   try {
     return await rolesPermissionsService.getPermissions();
