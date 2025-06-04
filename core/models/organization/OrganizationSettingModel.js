@@ -26,11 +26,11 @@ const OrganizationSettingFields = {
       key: "id",
     },
   },
-  key: {
+  key_option: {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  value: {
+  value_option: {
     type: DataTypes.TEXT,
     allowNull: true,
   },

@@ -1,6 +1,7 @@
 import models from "../models/index.js";
 import { NotFoundError } from "../helpers/errorHandler.js";
-const { RoleModel, PermissionModel } = models;
+import { Sequelize } from "sequelize";
+const { RoleModel, PermissionModel, ModuleModel, SubModuleModel } = models;
 class RolesPermissionsRepository {
   constructor() {
     this.roleModel = RoleModel;
@@ -47,7 +48,32 @@ class RolesPermissionsRepository {
 
   //Permissions
   async getPermissions() {
-    return await this.permissionModel.findAll();
+    return await this.permissionModel.findAll({
+      attributes: [
+        "id",
+        "name",
+        "codename",
+        "module",
+        [Sequelize.col("moduleData.name"), "module_name"],
+        "sub_module",
+        [Sequelize.col("subModuleData.name"), "submodule_name"],
+        "type",
+        "is_active",
+      ],
+      include: [
+        {
+          model: ModuleModel,
+          as: "moduleData",
+          attributes: [],
+        },
+        {
+          model: SubModuleModel,
+          as: "subModuleData",
+          attributes: [],
+        },
+      ],
+      raw: true,
+    });
   }
 
   async createPermission(permissionData) {

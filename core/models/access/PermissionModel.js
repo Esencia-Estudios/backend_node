@@ -35,7 +35,7 @@ const PermissionFields = {
       key: "id",
     },
   },
-  subModule: {
+  sub_module: {
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
@@ -48,7 +48,7 @@ const PermissionFields = {
     allowNull: false,
     defaultValue: "checkbox",
   },
-  isActive: {
+  is_active: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
     allowNull: false,
