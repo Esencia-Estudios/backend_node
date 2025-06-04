@@ -61,7 +61,7 @@ export const getUserById = async (id) => {
               {
                 model: models.OrganizationsSettingModel,
                 as: "settings",
-                attributes: ["key", "value"],
+                attributes: ["key_option", "value_option"],
               },
             ],
           },
@@ -86,7 +86,10 @@ export const getUserById = async (id) => {
       created_at: org.created_at,
       role: o.role,
       settings: Object.fromEntries(
-        org.settings.map((setting) => [setting.key, setting.value])
+        org.settings.map((setting) => [
+          setting.key_option,
+          setting.value_option,
+        ])
       ),
     };
   });
