@@ -10,8 +10,12 @@ const {
   UserModel,
   RoleModel,
   PermissionModel,
+  UserPermissionModel,
   UserInfoModel,
   UserWorkInfoModel,
+  OrganizationUserModel,
+  OrganizationModel,
+  OrganizationsSettingModel,
 } = models;
 
 export const getUsersCount = async () => {
@@ -37,36 +41,36 @@ export const getUsers = async () => {
 };
 
 export const getUserById = async (id) => {
-  const user = await models?.UserModel.findByPk(id, {
+  const user = await UserModel.findByPk(id, {
     include: [
       {
-        model: models?.UserInfoModel,
+        model: UserInfoModel,
         as: "userInfo",
       },
       {
-        model: models?.UserWorkInfoModel,
+        model: UserWorkInfoModel,
         as: "userWorkInfo",
       },
       {
-        model: models.OrganizationUserModel,
+        model: OrganizationUserModel,
         as: "organizations",
         where: { is_active: true },
         attributes: ["id", "organization_id"],
         include: [
           {
-            model: models.OrganizationModel,
+            model: OrganizationModel,
             as: "organization",
             attributes: ["id", "name", "email", "is_active", "created_at"],
             include: [
               {
-                model: models.OrganizationsSettingModel,
+                model: OrganizationsSettingModel,
                 as: "settings",
                 attributes: ["key_option", "value_option"],
               },
             ],
           },
           {
-            model: models.RoleModel,
+            model: RoleModel,
             as: "role",
             attributes: ["id", "name"],
           },
@@ -201,4 +205,19 @@ export const findByEmail = async (email) => {
 
 export const findByUsername = async (username) => {
   return await UserModel.findOne({ where: { username } });
+};
+
+export const getUserPermissions = async (user_id) => {
+  return await UserPermissionModel.findAll({
+    where: {
+      user_id,
+    },
+    include: [
+      {
+        model: PermissionModel,
+        as: "permissionUser",
+        attributes: ["codename"],
+      },
+    ],
+  });
 };

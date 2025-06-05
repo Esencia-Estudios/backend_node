@@ -1,11 +1,18 @@
 import models from "../models/index.js";
 import { NotFoundError } from "../helpers/errorHandler.js";
 import { Sequelize } from "sequelize";
-const { RoleModel, PermissionModel, ModuleModel, SubModuleModel } = models;
+const {
+  RoleModel,
+  PermissionModel,
+  ModuleModel,
+  SubModuleModel,
+  RolePermissionsModel,
+} = models;
 class RolesPermissionsRepository {
   constructor() {
     this.roleModel = RoleModel;
     this.permissionModel = PermissionModel;
+    this.rolePermissionsModel = RolePermissionsModel;
   }
 
   async findRoles(where) {
@@ -139,6 +146,22 @@ class RolesPermissionsRepository {
     }
 
     return role;
+  }
+  async getRolePermissions(role_id) {
+    const roles = await this.rolePermissionsModel.findAll({
+      where: { role_id },
+      include: {
+        model: this.permissionModel,
+        attributes: ["codename"],
+        as: "permission",
+      },
+    });
+
+    if (!roles) {
+      throw new NotFoundError("Roles not found");
+    }
+
+    return roles;
   }
 }
 
