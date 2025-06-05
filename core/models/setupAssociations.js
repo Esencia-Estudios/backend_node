@@ -67,14 +67,6 @@ const setupAssociations = () => {
   AccessLogModel.belongsTo(UserModel, { foreignKey: "userId", as: "user" });
   UserModel.hasMany(AccessLogModel, { foreignKey: "userId", as: "accessLogs" });
 
-  /* // Relaciones entre usuarios y roles
-  UserModel.belongsToMany(RoleModel, {
-    through: "core_user_roles",
-    foreignKey: "userId",
-    otherKey: "roleId",
-    as: "roles",
-  }); */
-
   // Seguimiento de tiempo
   TimeTrackerModel.belongsTo(UserModel, { foreignKey: "user_id", as: "user" });
   UserModel.hasMany(TimeTrackerModel, {
