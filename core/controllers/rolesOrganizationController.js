@@ -5,15 +5,12 @@ import {
     updateRoleService,
     deleteRoleService,
 } from "../services/rolesOrganizationService.js";
-import { authMiddleware } from "../middleware/validateBasicAuth.js";
 import { ResponseHelper } from "../helpers/response.js";
 
 /**
  * Obtener todos los roles
  */
 export const getRoles = async (event) => {
-    const authError = authMiddleware(event);
-    if (authError) return authError;
 
     try {
         const roles = await getAllRolesService();
@@ -27,8 +24,6 @@ export const getRoles = async (event) => {
  * Obtener rol por ID
  */
 export const getRoleById = async (event) => {
-    const authError = authMiddleware(event);
-    if (authError) return authError;
 
     try {
         const { id } = event.pathParameters;
@@ -43,8 +38,6 @@ export const getRoleById = async (event) => {
  * Crear nuevo rol
  */
 export const createRole = async (event) => {
-    const authError = authMiddleware(event);
-    if (authError) return authError;
 
     try {
         const data = JSON.parse(event.body);
@@ -59,8 +52,6 @@ export const createRole = async (event) => {
  * Actualizar rol
  */
 export const updateRole = async (event) => {
-    const authError = authMiddleware(event);
-    if (authError) return authError;
 
     try {
         const { id } = event.pathParameters;
@@ -76,8 +67,6 @@ export const updateRole = async (event) => {
  * Eliminar (desactivar) rol
  */
 export const deleteRole = async (event) => {
-    const authError = authMiddleware(event);
-    if (authError) return authError;
 
     try {
         const { id } = event.pathParameters;
