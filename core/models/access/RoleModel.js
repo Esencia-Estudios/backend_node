@@ -19,6 +19,7 @@ const RoleFields = {
   },
   organization_id: {
     type: DataTypes.INTEGER,
+    allowNull: true,
     references: {
       model: "core_organizations",
       key: "id",

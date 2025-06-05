@@ -1,0 +1,50 @@
+functions:
+  get-roles:
+    handler: handlers/rolesOrganizationHandler.getRoles
+    events:
+      - httpApi:
+          path: /core/roles
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  get-role-by-id:
+    handler: handlers/rolesOrganizationHandler.getRoleById
+    events:
+      - httpApi:
+          path: /core/role/{id}
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  create-role:
+    handler: handlers/rolesOrganizationHandler.createRole
+    events:
+      - httpApi:
+          path: /core/role
+          method: post
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  update-role:
+    handler: handlers/rolesOrganizationHandler.updateRole
+    events:
+      - httpApi:
+          path: /core/role/{id}
+          method: put
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer
+
+  delete-role:
+    handler: handlers/rolesOrganizationHandler.deleteRole
+    events:
+      - httpApi:
+          path: /core/role/{id}
+          method: delete
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer

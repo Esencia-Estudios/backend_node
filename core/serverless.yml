@@ -94,6 +94,7 @@ functions:
   - ${file(./functions/payment.yml):functions}
   - ${file(./functions/planFeature.yml):functions}
   - ${file(./functions/organizationModule.yml):functions}
+  - ${file(./functions/rolesOrganization.yml):functions}
 
 custom:
   serverless-offline:
