@@ -100,3 +100,13 @@ functions:
           authorizer:
             type: jwt
             name: EsenciaAuthorizer
+
+  toggle-or-create-permissions-for-role:
+    handler: handlers/rolesPermissionsHandlers.toggleOrCreatePermissionsForRole
+    events:
+      - httpApi:
+          path: /core/toggle-or-create-permissions-for-role/{id}
+          method: post
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer

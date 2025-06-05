@@ -105,3 +105,42 @@ export const getRoleWithPermissions = async (id) => {
   }
   return ResponseHelper.success(role);
 };
+
+export const toggleOrCreatePermissionsForRole = async (role_id, permissionsData) => {
+  // Validar existencia del rol
+  const role = await rolesPermissionsRepository.findRoleById(role_id);
+  if (!role) {
+    throw new NotFoundError("Role not found");
+  }
+
+  if (!permissionsData || !Array.isArray(permissionsData) || permissionsData.length === 0) {
+    throw new Error("At least one permission data must be provided");
+  }
+
+  // Procesar cada permiso con su estado is_active específico
+  const results = await Promise.all(
+    permissionsData.map(async ({ permission_id, is_active }) => {
+      // Validar permiso
+      const permission = await rolesPermissionsRepository.findPermissionById(permission_id);
+      if (!permission) {
+        throw new NotFoundError(`Permission with ID ${permission_id} not found`);
+      }
+
+      // Toggle o crear con is_active específico
+      const result = await rolesPermissionsRepository.toggleOrCreateRolePermission(
+        role_id,
+        permission_id,
+        is_active
+      );
+
+      return result;
+    })
+  );
+
+  return ResponseHelper.success({
+    message: "Permissions toggled/created for role",
+    role,
+    updatedPermissions: results,
+  });
+}
+
