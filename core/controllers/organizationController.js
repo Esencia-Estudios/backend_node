@@ -7,6 +7,7 @@ import {
 } from "../services/organizationService.js";
 import { authMiddleware } from "../middleware/validateBasicAuth.js";
 import { ResponseHelper } from "../helpers/response.js";
+import { getPermissionsEffectiveService } from "../services/organizationUserService.js";
 
 /**
  * Obtener todas las organizaciones
@@ -83,6 +84,19 @@ export const deleteOrganization = async (event) => {
     const { id } = event.pathParameters;
     const result = await deleteOrganizationService(id);
     return ResponseHelper.success(result);
+  } catch (error) {
+    return ResponseHelper.handleError(error);
+  }
+};
+
+export const getUserEffectivePermissionsByOrganization = async (event) => {
+  try {
+    const { orgId, userId } = event.pathParameters;
+    const effectivePermissions = await getPermissionsEffectiveService(
+      orgId,
+      userId
+    );
+    return ResponseHelper.success(effectivePermissions);
   } catch (error) {
     return ResponseHelper.handleError(error);
   }

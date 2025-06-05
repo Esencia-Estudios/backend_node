@@ -33,3 +33,13 @@ functions:
       - httpApi:
           path: /core/organization/{id}
           method: delete
+  
+  get-user-permissions-effective-by-organization:
+    handler: handlers/organizationHandler.getUserEffectivePermissionsByOrganization
+    events:
+      - httpApi:
+          path: /core/organizations/{orgId}/users/{userId}/permissions
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer

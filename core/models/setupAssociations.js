@@ -278,6 +278,26 @@ const setupAssociations = () => {
     foreignKey: "sub_module",
     as: "permissions",
   });
+
+  RolePermissionsModel.belongsTo(PermissionModel, {
+    foreignKey: "permission_id",
+    as: "permission",
+  });
+
+  PermissionModel.hasMany(RolePermissionsModel, {
+    foreignKey: "permission_id",
+    as: "rolePermissions",
+  });
+
+  UserPermissionModel.belongsTo(PermissionModel, {
+    foreignKey: "permission_id",
+    as: "permissionUser",
+  });
+
+  PermissionModel.hasMany(UserPermissionModel, {
+    foreignKey: "permission_id",
+    as: "userPermissions",
+  });
 };
 
 export default setupAssociations;
