@@ -168,7 +168,6 @@ class RolesPermissionsRepository {
       where: { role_id },
       include: {
         model: this.permissionModel,
-        attributes: ["codename"],
         as: "permission",
       },
     });

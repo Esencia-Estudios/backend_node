@@ -7,7 +7,10 @@ import {
 } from "../services/organizationService.js";
 import { authMiddleware } from "../middleware/validateBasicAuth.js";
 import { ResponseHelper } from "../helpers/response.js";
-import { getPermissionsEffectiveService } from "../services/organizationUserService.js";
+import {
+  getPermissionsEffectiveService,
+  groupPermissionsByModule,
+} from "../services/organizationUserService.js";
 
 /**
  * Obtener todas las organizaciones
@@ -94,9 +97,13 @@ export const getUserEffectivePermissionsByOrganization = async (event) => {
     const { orgId, userId } = event.pathParameters;
     const effectivePermissions = await getPermissionsEffectiveService(
       orgId,
-      userId
+      userId,
+      true
     );
-    return ResponseHelper.success(effectivePermissions);
+
+    const groupedPermissionsModule =
+      groupPermissionsByModule(effectivePermissions);
+    return ResponseHelper.success(groupedPermissionsModule);
   } catch (error) {
     return ResponseHelper.handleError(error);
   }

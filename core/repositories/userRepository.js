@@ -16,6 +16,8 @@ const {
   OrganizationUserModel,
   OrganizationModel,
   OrganizationsSettingModel,
+  ModuleModel,
+  SubModuleModel,
 } = models;
 
 export const getUsersCount = async () => {
@@ -216,7 +218,6 @@ export const getUserPermissions = async (user_id) => {
       {
         model: PermissionModel,
         as: "permissionUser",
-        attributes: ["codename"],
       },
     ],
   });
