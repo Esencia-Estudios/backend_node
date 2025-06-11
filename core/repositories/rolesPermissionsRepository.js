@@ -25,6 +25,14 @@ class RolesPermissionsRepository {
     return await this.roleModel.findAll();
   }
 
+  async findRoleById(id) {
+    const role = await this.roleModel.findByPk(id);
+    if (!role) {
+      throw new NotFoundError("Role not found");
+    }
+    return role;
+  }
+
   async createRole(roleData) {
     return await this.roleModel.create(roleData);
   }
@@ -81,6 +89,14 @@ class RolesPermissionsRepository {
       ],
       raw: true,
     });
+  }
+
+  async findPermissionById(id) {
+    const permission = await this.permissionModel.findByPk(id);
+    if (!permission) {
+      throw new NotFoundError("Permission not found");
+    }
+    return permission;
   }
 
   async createPermission(permissionData) {
@@ -163,6 +179,46 @@ class RolesPermissionsRepository {
 
     return roles;
   }
+
+  async toggleOrCreateRolePermission(role_id, permission_id, is_active = null) {
+    // Busca registro
+    const existingRecord = await this.rolePermissionsModel.findOne({
+      where: { role_id, permission_id },
+      attributes: ['role_id', 'permission_id', 'is_active'],
+      raw: true,
+    });
+
+    if (!existingRecord) {
+      const newRecord = await this.rolePermissionsModel.create({
+        role_id,
+        permission_id,
+        is_active: false,
+      });
+      console.log("🎉 Registro creado con is_active:", newRecord.is_active);
+      return newRecord;
+    }
+
+    const newValue = is_active !== null ? is_active : !existingRecord.is_active;
+
+    await this.rolePermissionsModel.update(
+      { is_active: newValue },
+      { where: { role_id, permission_id } }
+    );
+
+    const updatedRecord = await this.rolePermissionsModel.findOne({
+      where: { role_id, permission_id },
+      attributes: ['role_id', 'permission_id', 'is_active'],
+      raw: true,
+    });
+
+    console.log("✅ is_active actualizado a:", updatedRecord.is_active);
+
+    return updatedRecord;
+  }
+
+
+
+
 }
 
 export { RolesPermissionsRepository };

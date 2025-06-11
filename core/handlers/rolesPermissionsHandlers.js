@@ -1,4 +1,4 @@
-import { getRoles, createRole, updateRole, deleteRole, getPermissions, createPermission, updatePermission, deletePermission, getRoleWithPermissions, assignPermissionsToRole } from "../controllers/rolesPermissions.js";
+import { getRoles, createRole, updateRole, deleteRole, getPermissions, createPermission, updatePermission, deletePermission, getRoleWithPermissions, assignPermissionsToRole, toggleOrCreatePermissionsForRole } from "../controllers/rolesPermissions.js";
 
 export {
     getRoles,
@@ -10,5 +10,6 @@ export {
     updatePermission,
     deletePermission,
     getRoleWithPermissions,
-    assignPermissionsToRole
+    assignPermissionsToRole,
+    toggleOrCreatePermissionsForRole
 };

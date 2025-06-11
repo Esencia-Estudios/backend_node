@@ -114,6 +114,26 @@ const getRoleWithPermissions = async (event) => {
   }
 };
 
+const toggleOrCreatePermissionsForRole = async (event) => {
+  try {
+    const { id } = event.pathParameters;
+
+    // Ahora recibimos un arreglo de objetos { permission_id, is_active }
+    const permissionsData = JSON.parse(event.body);
+
+    // Extraemos los permissionIds y armamos un arreglo con permisos y estados
+    // O directamente enviamos el arreglo completo al servicio
+    return await rolesPermissionsService.toggleOrCreatePermissionsForRole(
+      id,
+      permissionsData // Pasamos el arreglo tal cual
+    );
+  } catch (error) {
+    return response.handleError(error);
+  }
+};
+
+
+
 export {
   getRoles,
   createRole,
@@ -125,4 +145,5 @@ export {
   deletePermission,
   assignPermissionsToRole,
   getRoleWithPermissions,
+  toggleOrCreatePermissionsForRole
 };

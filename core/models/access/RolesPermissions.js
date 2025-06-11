@@ -37,6 +37,7 @@ const RolePermissionFields = {
   is_active: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,
+    allowNull: false,
   },
   created_at: {
     type: DataTypes.DATE,
