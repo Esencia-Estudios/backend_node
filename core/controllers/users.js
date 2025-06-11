@@ -12,6 +12,8 @@ dotenv.config();
 
 export const getUsers = async () => {
   try {
+    checkPermissions(1, 2, ["can_view_users"]);
+
     const users = await userService.getUsers();
     return response.success(users);
   } catch (error) {

@@ -11,6 +11,7 @@
 	},
 	"dependencies": {
 		"@aws-sdk/client-cognito-identity-provider": "^3.749.0",
+		"@esenciaestudios/shared-package": "^1.0.0",
 		"aws-sdk": "^2.1692.0",
 		"bcryptjs": "^3.0.0",
 		"dotenv": "^16.4.7",
