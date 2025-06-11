@@ -13,7 +13,7 @@ class OrganizationsSettingModel extends Model {
   }
 }
 
-const OrganizationSettingFields = {
+const OrganizationsSettingFields = {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -49,4 +49,4 @@ const OrganizationSettingFields = {
   },
 };
 
-export { OrganizationsSettingModel, OrganizationSettingFields };
+export { OrganizationsSettingModel, OrganizationsSettingFields };

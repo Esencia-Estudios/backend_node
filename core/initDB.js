@@ -31,7 +31,7 @@ const syncDatabase = async () => {
   try {
     await db.authenticate();
 
-    await db.getSequelizeInstance().sync({ alter: false });
+    await db.getSequelizeInstance().sync({ alter: true });
 
     console.log("Database tables have been created or updated.");
   } catch (error) {

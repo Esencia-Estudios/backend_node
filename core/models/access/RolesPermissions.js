@@ -14,7 +14,7 @@ class RolePermissionsModel extends Model {
   }
 }
 
-const RolePermissionFields = {
+const RolePermissionsFields = {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -50,4 +50,4 @@ const RolePermissionFields = {
   },
 };
 
-export { RolePermissionsModel, RolePermissionFields };
+export { RolePermissionsModel, RolePermissionsFields };

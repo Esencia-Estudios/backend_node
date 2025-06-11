@@ -3,7 +3,7 @@ import { PermissionModel, PermissionFields } from "./PermissionModel.js";
 import { AccessLogModel, AccessLogFields } from "./AccessLogModel.js";
 import {
   RolePermissionsModel,
-  RolePermissionFields,
+  RolePermissionsFields,
 } from "./RolesPermissions.js";
 
 export {
@@ -14,5 +14,5 @@ export {
   AccessLogModel,
   AccessLogFields,
   RolePermissionsModel,
-  RolePermissionFields,
+  RolePermissionsFields,
 };
