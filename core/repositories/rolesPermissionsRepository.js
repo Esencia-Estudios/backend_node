@@ -179,7 +179,7 @@ class RolesPermissionsRepository {
     return roles;
   }
 
-  async toggleOrCreateRolePermission(role_id, permission_id, is_active = null) {
+  async toggleOrCreateRolePermission(role_id, permission_id, is_active) {
     // Busca registro
     const existingRecord = await this.rolePermissionsModel.findOne({
       where: { role_id, permission_id },
@@ -191,16 +191,14 @@ class RolesPermissionsRepository {
       const newRecord = await this.rolePermissionsModel.create({
         role_id,
         permission_id,
-        is_active: false,
       });
       console.log("🎉 Registro creado con is_active:", newRecord.is_active);
       return newRecord;
     }
 
-    const newValue = is_active !== null ? is_active : !existingRecord.is_active;
 
     await this.rolePermissionsModel.update(
-      { is_active: newValue },
+      { is_active },
       { where: { role_id, permission_id } }
     );
 
