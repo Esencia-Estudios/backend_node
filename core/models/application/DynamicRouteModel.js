@@ -24,6 +24,16 @@ class DynamicRouteModel extends Model {
       tableName: "core_dynamic_routes",
       modelName: "DynamicRouteModel",
       timestamps: false,
+      indexes: [
+        {
+          unique: true,
+          fields: ['name'],
+        },
+        {
+          unique: true,
+          fields: ['path'],
+        },
+      ]
     };
   }
 }

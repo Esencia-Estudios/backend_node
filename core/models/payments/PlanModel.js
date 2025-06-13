@@ -9,6 +9,12 @@ class PlanModel extends Model {
       timestamps: true,
       createdAt: "created_at",
       updatedAt: "updated_at",
+      indexes: [
+        {
+          unique: true,
+          fields: ['slug'],
+        }
+      ]
     };
   }
 }
