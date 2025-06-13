@@ -7,6 +7,12 @@ class RoleModel extends Model {
       tableName: "core_roles",
       modelName: "RoleModel",
       timestamps: false,
+      indexes: [
+        {
+          unique: true,
+          fields: ['name'],
+        }
+      ]
     };
   }
 }

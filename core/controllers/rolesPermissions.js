@@ -114,6 +114,16 @@ const getRoleWithPermissions = async (event) => {
   }
 };
 
+//get permission by role
+const getPermissionsByRole = async (event) => {
+  try {
+    const { id } = event.pathParameters;
+    return await rolesPermissionsService.getPermissionByRole(id);
+  } catch (error) {
+    return response.handleError(error);
+  }
+};
+
 const toggleOrCreatePermissionsForRole = async (event) => {
   try {
     const { id } = event.pathParameters;
@@ -145,5 +155,6 @@ export {
   deletePermission,
   assignPermissionsToRole,
   getRoleWithPermissions,
-  toggleOrCreatePermissionsForRole
+  toggleOrCreatePermissionsForRole,
+  getPermissionsByRole
 };

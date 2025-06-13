@@ -111,6 +111,24 @@ class UserModel extends Model {
           }
         },
       },
+      indexes: [
+        {
+          unique: true,
+          fields: ['id'],
+        },
+        {
+          unique: true,
+          fields: ['user_code'],
+        },
+        {
+          unique: true,
+          fields: ['email'],
+        },
+        {
+          unique: true,
+          fields: ['username']
+        },
+      ]
     };
   }
 
