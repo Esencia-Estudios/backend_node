@@ -81,6 +81,16 @@ class UserInfoModel extends Model {
       timestamps: true,
       updatedAt: "updated_at",
       createdAt: "created_at",
+      indexes: [
+        {
+          unique: true,
+          fields: ['user_id'],
+        },
+        {
+          unique: true,
+          fields: ['document_number'],
+        }
+      ]
     };
   }
 }

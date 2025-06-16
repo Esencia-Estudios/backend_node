@@ -7,6 +7,16 @@ class PermissionModel extends Model {
       tableName: "core_permissions",
       modelName: "PermissionModel",
       timestamps: false,
+      indexes: [
+        {
+          unique: true,
+          fields: ['name'],
+        },
+        {
+          unique: true,
+          fields: ['codename'],
+        },
+      ]
     };
   }
 }

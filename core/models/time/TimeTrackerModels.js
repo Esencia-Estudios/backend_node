@@ -9,6 +9,12 @@ class TimeTrackerModel extends Model {
       timestamps: true,
       updatedAt: "updated_at",
       createdAt: "created_at",
+      indexes: [
+        {
+          unique: true,
+          fields: ['id'],
+        }
+      ]
     };
   }
 }

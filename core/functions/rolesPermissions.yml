@@ -110,3 +110,13 @@ functions:
           authorizer:
             type: jwt
             name: EsenciaAuthorizer
+
+  get-permissions-role-by-role:
+    handler: handlers/rolesPermissionsHandlers.getPermissionsByRole
+    events:
+      - httpApi:
+          path: /core/get-permissions-role-by-role/{id}
+          method: get
+          authorizer:
+            type: jwt
+            name: EsenciaAuthorizer

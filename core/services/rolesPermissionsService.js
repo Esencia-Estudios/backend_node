@@ -144,3 +144,11 @@ export const toggleOrCreatePermissionsForRole = async (role_id, permissionsData)
   });
 }
 
+//get role with permissions
+export const getPermissionByRole = async (id) => {
+  const permissionRole = await rolesPermissionsRepository.getRolePermissions(id);
+  if (!permissionRole) {
+    throw new NotFoundError("Role not found");
+  }
+  return ResponseHelper.success(permissionRole);
+};

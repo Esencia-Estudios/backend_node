@@ -34,6 +34,12 @@ class ApplicationModel extends Model {
       modelName: "ApplicationModel",
       tableName: "core_applications",
       timestamps: true,
+      indexes: [
+        {
+          unique: true,
+          fields: ['name'],
+        }
+      ]
     };
   }
 }
