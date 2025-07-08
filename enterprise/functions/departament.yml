@@ -1,0 +1,7 @@
+functions:
+  get-departaments:
+    handler: handlers/departamentHandler.getDepartaments
+    events:
+      - httpApi:
+          path: /departaments
+          method: get

@@ -1,0 +1,7 @@
+functions:
+  get-sites:
+    handler: handlers/siteHandler.getSites
+    events:
+      - httpApi:
+          path: /sites
+          method: get

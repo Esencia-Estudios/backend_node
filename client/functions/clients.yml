@@ -1,0 +1,7 @@
+functions:
+  get-clients:
+    handler: handlers/clientHandler.getClients
+    events:
+      - httpApi:
+          path: /clients
+          method: get

@@ -15,6 +15,7 @@ export const findRole = async (where) => {
 };
 
 export const getRoles = async () => {
+  console.log("Hola!");
   const roles = await rolesPermissionsRepository.getRoles();
   if (!roles) {
     throw new NotFoundError("Roles not found");

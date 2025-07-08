@@ -1,0 +1,7 @@
+functions:
+  get-enterprises:
+    handler: handlers/enterpriseHandler.getEnterprises
+    events:
+      - httpApi:
+          path: /enterprises
+          method: get
